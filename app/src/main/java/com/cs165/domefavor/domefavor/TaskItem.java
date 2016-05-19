@@ -7,7 +7,7 @@ public class TaskItem {
     private String taskID;
     private String taskName;
     private String longitude;
-    private String latitude；
+    private String latitude;
     private String time;
     private String content;
     private int price;

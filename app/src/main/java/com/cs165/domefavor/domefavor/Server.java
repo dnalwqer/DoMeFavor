@@ -2,6 +2,8 @@ package com.cs165.domefavor.domefavor;
 
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +21,7 @@ public class Server {
     private static final String SERVER = "";
     private static final String SAVETASK = "";
 
-    public static void saveNewTask(TaskItem item){
+    public static void saveNewTask(TaskItem item) throws Exception{
         URL url;
         String urlString = SERVER+SAVETASK;
         try {
@@ -27,27 +29,20 @@ public class Server {
         } catch (MalformedURLException e) {
             throw new IllegalArgumentException("invalid url: " + urlString);
         }
-        StringBuilder bodyBuilder = new StringBuilder();
+        JSONObject itemJson = new JSONObject();
+        itemJson.put("taskID", item.getTaskID());
+        itemJson.put("taskName", item.getTaskName());
+        itemJson.put("content", item.getContent());
+        itemJson.put("latitude", item.getLatitude());
+        itemJson.put("longitude", item.getLongitude());
+        itemJson.put("price", item.getPrice());
+        itemJson.put("time", item.getTime());
 
-        // constructs the POST body using the parameters
-        bodyBuilder.append("data=");
-        for(int i = 0 ; i < data.size() ; ++i){
-            if(i != 0)
-                bodyBuilder.append("#");
-            databaseItem item = data.get(i);
-            bodyBuilder.append(item.getID()).append(",")
-                    .append(item.getInputType()).append(",")
-                    .append(item.getActivityType()).append(",")
-                    .append(item.getDate()).append(" ").append(item.getTime()).append(",")
-                    .append(item.getDuration()).append(",")
-                    .append(item.getDistance()).append(",")
-                    .append(item.getAvgSpeed()).append(",")
-                    .append(item.getCalories()).append(",")
-                    .append(item.getClimb()).append(",")
-                    .append(item.getHeartRate()).append(",")
-                    .append(item.getComment());
-        }
-        String body = bodyBuilder.toString();
+        String body = itemJson.toString();
+        sendData(body, url);
+    }
+
+    private static void sendData(String body, URL url){
         byte[] bytes = body.getBytes();
         HttpURLConnection conn = null;
         try {
