@@ -6,7 +6,7 @@ package com.cs165.domefavor.domefavor;
 public class Server {
     private final String ServerURL = "";
 
-    public saveNewPost(PostItem item){
+    public void saveNewPost(){
 
     }
 }
