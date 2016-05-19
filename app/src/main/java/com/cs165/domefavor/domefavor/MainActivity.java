@@ -1,8 +1,10 @@
 package com.cs165.domefavor.domefavor;
 
+import android.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,8 +17,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+import com.cs165.domefavor.domefavor.view.SlidingTabLayout;
 
+import java.util.ArrayList;
+
+
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+    private ArrayList<Fragment> fragments;
     private static final String TAG = "MainActivity";
     private GoogleApiClient mGoogleApiClient;
     private TextView textview;
@@ -25,12 +32,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.tab);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        fragments = new ArrayList<Fragment>();
+        fragments.add(new FragmentNewTask());
+        fragments.add(new FragmentTaskList());
+        fragments.add(new FragmentProfile());
+        //use adapter to bind the slidingTabLayout and ViewPager;
+        TabsViewPagerAdapter myViewPageAdapter = new TabsViewPagerAdapter(this.getFragmentManager(), fragments);
+        viewPager.setAdapter(myViewPageAdapter);
 
-        textview = (TextView) findViewById(R.id.main_text);
+        slidingTabLayout.setDistributeEvenly(true);
+        slidingTabLayout.setViewPager(viewPager);
+
         Intent intent = getIntent();
         Bundle mbundle = intent.getExtras();
-        textview.setText(mbundle.getString("Email"));
-        System.out.println(mbundle.getString("Name"));
+//        textview.setText(mbundle.getString("Email"));
+//        System.out.println(mbundle.getString("Name"));
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
