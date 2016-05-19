@@ -9,8 +9,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cs165.domefavor.domefavor.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.cs165.domefavor.domefavor.view.SlidingTabLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/main_text"/>
+        android:id="@+id/tab"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/tab"/>
+
 </RelativeLayout>
