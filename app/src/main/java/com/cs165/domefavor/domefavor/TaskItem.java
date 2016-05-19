@@ -11,6 +11,7 @@ public class TaskItem {
     private String latitude;
     private String time;
     private String content;
+    private String personID;
     private int price;
 
     public static String IDS = "taskID";
@@ -20,8 +21,9 @@ public class TaskItem {
     public static String timeS = "time";
     public static String contentS = "content";
     public static String priceS = "price";
+    public static String personIDS = "personID";
 
-    TaskItem(String id, String name, String longitude, String latitude, String tim, String con, int price){
+    TaskItem(String id, String name, String longitude, String latitude, String tim, String con, int price, String personID){
         taskID = id;
         taskName = name;
         this.longitude = longitude;
@@ -29,6 +31,11 @@ public class TaskItem {
         time = tim;
         content = con;
         this.price = price;
+        this.personID = personID;
+    }
+
+    void setPersonID(String personID){
+        this.personID = personID;
     }
 
     void setTaskID(String taskID){
@@ -81,6 +88,10 @@ public class TaskItem {
 
     String getContent(){
         return content;
+    }
+
+    String getPersonID(){
+        return personID;
     }
 
     int getPrice(){

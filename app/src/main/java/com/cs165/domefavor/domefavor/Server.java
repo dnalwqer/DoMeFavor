@@ -34,7 +34,8 @@ public class Server {
         itemJson.put(TaskItem.longitudeS, item.getLongitude());
         itemJson.put(TaskItem.priceS, item.getPrice());
         itemJson.put(TaskItem.timeS, item.getTime());
-
+        itemJson.put(TaskItem.personIDS, item.getPersonID());
+        
         sendData(itemJson.toString(), url);
     }
 
@@ -59,7 +60,8 @@ public class Server {
                         taskJson.getString(TaskItem.latitudeS),
                         taskJson.getString(TaskItem.timeS),
                         taskJson.getString(TaskItem.contentS),
-                        taskJson.getInt(TaskItem.priceS));
+                        taskJson.getInt(TaskItem.priceS),
+                        taskJson.getString(TaskItem.personIDS));
                 tasks.add(task);
             }
         } catch (JSONException e) {
