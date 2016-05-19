@@ -12,6 +12,14 @@ public class TaskItem {
     private String content;
     private int price;
 
+    public static String IDS = "taskID";
+    public static String nameS = "taskName";
+    public static String longitudeS = "longitude";
+    public static String latitudeS = "latitude";
+    public static String timeS = "time";
+    public static String contentS = "content";
+    public static String priceS = "price";
+
     TaskItem(String id, String name, String longitude, String latitude, String tim, String con, int price){
         taskID = id;
         taskName = name;
