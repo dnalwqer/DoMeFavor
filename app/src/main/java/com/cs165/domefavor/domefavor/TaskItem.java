@@ -6,15 +6,17 @@ package com.cs165.domefavor.domefavor;
 public class TaskItem {
     private String taskID;
     private String taskName;
-    private String location;
+    private String longitude;
+    private String latitude；
     private String time;
     private String content;
     private int price;
 
-    TaskItem(String id, String name, String loc, String tim, String con, int price){
+    TaskItem(String id, String name, String longitude, String latitude, String tim, String con, int price){
         taskID = id;
         taskName = name;
-        location = loc;
+        this.longitude = longitude;
+        this.latitude = latitude;
         time = tim;
         content = con;
         this.price = price;
@@ -28,8 +30,12 @@ public class TaskItem {
         this.taskName = taskName;
     }
 
-    void setLocation(String location){
-        this.location = location;
+    void setLongitude(String longitude){
+        this.longitude = longitude;
+    }
+
+    void setLatitude(String latitude){
+        this.latitude = latitude;
     }
 
     void setTime(String time){
@@ -52,12 +58,20 @@ public class TaskItem {
         return taskName;
     }
 
-    String getLocation(){
-        return location;
+    String getLongitude(){
+        return longitude;
+    }
+
+    String getLatitude(){
+        return latitude;
     }
 
     String getTime(){
         return time;
+    }
+
+    String getContent(){
+        return content;
     }
 
     int getPrice(){
