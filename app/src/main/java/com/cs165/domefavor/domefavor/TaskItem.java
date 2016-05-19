@@ -11,9 +11,10 @@ public class TaskItem {
     private String time;
     private String content;
     private String personID;
-    private int price;
+    private String status;
+    private double price;
 
-    public static String IDS = "taskID";
+    public static String taskIDS = "taskID";
     public static String nameS = "taskName";
     public static String longitudeS = "longitude";
     public static String latitudeS = "latitude";
@@ -21,8 +22,9 @@ public class TaskItem {
     public static String contentS = "content";
     public static String priceS = "price";
     public static String personIDS = "personID";
+    public static String statusS = "status";
 
-    TaskItem(String id, String name, String longitude, String latitude, String tim, String con, int price, String personID){
+    TaskItem(String id, String name, String longitude, String latitude, String tim, String con, double price, String personID, String status){
         taskID = id;
         taskName = name;
         this.longitude = longitude;
@@ -31,8 +33,10 @@ public class TaskItem {
         content = con;
         this.price = price;
         this.personID = personID;
+        this.status = status;
     }
 
+    void setStatus(String status) { this.status = status; }
     void setPersonID(String personID){
         this.personID = personID;
     }
@@ -93,7 +97,9 @@ public class TaskItem {
         return personID;
     }
 
-    int getPrice(){
+    String getStatus() { return status; }
+
+    double getPrice(){
         return price;
     }
 }

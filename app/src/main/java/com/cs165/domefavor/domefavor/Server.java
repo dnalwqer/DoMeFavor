@@ -22,12 +22,14 @@ public class Server {
     private static final String SERVER = "";
     private static final String SAVETASK = "";
     private static final String ALLTASK = "";
+    private static final String PERSONTASK = "";
+    private static final String CHANGEPRICE = "";
 
     public static void saveNewTask(TaskItem item) throws Exception{
         URL url = getUrl(SERVER+SAVETASK);
 
         JSONObject itemJson = new JSONObject();
-        itemJson.put(TaskItem.IDS, item.getTaskID());
+        itemJson.put(TaskItem.taskIDS, item.getTaskID());
         itemJson.put(TaskItem.nameS, item.getTaskName());
         itemJson.put(TaskItem.contentS, item.getContent());
         itemJson.put(TaskItem.latitudeS, item.getLatitude());
@@ -35,7 +37,8 @@ public class Server {
         itemJson.put(TaskItem.priceS, item.getPrice());
         itemJson.put(TaskItem.timeS, item.getTime());
         itemJson.put(TaskItem.personIDS, item.getPersonID());
-        
+        itemJson.put(TaskItem.statusS, item.getStatus());
+
         sendData(itemJson.toString(), url);
     }
 
@@ -46,7 +49,31 @@ public class Server {
         itemJson.put(TaskItem.longitudeS, longitude);
         itemJson.put(TaskItem.latitudeS, latitude);
 
-        //get data from server
+        return tasksFromServer(itemJson, url);
+    }
+
+    public static List<TaskItem> getPersonTasks() throws Exception{
+        String personID = "";   //han get personID
+        URL url = getUrl(SERVER+PERSONTASK);
+
+        JSONObject itemJson = new JSONObject();
+        itemJson.put(TaskItem.personIDS, personID);
+
+        return tasksFromServer(itemJson, url);
+    }
+
+    public static void changePrice(double price, String taskID) throws Exception{
+        String personID = "";   //han get personID
+        URL url = getUrl(SERVER+CHANGEPRICE);
+
+        JSONObject itemJson = new JSONObject();
+        itemJson.put(TaskItem.priceS, price);
+        itemJson.put(TaskItem.taskIDS, taskID);
+
+        sendData(itemJson.toString(), url);
+    }
+
+    private static List<TaskItem> tasksFromServer(JSONObject itemJson, URL url){
         String response = sendData(itemJson.toString(), url);
         List<TaskItem> tasks = new ArrayList<>();
         JSONArray jsonArray = new JSONArray();
@@ -54,14 +81,15 @@ public class Server {
             jsonArray = new JSONArray(response);
             for(int i = 0 ; i < jsonArray.length() ; ++i){
                 JSONObject taskJson = jsonArray.getJSONObject(i);
-                TaskItem task = new TaskItem(taskJson.getString(TaskItem.IDS),
+                TaskItem task = new TaskItem(taskJson.getString(TaskItem.taskIDS),
                         taskJson.getString(TaskItem.nameS),
                         taskJson.getString(TaskItem.longitudeS),
                         taskJson.getString(TaskItem.latitudeS),
                         taskJson.getString(TaskItem.timeS),
                         taskJson.getString(TaskItem.contentS),
-                        taskJson.getInt(TaskItem.priceS),
-                        taskJson.getString(TaskItem.personIDS));
+                        taskJson.getDouble(TaskItem.priceS),
+                        taskJson.getString(TaskItem.personIDS),
+                        taskJson.getString(TaskItem.statusS));
                 tasks.add(task);
             }
         } catch (JSONException e) {
