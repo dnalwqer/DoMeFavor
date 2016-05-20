@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "282933655213",
+    "project_id": "domefavor-7eb0a"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282933655213:android:fc2a9333424c1d22",
+        "android_client_info": {
+          "package_name": "com.cs165.domefavor.domefavor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282933655213-ht3eccdaf2nbf8605fes6hpkmo7kcueb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cs165.domefavor.domefavor",
+            "certificate_hash": "9B2E4F96A0475DCFA4494BDEB98CE7A6B1244A3F"
+          }
+        },
+        {
+          "client_id": "282933655213-3kf52ok1al1kul1s3psl4vfu3umgotk2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSDcfOvea7R5QoqcfPdR7VX5pxOKxOxnc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
