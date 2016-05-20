@@ -17,20 +17,13 @@ public class DeleteTaskServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		String qs = req.getQueryString();
-		JSONArray list = null;
-		try {
-			list = new JSONArray(qs);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		JSONObject ob = null;
+		String qs = req.getParameter("data");
+		JSONObject ob = new JSONObject(qs);
 
 		String id = "";
 		String email = "";
 
 		try {
-			ob = list.getJSONObject(0);
 			id = ob.getString("taskID");
 			email = ob.getString("personID");
 		} catch (JSONException e) {

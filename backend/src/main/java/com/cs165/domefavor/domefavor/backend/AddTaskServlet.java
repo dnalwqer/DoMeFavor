@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,14 +20,14 @@ public class AddTaskServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
-        String qs = req.getQueryString();
-        JSONArray list = null;
-        try {
-            list = new JSONArray(qs);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JSONObject ob = null;
+        String qs = req.getParameter("data");
+//        JSONArray list = null;
+//        try {
+//            list = new JSONArray(qs);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+        JSONObject ob = new JSONObject(qs);
         String taskName = "";
         String lng = "";
         String lat = "";
@@ -35,7 +36,7 @@ public class AddTaskServlet extends HttpServlet {
         String price = "";
         String poster = "";
         try {
-                ob = list.getJSONObject(0);
+//            ob = list.getJSONObject(0);
             taskName = ob.getString("taskName");
             lng = ob.getString("longitude");
             lat = ob.getString("latitude");
@@ -56,17 +57,17 @@ public class AddTaskServlet extends HttpServlet {
 
         Contact contact = new Contact(taskName, lat, lng, time, content, price, poster);
         boolean ret = ContactDatastore.add(contact);
-//        if (ret) {
-//            req.setAttribute("_retStr", "Add contact " + id + " succ");
+        if (ret) {
+            req.setAttribute("_retStr", "Add contact " + contact.id + " succ");
 //            MessagingEndpoint msg = new MessagingEndpoint();
 //            msg.sendMessage("Added");
-//
-//            ArrayList<Contact> result = new ArrayList<Contact>();
-//            result.add(contact);
-//            req.setAttribute("result", result);
-//        } else {
-//            req.setAttribute("_retStr", id + " exists");
-//        }
+
+            ArrayList<Contact> result = new ArrayList<Contact>();
+            result.add(contact);
+            req.setAttribute("result", result);
+        } else {
+            req.setAttribute("_retStr", contact.id + " exists");
+        }
 
         JSONArray finalResult = new JSONArray();
 
