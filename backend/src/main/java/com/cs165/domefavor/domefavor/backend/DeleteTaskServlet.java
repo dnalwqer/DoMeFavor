@@ -1,5 +1,9 @@
 package com.cs165.domefavor.domefavor.backend;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -13,8 +17,27 @@ public class DeleteTaskServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		String id = req.getParameter("id");
+		String qs = req.getQueryString();
+		JSONArray list = null;
+		try {
+			list = new JSONArray(qs);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		JSONObject ob = null;
+
+		String id = "";
+		String email = "";
+
+		try {
+			ob = list.getJSONObject(0);
+			id = ob.getString("taskID");
+			email = ob.getString("personID");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		ContactDatastore.delete(id);
+		PriceDatastore.delete(id);
 //		MessagingEndpoint.sendMessage("D" + id);
 		resp.sendRedirect("/querytask.do");
 	}

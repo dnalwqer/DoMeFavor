@@ -49,7 +49,7 @@ public class PriceDatastore {
         return true;
     }
 
-    public static boolean delete(String name) {
+    public static boolean deleteid(String name) {
         // you can also use name to get key, then use the key to delete the
         // entity from datastore directly
         // because name is also the entity's key
@@ -78,7 +78,7 @@ public class PriceDatastore {
     public static void deleteAll(){
         ArrayList<Price> list = query("");
         for(Price cur : list){
-            delete(cur.id);
+            deleteid(cur.id);
         }
     }
 
@@ -107,6 +107,27 @@ public class PriceDatastore {
         }
         return resultList;
     }
+
+//    public static ArrayList<Price> queryEmail(String email) {
+//        ArrayList<Price> resultList = new ArrayList<Price>();
+//
+//            Query query = new Query(Price.Price_ENTITY_NAME);
+//            // get every record from datastore, no filter
+//            query.setFilter(null);
+//            // set query's ancestor to get strong consistency
+//            query.setAncestor(getKey());
+//
+//            PreparedQuery pq = mDatastore.prepare(query);
+//
+//            for (Entity entity : pq.asIterable()) {
+//                Price price = getPriceFromEntity(entity);
+//                if (price.taker.equals(email)) {
+//                    resultList.add(price);
+//                }
+//            }
+//
+//        return resultList;
+//    }
 
     public static Price getPriceByName(String name, Transaction txn) {
         Entity result = null;
