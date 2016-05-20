@@ -24,6 +24,8 @@ public class Server {
     private static final String ALLTASK = "";
     private static final String PERSONTASK = "";
     private static final String CHANGEPRICE = "";
+    private static final String GETPRICE = "";
+    private static final String CLOSETASK = "";
 
     public static void saveNewTask(TaskItem item) throws Exception{
         URL url = getUrl(SERVER+SAVETASK);
@@ -69,6 +71,41 @@ public class Server {
         JSONObject itemJson = new JSONObject();
         itemJson.put(TaskItem.priceS, price);
         itemJson.put(TaskItem.taskIDS, taskID);
+
+        sendData(itemJson.toString(), url);
+    }
+
+    public static List<PriceItem> getAllPrice(String taskID) throws Exception{
+        URL url = getUrl(SERVER+GETPRICE);
+
+        JSONObject itemJson = new JSONObject();
+        itemJson.put(TaskItem.taskIDS, taskID);
+
+        String response = sendData(itemJson.toString(), url);
+        List<PriceItem> prices = new ArrayList<>();
+        JSONArray jsonArray = new JSONArray();
+        try {
+            jsonArray = new JSONArray(response);
+            for(int i = 0 ; i < jsonArray.length() ; ++i){
+                JSONObject priceJson = jsonArray.getJSONObject(i);
+                PriceItem price = new PriceItem(priceJson.getDouble(PriceItem.priceS),
+                        priceJson.getString(PriceItem.personIDS),
+                        priceJson.getString(PriceItem.ageS),
+                        priceJson.getString(PriceItem.genderS));
+                prices.add(price);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return prices;
+    }
+
+    public static void closeOneTask(String taskID, String personID) throws Exception{
+        URL url = getUrl(SERVER+CLOSETASK);
+
+        JSONObject itemJson = new JSONObject();
+        itemJson.put(TaskItem.taskIDS, taskID);
+        itemJson.put(TaskItem.personIDS, personID);
 
         sendData(itemJson.toString(), url);
     }
