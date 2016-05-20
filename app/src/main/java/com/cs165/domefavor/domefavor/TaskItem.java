@@ -25,7 +25,8 @@ public class TaskItem {
     public static String personIDS = "personID";
     public static String statusS = "status";
 
-    TaskItem(String id, String name, String longitude, String latitude, String tim, String con, double price, String personID, String status){
+    TaskItem(String id, String name, String longitude, String latitude, String tim,
+             String con, double price, String personID, String status){
         taskID = id;
         taskName = name;
         this.longitude = longitude;
