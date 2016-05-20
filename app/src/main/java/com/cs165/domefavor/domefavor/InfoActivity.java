@@ -3,6 +3,7 @@ package com.cs165.domefavor.domefavor;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ public class InfoActivity extends AppCompatActivity {
     private ListView listview;
     private PriceAdapter adapter;
     private List<PriceItem> list;
+    private String taskID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,10 @@ public class InfoActivity extends AppCompatActivity {
 
         adapter = new PriceAdapter(this, list);
         listview.setAdapter(adapter);
+
+        Intent intent = getIntent();
+        Bundle mbundle = intent.getExtras();
+        taskID = mbundle.getString("ID");
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
