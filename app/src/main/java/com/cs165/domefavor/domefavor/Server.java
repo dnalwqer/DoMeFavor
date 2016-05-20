@@ -21,7 +21,7 @@ import java.util.List;
  * Created by xuehanyu on 5/19/16.
  */
 public class Server {
-    private static final String SERVER = "https://stellar-arcadia-128421.appspot.com";
+    private static final String SERVER = "https://cobalt-entropy-131722.appspot.com";
     private static final String SAVETASK = "/addtask.do";
     private static final String ALLTASK = "/querytask.do";
     private static final String PERSONTASK = "/querytask.do";
@@ -38,7 +38,7 @@ public class Server {
         itemJson.put(TaskItem.contentS, item.getContent());
         itemJson.put(TaskItem.latitudeS, item.getLatitude());
         itemJson.put(TaskItem.longitudeS, item.getLongitude());
-        itemJson.put(TaskItem.priceS, item.getPrice());
+        itemJson.put(TaskItem.priceS, item.getPrice() + "");
         itemJson.put(TaskItem.timeS, item.getTime());
         itemJson.put(TaskItem.personIDS, item.getPersonID());
         itemJson.put(TaskItem.statusS, item.getStatus());
@@ -57,7 +57,7 @@ public class Server {
     }
 
     public static List<TaskItem> getPersonTasks() throws Exception{
-        String personID = "";   //han get personID
+        String personID = "dart";   //han get personID
         URL url = getUrl(SERVER+PERSONTASK);
 
         JSONObject itemJson = new JSONObject();
@@ -67,12 +67,13 @@ public class Server {
     }
 
     public static void changePrice(double price, String taskID) throws Exception{
-        String personID = "";   //han get personID
+        String personID = "dart";   //han get personID
         URL url = getUrl(SERVER+CHANGEPRICE);
 
         JSONObject itemJson = new JSONObject();
-        itemJson.put(TaskItem.priceS, price);
+        itemJson.put(TaskItem.priceS, price + "");
         itemJson.put(TaskItem.taskIDS, taskID);
+        itemJson.put(TaskItem.personIDS, personID);
 
         sendData("data="+itemJson.toString(), url);
     }

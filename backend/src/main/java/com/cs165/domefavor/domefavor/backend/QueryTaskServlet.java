@@ -61,6 +61,7 @@ public class QueryTaskServlet extends HttpServlet {
 				cur.put("longitude",task.lng);
 				cur.put("personID",task.poster);
 				cur.put("price",task.price);
+				cur.put("status","y");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -71,12 +72,11 @@ public class QueryTaskServlet extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		resp.getWriter().write(finalResult.toString());
 
-		if(qs == null || qs.equals("")){
+		if(qs == null || (lat.equals("") && email.equals(""))){
 			req.setAttribute("result", result);
 			getServletContext().getRequestDispatcher("/query_result.jsp").forward(
 					req, resp);
 		}
-
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)

@@ -47,6 +47,8 @@ public class ContactDatastore {
         entity.setProperty(Contact.FIELD_NAME_time, contact.time);
         entity.setProperty(Contact.FIELD_NAME_lng, contact.lng);
         entity.setProperty(Contact.FIELD_NAME_content, contact.content);
+        entity.setProperty(Contact.FIELD_NAME_poster, contact.poster);
+        entity.setProperty(Contact.FIELD_NAME_price, contact.price);
 
         mDatastore.put(entity);
 
@@ -133,8 +135,9 @@ public class ContactDatastore {
                 (String) entity.getProperty(Contact.FIELD_NAME_id),
                 (String) entity.getProperty(Contact.FIELD_NAME_taskName),
                 (String) entity.getProperty(Contact.FIELD_NAME_lat),
-                (String) entity.getProperty(Contact.FIELD_NAME_time),
                 (String) entity.getProperty(Contact.FIELD_NAME_lng),
+                (String) entity.getProperty(Contact.FIELD_NAME_time),
+                (String) entity.getProperty(Contact.FIELD_NAME_content),
                 (String) entity.getProperty(Contact.FIELD_NAME_price),
                 (String) entity.getProperty(Contact.FIELD_NAME_poster)
                 );
@@ -199,7 +202,7 @@ public class ContactDatastore {
 
             for (Entity entity : pq.asIterable()) {
                 Contact contact = getContactFromEntity(entity);
-                if (contact.poster.equals("name")) {
+                if (contact.poster.equals(name)) {
                     resultList.add(contact);
                 }
             }

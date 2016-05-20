@@ -60,7 +60,7 @@ public class test_han extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Server.changePrice(23.4, "1463714576992buy");
+                    Server.changePrice(23.4, "1463785937313buy");
                 } catch (Exception e) {
                 }
             }
@@ -87,7 +87,7 @@ public class test_han extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Server.closeOneTask("", "dart");
+                    Server.closeOneTask("1463785937313buy", "dart");
                 } catch (Exception e) {
                 }
             }
