@@ -1,5 +1,7 @@
 package com.cs165.domefavor.domefavor;
 
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +21,7 @@ import java.util.List;
  * Created by xuehanyu on 5/19/16.
  */
 public class Server {
-    private static final String SERVER = "";
+    private static final String SERVER = "https://stellar-arcadia-128421.appspot.com";
     private static final String SAVETASK = "/addtask.do";
     private static final String ALLTASK = "/querytask.do";
     private static final String PERSONTASK = "/querytask.do";
@@ -41,7 +43,7 @@ public class Server {
         itemJson.put(TaskItem.personIDS, item.getPersonID());
         itemJson.put(TaskItem.statusS, item.getStatus());
 
-        sendData(itemJson.toString(), url);
+        sendData("data="+itemJson.toString(), url);
     }
 
     public static List<TaskItem> getAllTasks(String longitude, String latitude) throws Exception{
@@ -72,7 +74,7 @@ public class Server {
         itemJson.put(TaskItem.priceS, price);
         itemJson.put(TaskItem.taskIDS, taskID);
 
-        sendData(itemJson.toString(), url);
+        sendData("data="+itemJson.toString(), url);
     }
 
     public static List<PriceItem> getAllPrice(String taskID) throws Exception{
@@ -81,7 +83,7 @@ public class Server {
         JSONObject itemJson = new JSONObject();
         itemJson.put(TaskItem.taskIDS, taskID);
 
-        String response = sendData(itemJson.toString(), url);
+        String response = sendData("data="+itemJson.toString(), url);
         List<PriceItem> prices = new ArrayList<>();
         JSONArray jsonArray = new JSONArray();
         try {
@@ -107,11 +109,11 @@ public class Server {
         itemJson.put(TaskItem.taskIDS, taskID);
         itemJson.put(TaskItem.personIDS, personID);
 
-        sendData(itemJson.toString(), url);
+        sendData("data="+itemJson.toString(), url);
     }
 
     private static List<TaskItem> tasksFromServer(JSONObject itemJson, URL url){
-        String response = sendData(itemJson.toString(), url);
+        String response = sendData("data="+itemJson.toString(), url);
         List<TaskItem> tasks = new ArrayList<>();
         JSONArray jsonArray = new JSONArray();
         try {
@@ -177,7 +179,9 @@ public class Server {
                 response.append('\n');
             }
             rd.close();
-            return response.toString();
+            String r = response.toString();
+            System.out.println(r);
+            return r;
         }
         catch(Exception e) {
             e.printStackTrace();
