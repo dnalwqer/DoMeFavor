@@ -20,14 +20,18 @@ import java.util.List;
  */
 public class Server {
     private static final String SERVER = "";
-    private static final String SAVETASK = "";
-    private static final String ALLTASK = "";
+    private static final String SAVETASK = "/addtask.do";
+    private static final String ALLTASK = "/querytask.do";
+    private static final String PERSONTASK = "/querytask.do";
+    private static final String CHANGEPRICE = "/addprice.do";
+    private static final String GETPRICE = "/queryprice.do";
+    private static final String CLOSETASK = "/deletetask.do";
 
     public static void saveNewTask(TaskItem item) throws Exception{
         URL url = getUrl(SERVER+SAVETASK);
 
         JSONObject itemJson = new JSONObject();
-        itemJson.put(TaskItem.IDS, item.getTaskID());
+        itemJson.put(TaskItem.taskIDS, item.getTaskID());
         itemJson.put(TaskItem.nameS, item.getTaskName());
         itemJson.put(TaskItem.contentS, item.getContent());
         itemJson.put(TaskItem.latitudeS, item.getLatitude());
@@ -35,7 +39,8 @@ public class Server {
         itemJson.put(TaskItem.priceS, item.getPrice());
         itemJson.put(TaskItem.timeS, item.getTime());
         itemJson.put(TaskItem.personIDS, item.getPersonID());
-        
+        itemJson.put(TaskItem.statusS, item.getStatus());
+
         sendData(itemJson.toString(), url);
     }
 
@@ -46,7 +51,66 @@ public class Server {
         itemJson.put(TaskItem.longitudeS, longitude);
         itemJson.put(TaskItem.latitudeS, latitude);
 
-        //get data from server
+        return tasksFromServer(itemJson, url);
+    }
+
+    public static List<TaskItem> getPersonTasks() throws Exception{
+        String personID = "";   //han get personID
+        URL url = getUrl(SERVER+PERSONTASK);
+
+        JSONObject itemJson = new JSONObject();
+        itemJson.put(TaskItem.personIDS, personID);
+
+        return tasksFromServer(itemJson, url);
+    }
+
+    public static void changePrice(double price, String taskID) throws Exception{
+        String personID = "";   //han get personID
+        URL url = getUrl(SERVER+CHANGEPRICE);
+
+        JSONObject itemJson = new JSONObject();
+        itemJson.put(TaskItem.priceS, price);
+        itemJson.put(TaskItem.taskIDS, taskID);
+
+        sendData(itemJson.toString(), url);
+    }
+
+    public static List<PriceItem> getAllPrice(String taskID) throws Exception{
+        URL url = getUrl(SERVER+GETPRICE);
+
+        JSONObject itemJson = new JSONObject();
+        itemJson.put(TaskItem.taskIDS, taskID);
+
+        String response = sendData(itemJson.toString(), url);
+        List<PriceItem> prices = new ArrayList<>();
+        JSONArray jsonArray = new JSONArray();
+        try {
+            jsonArray = new JSONArray(response);
+            for(int i = 0 ; i < jsonArray.length() ; ++i){
+                JSONObject priceJson = jsonArray.getJSONObject(i);
+                PriceItem price = new PriceItem(priceJson.getDouble(PriceItem.priceS),
+                        priceJson.getString(PriceItem.personIDS),
+                        priceJson.getString(PriceItem.ageS),
+                        priceJson.getString(PriceItem.genderS));
+                prices.add(price);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return prices;
+    }
+
+    public static void closeOneTask(String taskID, String personID) throws Exception{
+        URL url = getUrl(SERVER+CLOSETASK);
+
+        JSONObject itemJson = new JSONObject();
+        itemJson.put(TaskItem.taskIDS, taskID);
+        itemJson.put(TaskItem.personIDS, personID);
+
+        sendData(itemJson.toString(), url);
+    }
+
+    private static List<TaskItem> tasksFromServer(JSONObject itemJson, URL url){
         String response = sendData(itemJson.toString(), url);
         List<TaskItem> tasks = new ArrayList<>();
         JSONArray jsonArray = new JSONArray();
@@ -54,14 +118,15 @@ public class Server {
             jsonArray = new JSONArray(response);
             for(int i = 0 ; i < jsonArray.length() ; ++i){
                 JSONObject taskJson = jsonArray.getJSONObject(i);
-                TaskItem task = new TaskItem(taskJson.getString(TaskItem.IDS),
+                TaskItem task = new TaskItem(taskJson.getString(TaskItem.taskIDS),
                         taskJson.getString(TaskItem.nameS),
                         taskJson.getString(TaskItem.longitudeS),
                         taskJson.getString(TaskItem.latitudeS),
                         taskJson.getString(TaskItem.timeS),
                         taskJson.getString(TaskItem.contentS),
-                        taskJson.getInt(TaskItem.priceS),
-                        taskJson.getString(TaskItem.personIDS));
+                        taskJson.getDouble(TaskItem.priceS),
+                        taskJson.getString(TaskItem.personIDS),
+                        taskJson.getString(TaskItem.statusS));
                 tasks.add(task);
             }
         } catch (JSONException e) {

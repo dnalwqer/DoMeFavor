@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -30,14 +31,14 @@ public class InfoActivity extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.price_list);
         list = new ArrayList<>();
 
-        adapter = new PriceAdapter(list);
+        adapter = new PriceAdapter(this, list);
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                new AlertDialog.Builder(this)
+                new AlertDialog.Builder(getApplicationContext())
                         .setTitle("Accept")
                         .setMessage("Do you want to accept this offer?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -58,7 +59,7 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     class PriceAdapter extends BaseAdapter {
-        public Context context
+        public Context context;
         public List<PriceItem> list;
         private LayoutInflater layoutInflater;
         public PriceAdapter(Context context, List<PriceItem> list) {
@@ -93,9 +94,9 @@ public class InfoActivity extends AppCompatActivity {
             TextView textView2 = (TextView) findViewById(R.id.price_list_email);
             TextView textView3 = (TextView) findViewById(R.id.price_list_price);
 
-            textView1.setText();
-            textView2.setText();
-            textView3.setText();
+            textView1.setText("ID:" + list.get(position).getPersonID());
+            textView2.setText("Age: " + list.get(position).getAge());
+            textView3.setText("Price" + list.get(position).getPrice());
             return convertView;
         }
     }

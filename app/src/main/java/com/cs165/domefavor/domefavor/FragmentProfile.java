@@ -31,7 +31,10 @@ public class FragmentProfile extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         list1 = new ArrayList<>();
+        TaskItem item = new TaskItem("","buy","-70.970479","41.613032",new java.util.Date().toString(), "good", 12.3, "dart", "");
+        list1.add(item);
         list2 = new ArrayList<>();
+        list2.add(item);
     }
 
     //inflate the fragment in the UI
