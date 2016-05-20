@@ -32,7 +32,7 @@ public class DeleteTaskServlet extends HttpServlet {
 		ContactDatastore.delete(id);
 		PriceDatastore.deleteid(id);
 //		MessagingEndpoint.sendMessage("D" + id);
-		resp.sendRedirect("/querytask.do");
+//		resp.sendRedirect("/querytask.do");
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)

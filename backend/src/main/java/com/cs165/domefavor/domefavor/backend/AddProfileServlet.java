@@ -61,8 +61,8 @@ public class AddProfileServlet extends HttpServlet {
 //            req.setAttribute("_retStr", id + " exists");
 //        }
 
-        getServletContext().getRequestDispatcher("/query_result.jsp").forward(
-                req, resp);
+//        getServletContext().getRequestDispatcher("/query_result.jsp").forward(
+//                req, resp);
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp)

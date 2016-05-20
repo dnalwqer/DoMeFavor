@@ -14,7 +14,7 @@ public class DeleteAllServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
         ContactDatastore.deleteAll();
-        resp.sendRedirect("/querytask.do");
+//        resp.sendRedirect("/querytask.do");
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
