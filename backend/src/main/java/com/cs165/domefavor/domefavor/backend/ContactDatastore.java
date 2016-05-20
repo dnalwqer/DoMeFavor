@@ -8,11 +8,12 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Transaction;
+import com.google.appengine.repackaged.com.google.protobuf.DescriptorProtos;
+import com.google.appengine.repackaged.com.google.protobuf.MutableDescriptorProtos;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  * Created by Alex on 16/4/17.
  */
@@ -30,10 +31,10 @@ public class ContactDatastore {
 
 
     public static boolean add(Contact contact) {
-        if (getContactByName(contact.id, null) != null) {
-            mLogger.log(Level.INFO, "contact exists");
-            return false;
-        }
+//        if (getContactByName(contact.id, null) != null) {
+//            mLogger.log(Level.INFO, "contact exists");
+//            return false;
+//        }
 
         Key parentKey = getKey();
 
@@ -137,5 +138,61 @@ public class ContactDatastore {
                 (String) entity.getProperty(Contact.FIELD_NAME_price),
                 (String) entity.getProperty(Contact.FIELD_NAME_poster)
                 );
+    }
+
+    public static ArrayList<Contact> queryloca(String lat, String lng){
+        ArrayList<Contact> resultList = new ArrayList<Contact>();
+        if (lat != null && !lat.equals("")) {
+//            Contact contact = getContactByName(lat, null);
+//            if (contact != null) {
+//                resultList.add(contact);
+//            }
+        } else {
+            Query query = new Query(Contact.CONTACT_ENTITY_NAME);
+            // get every record from datastore, no filter
+            query.setFilter(null);
+            // set query's ancestor to get strong consistency
+            query.setAncestor(getKey());
+
+            PreparedQuery pq = mDatastore.prepare(query);
+
+            for (Entity entity : pq.asIterable()) {
+                Contact contact = getContactFromEntity(entity);
+
+                if (6371.004*Math.acos(Math.sin(Float.parseFloat(lat))*Math.sin(Float.parseFloat(lng))
+                        *Math.cos(Float.parseFloat(contact.lat) - Float.parseFloat(contact.lng))
+                        + Math.cos(Float.parseFloat(lat))*Math.cos(Float.parseFloat(lng)))*3.1415926/180 < 20) {
+                    resultList.add(contact);
+                }
+            }
+        }
+        return resultList;
+    }
+
+    public static ArrayList<Contact> queryname(String name){
+        ArrayList<Contact> resultList = new ArrayList<Contact>();
+        if (name != null && !name.equals("")) {
+            Contact contact = getContactByName(name, null);
+            if (contact != null) {
+                resultList.add(contact);
+            }
+        } else {
+            Query query = new Query(Contact.CONTACT_ENTITY_NAME);
+            // get every record from datastore, no filter
+
+            query.setFilter(null);
+            // set query's ancestor to get strong consistency
+            query.setAncestor(getKey());
+
+            PreparedQuery pq = mDatastore.prepare(query);
+
+            for (Entity entity : pq.asIterable()) {
+                Contact contact = getContactFromEntity(entity);
+                if (contact.poster.equals("name")) {
+                    resultList.add(contact);
+                }
+            }
+        }
+        return resultList;
     }
 }

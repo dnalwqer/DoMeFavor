@@ -22,8 +22,35 @@ public class QueryTaskServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 //		String name = req.getParameter("id");
-		ArrayList<Contact> result = ContactDatastore.query("");
-		req.setAttribute("result", result);
+		ArrayList<Contact> result = null;
+
+		String qs = req.getQueryString();
+		JSONArray list = null;
+		try {
+			list = new JSONArray(qs);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		JSONObject ob = null;
+
+		String lat = "";
+		String lng = "";
+		String email = "";
+
+		try {
+			ob = list.getJSONObject(0);
+			if(ob.has("longitude")){
+				lng = ob.getString("longitude");
+				lat = ob.getString("latitude");
+				result = ContactDatastore.queryloca(lat, lng);
+			} else if (ob.has("personID")){
+				email = ob.getString("personID");
+				result = ContactDatastore.queryname(email);
+			} else result = ContactDatastore.query("");
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
 		JSONArray finalResult = new JSONArray();
 		for (Contact task: result) {
