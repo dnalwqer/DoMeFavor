@@ -32,13 +32,14 @@ public class QueryPriceServlet extends HttpServlet {
                 Profile profile = ProfileDatastore.query(price.taker).get(0);
                 cur.put("age", profile.age);
                 cur.put("gender", profile.gender);
-                cur.put("email", profile.email);
+                cur.put("personID", profile.email);
                 cur.put("id", price.id);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             finalResult.put(cur);
         }
+
         resp.setContentType("text");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(finalResult.toString());

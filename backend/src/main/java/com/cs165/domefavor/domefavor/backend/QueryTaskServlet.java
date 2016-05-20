@@ -32,10 +32,10 @@ public class QueryTaskServlet extends HttpServlet {
 				cur.put("taskName", task.taskName);
 				cur.put("content",task.content);
 				cur.put("time",task.time);
-				cur.put("id",task.id);
-				cur.put("lat", task.lat);
-				cur.put("lng",task.lng);
-				cur.put("poster",task.poster);
+				cur.put("taskID",task.id);
+				cur.put("latitude", task.lat);
+				cur.put("longitude",task.lng);
+				cur.put("personID",task.poster);
 				cur.put("price",task.price);
 			} catch (JSONException e) {
 				e.printStackTrace();

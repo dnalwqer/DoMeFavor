@@ -20,12 +20,12 @@ import java.util.List;
  */
 public class Server {
     private static final String SERVER = "";
-    private static final String SAVETASK = "";
-    private static final String ALLTASK = "";
-    private static final String PERSONTASK = "";
-    private static final String CHANGEPRICE = "";
-    private static final String GETPRICE = "";
-    private static final String CLOSETASK = "";
+    private static final String SAVETASK = "/addtask.do";
+    private static final String ALLTASK = "/querytask.do";
+    private static final String PERSONTASK = "/querytask.do";
+    private static final String CHANGEPRICE = "/addprice.do";
+    private static final String GETPRICE = "/queryprice.do";
+    private static final String CLOSETASK = "/deletetask.do";
 
     public static void saveNewTask(TaskItem item) throws Exception{
         URL url = getUrl(SERVER+SAVETASK);

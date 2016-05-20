@@ -37,12 +37,12 @@ public class AddTaskServlet extends HttpServlet {
         try {
                 ob = list.getJSONObject(0);
             taskName = ob.getString("taskName");
-            lng = ob.getString("lng");
-            lat = ob.getString("lat");
+            lng = ob.getString("longitude");
+            lat = ob.getString("latitude");
             time= ob.getString("time");
             content = ob.getString("content");
             price = ob.getString("price");
-            poster = ob.getString("poster");
+            poster = ob.getString("personID");
         } catch (JSONException e) {
                 e.printStackTrace();
         }

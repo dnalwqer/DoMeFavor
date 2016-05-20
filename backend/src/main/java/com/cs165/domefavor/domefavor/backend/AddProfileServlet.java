@@ -28,26 +28,26 @@ public class AddProfileServlet extends HttpServlet {
             e.printStackTrace();
         }
         JSONObject ob = null;
-        String id = "";
-        String profile = "";
+        String age = "";
+        String gender = "";
         String taker = "";
         try {
             ob = list.getJSONObject(0);
-            profile = ob.getString("profile");
-            id = ob.getString("id");
-            taker = ob.getString("taker");
+            age = ob.getString("age");
+            gender = ob.getString("gender");
+            taker = ob.getString("personID");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if (id == null || id.equals("")) {
+        if (taker == null || taker.equals("")) {
             req.setAttribute("_retStr", "invalid input");
             getServletContext().getRequestDispatcher("/query_result.jsp")
                     .forward(req, resp);
             return;
         }
 
-        Profile profiles = new Profile(profile, id, taker);
+        Profile profiles = new Profile(age, taker, gender);
         boolean ret = ProfileDatastore.add(profiles);
 //        if (ret) {
 //            req.setAttribute("_retStr", "Add contact " + id + " succ");

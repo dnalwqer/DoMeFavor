@@ -34,8 +34,8 @@ public class AddPriceServlet extends HttpServlet {
         try {
             ob = list.getJSONObject(0);
             price = ob.getString("price");
-            id = ob.getString("id");
-            taker = ob.getString("taker");
+            id = ob.getString("taskID");
+            taker = ob.getString("personID");
         } catch (JSONException e) {
             e.printStackTrace();
         }
