@@ -8,6 +8,71 @@
         <filter-name>ObjectifyFilter</filter-name>
         <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+  <servlet>
+      <servlet-name>querytask</servlet-name>
+      <servlet-class>com.cs165.domefavor.domefavor.backend.QueryTaskServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>query</servlet-name>
+      <url-pattern>/querytask.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+      <servlet-name>queryprice</servlet-name>
+      <servlet-class>com.cs165.domefavor.domefavor.backend.QueryPriceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>query</servlet-name>
+      <url-pattern>/queryprice.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+      <servlet-name>addtask</servlet-name>
+      <servlet-class>com.cs165.domefavor.domefavor.backend.AddTaskServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>add</servlet-name>
+      <url-pattern>/addtask.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+      <servlet-name>addprice</servlet-name>
+      <servlet-class>com.cs165.domefavor.domefavor.backend.AddPriceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>add</servlet-name>
+      <url-pattern>/addprice.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+      <servlet-name>deletetask</servlet-name>
+      <servlet-class>com.cs165.domefavor.domefavor.backend.DeleteTaskServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>delete</servlet-name>
+      <url-pattern>/deletetask.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+      <servlet-name>deleteprice</servlet-name>
+      <servlet-class>com.cs165.domefavor.domefavor.backend.DeletePriceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>delete</servlet-name>
+      <url-pattern>/deleteprice.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+      <servlet-name>deleteAll</servlet-name>
+      <servlet-class>com.cs165.domefavor.domefavor.backend.DeleteAllServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>deleteAll</servlet-name>
+      <url-pattern>/deleteAll.do</url-pattern>
+  </servlet-mapping>
+
+  
    <servlet>
         <servlet-name>SystemServiceServlet</servlet-name>
         <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>

@@ -16,7 +16,7 @@ public class DeleteTaskServlet extends HttpServlet {
 		String id = req.getParameter("id");
 		ContactDatastore.delete(id);
 //		MessagingEndpoint.sendMessage("D" + id);
-		resp.sendRedirect("/query.do");
+		resp.sendRedirect("/querytask.do");
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
