@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/saveTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:onClick="saveTask"
+        android:text="saveTask" />
+    <Button
+        android:id="@+id/allTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:onClick="allTask"
+        android:text="allTask" />
+    <Button
+        android:id="@+id/personTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:onClick="personTask"
+        android:text="personTask" />
+    <Button
+        android:id="@+id/changePrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:onClick="changePrice"
+        android:text="changePrice" />
+    <Button
+        android:id="@+id/allPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:onClick="allPrice"
+        android:text="allPrice" />
+    <Button
+        android:id="@+id/closeTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:onClick="closeTask"
+        android:text="closeTask" />
+</LinearLayout>
