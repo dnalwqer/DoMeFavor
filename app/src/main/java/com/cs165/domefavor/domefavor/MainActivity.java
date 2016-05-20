@@ -45,11 +45,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(viewPager);
 
-        Intent intent = getIntent();
-        Bundle mbundle = intent.getExtras();
-//        textview.setText(mbundle.getString("Email"));
-//        System.out.println(mbundle.getString("Name"));
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();

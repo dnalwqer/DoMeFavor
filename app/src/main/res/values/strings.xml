@@ -11,7 +11,12 @@
     <string name="title_text">Put some ads here!!!</string>
 
 
-
     <!-- sign out-->
     <string name="main_signout"></string>
+
+    <!-- profile -->
+    <string name="profile_photo_title">User photo:</string>
+    <string name="profile_change_button">Change</string>
+    <string name="profile_name_title">Name: </string>
+    <string name="profile_email_title">Email: </string>
 </resources>
