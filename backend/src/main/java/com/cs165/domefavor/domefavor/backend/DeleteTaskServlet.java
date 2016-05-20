@@ -37,7 +37,7 @@ public class DeleteTaskServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		ContactDatastore.delete(id);
-		PriceDatastore.delete(id);
+		PriceDatastore.deleteid(id);
 //		MessagingEndpoint.sendMessage("D" + id);
 		resp.sendRedirect("/querytask.do");
 	}
