@@ -20,19 +20,19 @@ public class AddProfileServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
-        String qs = req.getQueryString();
-        JSONArray list = null;
-        try {
-            list = new JSONArray(qs);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JSONObject ob = null;
+        String qs = req.getParameter("data");
+//        JSONArray list = null;
+//        try {
+//            list = new JSONArray(qs);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+        JSONObject ob = new JSONObject(qs);
         String age = "";
         String gender = "";
         String taker = "";
         try {
-            ob = list.getJSONObject(0);
+//            ob = list.getJSONObject(0);
             age = ob.getString("age");
             gender = ob.getString("gender");
             taker = ob.getString("personID");

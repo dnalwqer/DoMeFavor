@@ -142,12 +142,8 @@ public class ContactDatastore {
 
     public static ArrayList<Contact> queryloca(String lat, String lng){
         ArrayList<Contact> resultList = new ArrayList<Contact>();
-        if (lat != null && !lat.equals("")) {
-//            Contact contact = getContactByName(lat, null);
-//            if (contact != null) {
-//                resultList.add(contact);
-//            }
-        } else {
+        double lng1 = Double.parseDouble(lng);
+        double lat1 = Double.parseDouble(lat);
             Query query = new Query(Contact.CONTACT_ENTITY_NAME);
             // get every record from datastore, no filter
             query.setFilter(null);
@@ -159,24 +155,39 @@ public class ContactDatastore {
             for (Entity entity : pq.asIterable()) {
                 Contact contact = getContactFromEntity(entity);
 
-                if (6371.004*Math.acos(Math.sin(Float.parseFloat(lat))*Math.sin(Float.parseFloat(lng))
-                        *Math.cos(Float.parseFloat(contact.lat) - Float.parseFloat(contact.lng))
-                        + Math.cos(Float.parseFloat(lat))*Math.cos(Float.parseFloat(lng)))*3.1415926/180 < 20) {
+                if (contact != null
+                        && distance(lng1, lat1, Double.parseDouble(contact.lng), Double.parseDouble(contact.lat))
+                        < 2000
+                        ) {
                     resultList.add(contact);
                 }
             }
-        }
+
         return resultList;
+    }
+
+    public static double distance(double long1, double lat1, double long2,
+                                  double lat2) {
+        double a, b, R;
+        R = 6378137; // 地球半径
+        lat1 = lat1 * Math.PI / 180.0;
+        lat2 = lat2 * Math.PI / 180.0;
+        a = lat1 - lat2;
+        b = (long1 - long2) * Math.PI / 180.0;
+        double d;
+        double sa2, sb2;
+        sa2 = Math.sin(a / 2.0);
+        sb2 = Math.sin(b / 2.0);
+        d = 2
+                * R
+                * Math.asin(Math.sqrt(sa2 * sa2 + Math.cos(lat1)
+                * Math.cos(lat2) * sb2 * sb2));
+        return d;
     }
 
     public static ArrayList<Contact> queryname(String name){
         ArrayList<Contact> resultList = new ArrayList<Contact>();
-        if (name != null && !name.equals("")) {
-            Contact contact = getContactByName(name, null);
-            if (contact != null) {
-                resultList.add(contact);
-            }
-        } else {
+
             Query query = new Query(Contact.CONTACT_ENTITY_NAME);
             // get every record from datastore, no filter
 
@@ -192,7 +203,6 @@ public class ContactDatastore {
                     resultList.add(contact);
                 }
             }
-        }
         return resultList;
     }
 }
