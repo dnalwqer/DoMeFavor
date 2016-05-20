@@ -25,6 +25,9 @@ public class QueryTaskServlet extends HttpServlet {
 		ArrayList<Contact> result = null;
 
 		String qs = req.getQueryString();
+		if(qs == null||qs.equals("") ) {
+			return;
+		}
 		JSONArray list = null;
 		try {
 			list = new JSONArray(qs);
@@ -72,6 +75,10 @@ public class QueryTaskServlet extends HttpServlet {
 		resp.setContentType("text");
 		resp.setCharacterEncoding("UTF-8");
 		resp.getWriter().write(finalResult.toString());
+
+		req.setAttribute("result", result);
+		getServletContext().getRequestDispatcher("/query_result.jsp").forward(
+				req, resp);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)

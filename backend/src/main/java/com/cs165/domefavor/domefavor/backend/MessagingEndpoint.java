@@ -59,7 +59,7 @@ public class MessagingEndpoint {
         if (message.length() > 1000) {
             message = message.substring(0, 1000) + "[...]";
         }
-        Sender sender = new Sender(API_KEY);
+        Sender sender = new Sender("AIzaSyDb3T3rxx3yrhIkdc8FKIzQBusuJzf9Il4");
         Message msg = new Message.Builder().addData("message", message).build();
         List<RegistrationRecord> records = ofy().load().type(RegistrationRecord.class).limit(10).list();
         for(RegistrationRecord record : records) {

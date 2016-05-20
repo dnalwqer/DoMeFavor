@@ -14,7 +14,7 @@
       <servlet-class>com.cs165.domefavor.domefavor.backend.QueryTaskServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-      <servlet-name>query</servlet-name>
+      <servlet-name>querytask</servlet-name>
       <url-pattern>/querytask.do</url-pattern>
   </servlet-mapping>
   
@@ -23,7 +23,7 @@
       <servlet-class>com.cs165.domefavor.domefavor.backend.QueryPriceServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-      <servlet-name>query</servlet-name>
+      <servlet-name>queryprice</servlet-name>
       <url-pattern>/queryprice.do</url-pattern>
   </servlet-mapping>
   
@@ -32,7 +32,7 @@
       <servlet-class>com.cs165.domefavor.domefavor.backend.AddTaskServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-      <servlet-name>add</servlet-name>
+      <servlet-name>addtask</servlet-name>
       <url-pattern>/addtask.do</url-pattern>
   </servlet-mapping>
   
@@ -41,7 +41,7 @@
       <servlet-class>com.cs165.domefavor.domefavor.backend.AddPriceServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-      <servlet-name>add</servlet-name>
+      <servlet-name>addprice</servlet-name>
       <url-pattern>/addprice.do</url-pattern>
   </servlet-mapping>
   
@@ -50,7 +50,7 @@
       <servlet-class>com.cs165.domefavor.domefavor.backend.DeleteTaskServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-      <servlet-name>delete</servlet-name>
+      <servlet-name>deletetask</servlet-name>
       <url-pattern>/deletetask.do</url-pattern>
   </servlet-mapping>
   
@@ -59,7 +59,7 @@
       <servlet-class>com.cs165.domefavor.domefavor.backend.DeletePriceServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-      <servlet-name>delete</servlet-name>
+      <servlet-name>deleteprice</servlet-name>
       <url-pattern>/deleteprice.do</url-pattern>
   </servlet-mapping>
   
@@ -87,6 +87,6 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>querytask.do</welcome-file>
     </welcome-file-list>
 </web-app>
