@@ -19,4 +19,18 @@
     <string name="profile_change_button">Change</string>
     <string name="profile_name_title">Name: </string>
     <string name="profile_email_title">Email: </string>
+
+    <!-- fragment new task-->
+    <string name="task_name">Task Name</string>
+    <string name="task_time">Task Time</string>
+    <string name="task_detail">Task Details</string>
+    <string name="task_address">Task Address</string>
+    <string name="task_name_hint">Briefly tell us about your task</string>
+    <string name="task_detail_hint">More Details about your task</string>
+    <string name="task_address_hint">Task Address</string>
+    <string name="button_title_post">Post</string>
+    <string name="button_title_reset">Reset</string>
+
+    <!--fragment task list-->
+    <string name="button_title_refresh">Refresh</string>
 </resources>
