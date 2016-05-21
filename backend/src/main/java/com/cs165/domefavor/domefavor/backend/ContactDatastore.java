@@ -208,4 +208,25 @@ public class ContactDatastore {
             }
         return resultList;
     }
+
+    public static ArrayList<Contact> queryid(String name) {
+        ArrayList<Contact> resultList = new ArrayList<Contact>();
+
+            Query query = new Query(Contact.CONTACT_ENTITY_NAME);
+            // get every record from datastore, no filter
+            query.setFilter(null);
+            // set query's ancestor to get strong consistency
+            query.setAncestor(getKey());
+
+            PreparedQuery pq = mDatastore.prepare(query);
+
+            for (Entity entity : pq.asIterable()) {
+                Contact contact = getContactFromEntity(entity);
+                if (contact != null && contact.id.equals(name)) {
+                    resultList.add(contact);
+                }
+            }
+
+        return resultList;
+    }
 }

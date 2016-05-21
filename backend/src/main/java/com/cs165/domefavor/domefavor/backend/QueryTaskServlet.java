@@ -43,6 +43,10 @@ public class QueryTaskServlet extends HttpServlet {
 				} else if (ob.has("personID")) {
 					email = ob.getString("personID");
 					result = ContactDatastore.queryname(email);
+					ArrayList<Price> list = PriceDatastore.queryEmail(email);
+					for(Price cur : list){
+						result.addAll(ContactDatastore.queryid(cur.id));
+					}
 				} else result = ContactDatastore.query("");
 			}
 		} catch (JSONException e) {
