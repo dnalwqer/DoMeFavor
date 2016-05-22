@@ -101,7 +101,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             Bundle mbundle = new Bundle();
             mbundle.putString("Email", acct.getEmail());
             mbundle.putString("Name", acct.getDisplayName());
-            System.out.println(acct.getPhotoUrl());
+            mbundle.putParcelable("Photo", acct.getPhotoUrl());
             intent.putExtras(mbundle);
             startActivity(intent);
             finish();
