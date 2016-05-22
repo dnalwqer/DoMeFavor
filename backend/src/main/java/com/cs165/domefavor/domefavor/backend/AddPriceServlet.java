@@ -1,11 +1,9 @@
 package com.cs165.domefavor.domefavor.backend;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,19 +18,12 @@ public class AddPriceServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
-        String qs = req.getQueryString();
-        JSONArray list = null;
-        try {
-            list = new JSONArray(qs);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JSONObject ob = null;
+        String qs = req.getParameter("data");
+        JSONObject ob = new JSONObject(qs);
         String id = "";
         String price = "";
         String taker = "";
         try {
-            ob = list.getJSONObject(0);
             price = ob.getString("price");
             id = ob.getString("taskID");
             taker = ob.getString("personID");
@@ -61,8 +52,8 @@ public class AddPriceServlet extends HttpServlet {
 //            req.setAttribute("_retStr", id + " exists");
 //        }
 
-        getServletContext().getRequestDispatcher("/query_result.jsp").forward(
-                req, resp);
+//        getServletContext().getRequestDispatcher("/query_result.jsp").forward(
+//                req, resp);
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp)

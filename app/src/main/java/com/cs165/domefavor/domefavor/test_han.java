@@ -17,45 +17,80 @@ public class test_han extends AppCompatActivity {
     }
 
     public void saveTask(View v){
-        TaskItem item = new TaskItem("","buy","-70.970479","41.613032",new java.util.Date().toString(), "good", 12.3, "dart", "");
-        try {
-            Server.saveNewTask(item);
-        }catch(Exception e){}
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                TaskItem item = new TaskItem("", "buy", "-70.970479", "41.613032", new java.util.Date().toString(), "good", 12.3, "dart", "");
+                try {
+                    Server.saveNewTask(item);
+                } catch (Exception e) {
+                }
+            }
+        }).start();
     }
 
     public void allTask(View v){
-        try {
-            Server.getAllTasks("-70.970479","41.613032");
-        }catch(Exception e){}
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Server.getAllTasks("-70.970479", "41.613032");
+                } catch (Exception e) {}
+            }
+        }).start();
     }
 
     public void personTask(View v){
-        try {
-            List<TaskItem> tasks = Server.getPersonTasks();
-            for(int i = 0 ; i < tasks.size() ; ++i){
-                System.out.println(tasks.get(i).getTaskID());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<TaskItem> tasks = Server.getPersonTasks();
+                    for (int i = 0; i < tasks.size(); ++i) {
+                        System.out.println(tasks.get(i).getTaskID());
+                    }
+                } catch (Exception e) {
+                }
             }
-        }catch(Exception e){}
+        }).start();
     }
 
     public void changePrice(View v){
-        try {
-            Server.changePrice(23.4, "");
-        }catch(Exception e){}
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Server.changePrice(23.4, "1463785937313buy");
+                } catch (Exception e) {
+                }
+            }
+        }).start();
     }
 
     public void allPrice(View v){
-        try {
-            List<PriceItem> prices = Server.getAllPrice("");
-            for(int i = 0 ; i < prices.size() ; ++i){
-                System.out.println(prices.get(i).getPersonID());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<PriceItem> prices = Server.getAllPrice("");
+                    for (int i = 0; i < prices.size(); ++i) {
+                        System.out.println(prices.get(i).getPersonID());
+                    }
+                } catch (Exception e) {
+                }
             }
-        }catch(Exception e){}
+        }).start();
     }
 
     public void closeTask(View v){
-        try {
-            Server.closeOneTask("","dart");
-        }catch(Exception e){}
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Server.closeOneTask("1463785937313buy", "dart");
+                } catch (Exception e) {
+                }
+            }
+        }).start();
     }
 }

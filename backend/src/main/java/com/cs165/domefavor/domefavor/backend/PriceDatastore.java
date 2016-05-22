@@ -108,26 +108,26 @@ public class PriceDatastore {
         return resultList;
     }
 
-//    public static ArrayList<Price> queryEmail(String email) {
-//        ArrayList<Price> resultList = new ArrayList<Price>();
-//
-//            Query query = new Query(Price.Price_ENTITY_NAME);
-//            // get every record from datastore, no filter
-//            query.setFilter(null);
-//            // set query's ancestor to get strong consistency
-//            query.setAncestor(getKey());
-//
-//            PreparedQuery pq = mDatastore.prepare(query);
-//
-//            for (Entity entity : pq.asIterable()) {
-//                Price price = getPriceFromEntity(entity);
-//                if (price.taker.equals(email)) {
-//                    resultList.add(price);
-//                }
-//            }
-//
-//        return resultList;
-//    }
+    public static ArrayList<Price> queryEmail(String email) {
+        ArrayList<Price> resultList = new ArrayList<Price>();
+
+            Query query = new Query(Price.Price_ENTITY_NAME);
+            // get every record from datastore, no filter
+            query.setFilter(null);
+            // set query's ancestor to get strong consistency
+            query.setAncestor(getKey());
+
+            PreparedQuery pq = mDatastore.prepare(query);
+
+            for (Entity entity : pq.asIterable()) {
+                Price price = getPriceFromEntity(entity);
+                if (price != null && price.taker.equals(email)) {
+                    resultList.add(price);
+                }
+            }
+
+        return resultList;
+    }
 
     public static Price getPriceByName(String name, Transaction txn) {
         Entity result = null;

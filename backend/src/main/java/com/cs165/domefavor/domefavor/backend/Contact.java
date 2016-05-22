@@ -39,5 +39,17 @@ public class Contact {
         id = System.currentTimeMillis() + taskName;
     }
 
+    public Contact(String taskid, String taskName, String lat, String lng, String time, String content, String price,
+                   String poster) {
+        this.taskName = taskName;
+        this.content = content;
+        this.time = time;
+        this.price = price;
+        this.lat = lat;
+        this.lng = lng;
+        this.poster = poster;
+        id = taskid;
+    }
+
 }
 

@@ -25,6 +25,9 @@
 			if (resultList != null) {
 				for (Contact contact : resultList) {
 		%> Id:<%=contact.id%>&nbsp; Date Time:<%=contact.time%>&nbsp; 
+		Lat:<%=contact.lat%>&nbsp; Lng:<%=contact.lng%>&nbsp; 
+		Price:<%=contact.price%>&nbsp; Content:<%=contact.content%>&nbsp; 
+		taskname:<%=contact.taskName%>&nbsp; email:<%=contact.poster%>&nbsp; 
 		&nbsp;&nbsp;&nbsp; <a
 		href="/deletetask.do?id=<%=contact.id%>">delete</a> <br> <%
  	}
