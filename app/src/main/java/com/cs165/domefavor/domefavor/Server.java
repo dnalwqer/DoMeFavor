@@ -1,7 +1,5 @@
 package com.cs165.domefavor.domefavor;
 
-import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -8,11 +8,8 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Transaction;
-import com.google.appengine.repackaged.com.google.protobuf.DescriptorProtos;
-import com.google.appengine.repackaged.com.google.protobuf.MutableDescriptorProtos;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
  * Created by Alex on 16/4/17.

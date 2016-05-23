@@ -3,13 +3,6 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="Bundled (Maven 3)" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
@@ -51,6 +44,8 @@
     <option name="id" value="Android" />
   </component>
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   <component name="SvnConfiguration">
@@ -86,4 +81,5 @@
     </states>
   </component>
 >>>>>>> 0ea53b84a800b7153dd27ea3d0f1f84a4675aeff
+>>>>>>> 7a1051302cf12b2e90f59bfc07678a343eb90835
 </project>
