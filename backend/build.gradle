@@ -26,9 +26,11 @@ dependencies {
   compile 'com.google.appengine:appengine-endpoints:1.9.28'
   compile 'com.google.appengine:appengine-endpoints-deps:1.9.28'
   compile 'javax.servlet:servlet-api:2.5'
-    compile 'org.json:json:20160212'
+  compile 'org.json:json:20160212'
   compile 'com.googlecode.objectify:objectify:5.1.9'
   compile 'com.ganyo:gcm-server:1.0.2'
+  compile 'javax.mail:mail:1.4.1'
+    compile 'org.apache.commons:commons-email:1.4'
 }
 
 appengine {

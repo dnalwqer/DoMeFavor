@@ -1,11 +1,9 @@
 package com.cs165.domefavor.domefavor.backend;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,19 +18,19 @@ public class AddProfileServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
-        String qs = req.getQueryString();
-        JSONArray list = null;
-        try {
-            list = new JSONArray(qs);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JSONObject ob = null;
+        String qs = req.getParameter("data");
+//        JSONArray list = null;
+//        try {
+//            list = new JSONArray(qs);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+        JSONObject ob = new JSONObject(qs);
         String age = "";
         String gender = "";
         String taker = "";
         try {
-            ob = list.getJSONObject(0);
+//            ob = list.getJSONObject(0);
             age = ob.getString("age");
             gender = ob.getString("gender");
             taker = ob.getString("personID");
@@ -61,8 +59,8 @@ public class AddProfileServlet extends HttpServlet {
 //            req.setAttribute("_retStr", id + " exists");
 //        }
 
-        getServletContext().getRequestDispatcher("/query_result.jsp").forward(
-                req, resp);
+//        getServletContext().getRequestDispatcher("/query_result.jsp").forward(
+//                req, resp);
     }
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp)

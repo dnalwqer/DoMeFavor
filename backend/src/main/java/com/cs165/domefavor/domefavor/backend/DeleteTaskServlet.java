@@ -12,30 +12,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class DeleteTaskServlet extends HttpServlet {
-
+	private final String subject = "Your new task";
+	private final String content = "a";
+	private final String postersubject = "";
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
-		String qs = req.getQueryString();
-		JSONArray list = null;
-		try {
-			list = new JSONArray(qs);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		JSONObject ob = null;
+		String qs = req.getParameter("data");
+		JSONObject ob = new JSONObject(qs);
 
 		String id = "";
 		String email = "";
 
 		try {
-			ob = list.getJSONObject(0);
 			id = ob.getString("taskID");
 			email = ob.getString("personID");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		Mail.sendEmail(email, subject, content);
 		ContactDatastore.delete(id);
 		PriceDatastore.deleteid(id);
 //		MessagingEndpoint.sendMessage("D" + id);

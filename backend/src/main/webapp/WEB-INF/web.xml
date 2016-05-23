@@ -46,6 +46,15 @@
   </servlet-mapping>
   
   <servlet>
+      <servlet-name>addprofile</servlet-name>
+      <servlet-class>com.cs165.domefavor.domefavor.backend.AddProfileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>addprofile</servlet-name>
+      <url-pattern>/addprofile.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
       <servlet-name>deletetask</servlet-name>
       <servlet-class>com.cs165.domefavor.domefavor.backend.DeleteTaskServlet</servlet-class>
   </servlet>
