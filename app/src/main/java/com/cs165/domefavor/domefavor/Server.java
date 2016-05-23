@@ -28,6 +28,7 @@ public class Server {
     private static final String CHANGEPRICE = "/addprice.do";
     private static final String GETPRICE = "/queryprice.do";
     private static final String CLOSETASK = "/deletetask.do";
+    private static final String SAVEPROFILE = "/addprofile.do"; //TODO:new added
 
     public static void saveNewTask(TaskItem item) throws Exception{
         URL url = getUrl(SERVER+SAVETASK);
@@ -193,5 +194,16 @@ public class Server {
                 conn.disconnect();
             }
         }
+    }
+    //TODO: new added
+    public static void saveProfile(String age, String gender, String personID) throws Exception{
+        URL url = getUrl(SERVER + SAVEPROFILE);
+        //TODO: get profile stuff
+        JSONObject itemJson = new JSONObject();
+        itemJson.put("age", age);
+        itemJson.put("gender", gender);
+        itemJson.put("personID", personID);
+
+        sendData("data="+itemJson.toString(), url);
     }
 }

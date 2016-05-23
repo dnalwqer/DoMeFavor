@@ -20,7 +20,8 @@ public class test_han extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                TaskItem item = new TaskItem("", "buy", "-70.970479", "41.613032", new java.util.Date().toString(), "good", 12.3, "dart", "");
+                TaskItem item = new TaskItem("", "buy", "-70.970479", "41.613032", new java.util.Date().toString(), "good", 12.3,
+                        "cs165sp@gmail.com", "");
                 try {
                     Server.saveNewTask(item);
                 } catch (Exception e) {
@@ -87,7 +88,7 @@ public class test_han extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Server.closeOneTask("1463785937313buy", "dart");
+                    Server.closeOneTask("1463800523177buy", "cs165sp@gmail.com");
                 } catch (Exception e) {
                 }
             }
