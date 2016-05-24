@@ -19,7 +19,12 @@ public class AddPriceServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
         String qs = req.getParameter("data");
-        JSONObject ob = new JSONObject(qs);
+        JSONObject ob = null;
+        try {
+            ob = new JSONObject(qs);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         String id = "";
         String price = "";
         String taker = "";
