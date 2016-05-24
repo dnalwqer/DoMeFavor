@@ -9,6 +9,7 @@ import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -24,13 +25,12 @@ import javax.mail.internet.MimeMessage;
  */
 public class Mail {
 
-    public static void sendEmail(String receiver, String subject, String content){
-        try {
+    public static void sendEmail(String receiver, String subject, String content) throws MessagingException {
             String to = receiver;
 
             String msg ="email text....";
             final String from ="gaixuetong@163.com";
-            final  String password ="";
+            final  String password ="13805313623a";
 
 
             Properties props = new Properties();
@@ -62,9 +62,7 @@ public class Mail {
             transport.connect();
             Transport.send(message);
             transport.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
     }
 }
