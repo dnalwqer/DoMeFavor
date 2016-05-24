@@ -21,8 +21,15 @@ public class QueryPriceServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
         String qs = req.getParameter("data");
-        JSONObject ob = new JSONObject(qs);
-        String name = ob.getString("taskID");
+        JSONObject ob = null;
+        String name = "";
+        try {
+            ob = new JSONObject(qs);
+            name = ob.getString("taskID");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         ArrayList<Price> result = PriceDatastore.query(name);
         req.setAttribute("result", result);
