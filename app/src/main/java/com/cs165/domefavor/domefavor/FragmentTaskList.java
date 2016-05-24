@@ -1,10 +1,10 @@
 package com.cs165.domefavor.domefavor;
 
 import android.app.Fragment;
-import android.app.ListFragment;
-import android.app.LoaderManager;
+import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
 import android.content.Context;
-import android.content.Loader;
+import android.support.v4.content.Loader;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -73,7 +73,7 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<TaskItem>> loader, ArrayList<TaskItem> data) {
+    public void onLoadFinished(android.support.v4.content.Loader<ArrayList<TaskItem>> loader, ArrayList<TaskItem> data) {
         if (mSwipeRefreshLayout.isRefreshing()){
             mSwipeRefreshLayout.setRefreshing(false);
         }
@@ -83,9 +83,23 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<TaskItem>> loader) {
+    public void onLoaderReset(android.support.v4.content.Loader<ArrayList<TaskItem>> loader) {
         mTaskListAdapter.clear();
     }
+//
+//    @Override
+//    public Loader<ArrayList<TaskItem>> onCreateLoader(int id, Bundle args) {
+//        return new TaskListLoader(getActivity());
+//    }
+//    @Override
+//    public void onLoadFinished(Loader<ArrayList<TaskItem>> loader, ArrayList<TaskItem> data) {
+//
+//    }
+//
+//    @Override
+//    public void onLoaderReset(Loader<ArrayList<TaskItem>> loader) {
+//
+//    }
 
     private void setupFAB(){
         ImageView iconSortName = new ImageView(getActivity());

@@ -31,7 +31,7 @@ public class DeleteTaskServlet extends HttpServlet {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		Mail.sendEmail(email, subject, content);
+//		Mail.sendEmail(email, subject, content);
 		ContactDatastore.delete(id);
 		PriceDatastore.deleteid(id);
 //		MessagingEndpoint.sendMessage("D" + id);
