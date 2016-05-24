@@ -1,6 +1,7 @@
 package com.cs165.domefavor.domefavor;
 
 import android.app.Fragment;
+//import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -8,6 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.Auth;
@@ -19,6 +23,7 @@ import com.google.android.gms.common.api.Status;
 
 import com.cs165.domefavor.domefavor.view.SlidingTabLayout;
 
+
 import java.util.ArrayList;
 
 
@@ -26,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private ArrayList<Fragment> fragments;
     private static final String TAG = "MainActivity";
     private GoogleApiClient mGoogleApiClient;
-    private TextView textview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(viewPager);
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -93,4 +98,5 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
+
 }

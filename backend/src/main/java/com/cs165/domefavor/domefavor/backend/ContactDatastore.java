@@ -169,7 +169,7 @@ public class ContactDatastore {
     public static double distance(double long1, double lat1, double long2,
                                   double lat2) {
         double a, b, R;
-        R = 6378137; // 地球半径
+        R = 6378137; // earth radius
         lat1 = lat1 * Math.PI / 180.0;
         lat2 = lat2 * Math.PI / 180.0;
         a = lat1 - lat2;

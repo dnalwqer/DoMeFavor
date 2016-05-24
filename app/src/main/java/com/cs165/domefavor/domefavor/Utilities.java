@@ -20,9 +20,11 @@ public class Utilities {
 
     public static ArrayList<TaskItem> createListForTest(){
         ArrayList<TaskItem> list = new ArrayList<TaskItem>();
-//        list.add(new TaskItem("1", "walk dog", "12.543", "32.544", "May 19 2016", "Please come here soon", 12, "MJ"));
-//        list.add(new TaskItem("3", "clean kitchen", "13.432", "32.14", "May 21 2016", "I'm very rich", 122, "YuShen"));
+        list.add(new TaskItem("1", "walk dog", "12.543", "32.544", "May 19 2016", "Please come here soon", 12, "MJ", "Done"));
+        list.add(new TaskItem("3", "clean kitchen", "13.432", "32.14", "May 21 2016", "I'm very rich", 122, "YuShen", "Pending"));
         return list;
     }
+
+
 }
 
