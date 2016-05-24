@@ -20,7 +20,12 @@ public class DeleteTaskServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		String qs = req.getParameter("data");
-		JSONObject ob = new JSONObject(qs);
+		JSONObject ob = null;
+		try {
+			ob = new JSONObject(qs);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
 		String id = "";
 		String email = "";
@@ -31,7 +36,7 @@ public class DeleteTaskServlet extends HttpServlet {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-	//	Mail.sendEmail(email, subject, content);
+		Mail.sendEmail(email, subject, content);
 		ContactDatastore.delete(id);
 		PriceDatastore.deleteid(id);
 //		MessagingEndpoint.sendMessage("D" + id);

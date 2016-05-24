@@ -44,4 +44,11 @@
         android:layout_margin="5dp"
         android:onClick="closeTask"
         android:text="closeTask" />
+    <Button
+        android:id="@+id/saveProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:onClick="saveProfile"
+        android:text="saveProfile" />
 </LinearLayout>

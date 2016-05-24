@@ -26,7 +26,7 @@ public class Server {
     private static final String CHANGEPRICE = "/addprice.do";
     private static final String GETPRICE = "/queryprice.do";
     private static final String CLOSETASK = "/deletetask.do";
-    private static final String SAVEPROFILE = "/addprofile.do"; //TODO:new added
+    private static final String SAVEPROFILE = "/addprofile.do";
 
     public static void saveNewTask(TaskItem item) throws Exception{
         URL url = getUrl(SERVER+SAVETASK);
@@ -56,7 +56,7 @@ public class Server {
     }
 
     public static List<TaskItem> getPersonTasks() throws Exception{
-        String personID = "dart";   //han get personID
+        String personID = "cs165sp@gmail.com";   //han get personID
         URL url = getUrl(SERVER+PERSONTASK);
 
         JSONObject itemJson = new JSONObject();
@@ -66,7 +66,7 @@ public class Server {
     }
 
     public static void changePrice(double price, String taskID) throws Exception{
-        String personID = "dart";   //han get personID
+        String personID = "cs165sp@gmail.com";   //han get personID
         URL url = getUrl(SERVER+CHANGEPRICE);
 
         JSONObject itemJson = new JSONObject();
@@ -194,14 +194,14 @@ public class Server {
         }
     }
     //TODO: new added
-    public static void saveProfile(String age, String gender, String personID) throws Exception{
+    public static void saveProfile(PriceItem item) throws Exception{
         URL url = getUrl(SERVER + SAVEPROFILE);
-        //TODO: get profile stuff
-        JSONObject itemJson = new JSONObject();
-        itemJson.put("age", age);
-        itemJson.put("gender", gender);
-        itemJson.put("personID", personID);
 
-        sendData("data="+itemJson.toString(), url);
+        JSONObject itemJson = new JSONObject();
+        itemJson.put(PriceItem.ageS, item.getAge());
+        itemJson.put(PriceItem.genderS, item.getGender());
+        itemJson.put(PriceItem.personIDS, item.getPersonID());
+
+        sendData("data=" + itemJson.toString(), url);
     }
 }
