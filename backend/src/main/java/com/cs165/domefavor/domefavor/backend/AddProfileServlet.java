@@ -25,7 +25,12 @@ public class AddProfileServlet extends HttpServlet {
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }
-        JSONObject ob = new JSONObject(qs);
+        JSONObject ob = null;
+        try {
+            ob = new JSONObject(qs);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         String age = "";
         String gender = "";
         String taker = "";

@@ -61,7 +61,7 @@ public class test_han extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Server.changePrice(23.4, "1463785937313buy");
+                    Server.changePrice(23.4, "1464050662004buy");
                 } catch (Exception e) {
                 }
             }
@@ -88,7 +88,19 @@ public class test_han extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Server.closeOneTask("1463800523177buy", "cs165sp@gmail.com");
+                    Server.closeOneTask("1464049740015buy", "cs165sp@gmail.com");
+                } catch (Exception e) {
+                }
+            }
+        }).start();
+    }
+
+    public void saveProfile(View v){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Server.saveProfile(new PriceItem(0, "cs165sp@gmail.com", "female", "23"));
                 } catch (Exception e) {
                 }
             }
