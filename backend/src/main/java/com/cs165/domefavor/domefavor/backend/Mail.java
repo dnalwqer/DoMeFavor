@@ -9,6 +9,7 @@ import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -16,16 +17,9 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-/**
- * 发送邮件的测试程序
- *
- * @author lwq
- *
- */
 public class Mail {
 
-    public static void sendEmail(String receiver, String subject, String content){
-        try {
+    public static void sendEmail(String receiver, String subject, String content) throws MessagingException {
             String to = receiver;
 
             String msg ="email text....";
@@ -62,9 +56,7 @@ public class Mail {
             transport.connect();
             Transport.send(message);
             transport.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
     }
 }

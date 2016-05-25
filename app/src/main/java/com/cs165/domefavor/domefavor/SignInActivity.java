@@ -97,7 +97,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();
             mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, MainActivity_v2.class);
             Bundle mbundle = new Bundle();
             mbundle.putString("Email", acct.getEmail());
             mbundle.putString("Name", acct.getDisplayName());
