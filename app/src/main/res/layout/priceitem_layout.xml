@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:textSize="18sp">
     </TextView>
 
@@ -16,11 +17,13 @@
         android:id="@+id/price_list_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:textSize="17sp"/>
 
     <TextView
         android:id="@+id/price_list_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:textSize="17sp"/>
 </LinearLayout>

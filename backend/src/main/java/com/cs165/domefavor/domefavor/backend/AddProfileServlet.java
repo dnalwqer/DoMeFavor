@@ -49,7 +49,7 @@ public class AddProfileServlet extends HttpServlet {
                     .forward(req, resp);
             return;
         }
-
+        ProfileDatastore.delete(taker);
         Profile profiles = new Profile(age, taker, gender);
         boolean ret = ProfileDatastore.add(profiles);
 //        if (ret) {

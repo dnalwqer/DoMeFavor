@@ -115,12 +115,13 @@ public class FragmentHistory extends Fragment {
                 listview1.setAdapter(adapter1);
                 listview2.setAdapter(adapter2);
 
-                listview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(getActivity(), InfoActivity.class);
                         Bundle mbundle = new Bundle();
-                        mbundle.putString("ID", list2.get(position).getTaskID());
+                        mbundle.putString("ID", list1.get(position).getTaskID());
+                        intent.putExtras(mbundle);
                         startActivity(intent);
                     }
                 });

@@ -53,6 +53,20 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
 
     private int mSize = 0;
 
+    public Fragment getFragment(int id){
+        switch(id){
+            case 0:
+                return mFirstFragment;
+            case 1:
+                return mSecondFragment;
+            case 2:
+                return mThirdFragment;
+            case 3:
+                return mFourthFragment;
+        }
+        return null;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,7 +191,7 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
 
                     case VIEW_THIRD:
                         if(null == mThirdFragment)
-                            mThirdFragment = new FragmentTaskList();
+                            mThirdFragment = new FragmentMap();
                         return mThirdFragment;
 
                     case VIEW_FOURTH:
@@ -360,4 +374,5 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
             return null;
         }
     }
+
 }

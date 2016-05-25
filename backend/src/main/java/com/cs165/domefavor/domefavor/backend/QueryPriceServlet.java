@@ -39,10 +39,11 @@ public class QueryPriceServlet extends HttpServlet {
             JSONObject cur = new JSONObject();
             try {
                 cur.put("price", price.price);
-                Profile profile = ProfileDatastore.query(price.taker).get(0);
+                ArrayList<Profile> list = ProfileDatastore.query(price.taker);
+                Profile profile = list == null & list.size() == 0 ? new Profile("N/A", "N/A", "N/A") : list.get(0);
                 cur.put("age", profile.age);
                 cur.put("gender", profile.gender);
-                cur.put("personID", profile.email);
+//                cur.put("personID", profile.email);
                 cur.put("id", price.id);
                 cur.put("personID", price.taker);
             } catch (JSONException e) {
