@@ -1,7 +1,9 @@
 package com.cs165.domefavor.domefavor;
 
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -29,13 +32,16 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
+import java.util.List;
+
 /**
  * Created by xuehanyu on 5/23/16.
  */
-public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClickListener {
+public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClickListener, View.OnClickListener {
     private MapView mapView;
     private GoogleMap map;
     private boolean firstTime = true;
+    private static LatLng loc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,7 +76,10 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
             e.printStackTrace();
         }
 
+
         map.setOnInfoWindowClickListener(this);
+        Button botton = (Button)v.findViewById(R.id.mapRefreshButton);
+        botton.setOnClickListener(this);
 //        Location loc = map.getMyLocation();
 //        // Updates the location and zoom of the MapView
 //        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 10);
@@ -99,13 +108,12 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
     private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
         @Override
         public void onMyLocationChange(Location location) {
-            LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
- //           mMarker = map.addMarker(new MarkerOptions().position(loc));
+            loc = new LatLng(location.getLatitude(), location.getLongitude());
             if(map != null){
                 if(firstTime) {
                     firstTime = false;
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
-                    map.addMarker(new MarkerOptions().position(new LatLng(loc.latitude - 5, loc.longitude - 5)).title("hehehe").snippet("hahaha"));
+                    addMarker();
                 }else
                     map.animateCamera(CameraUpdateFactory.newLatLng(loc));
             }
@@ -116,5 +124,25 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
     public void onInfoWindowClick(Marker marker) {
         //This will fire when you click the annotation view
         marker.showInfoWindow();
+    }
+
+    public void addMarker(){
+        List<TaskItem> tasks = FragmentTaskList.getAllTask();
+        Log.d("XUEMAP", tasks.size() + "");
+        for(int i = 0 ; i < tasks.size() ; ++i){
+            TaskItem task = tasks.get(i);
+            map.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(task.getLatitude()), Double.parseDouble(task.getLongitude())))
+                    .title(task.getTaskName()).snippet(task.getContent()));
+        }
+    }
+
+    public LatLng getLatLng(){
+        return loc;
+    }
+
+    public void onClick(View v){
+        MainActivity_v2 parent = (MainActivity_v2)getActivity();
+        FragmentTaskList fragmentTaskList = (FragmentTaskList)parent.getFragment(1);
+        fragmentTaskList.onRefresh();
     }
 }

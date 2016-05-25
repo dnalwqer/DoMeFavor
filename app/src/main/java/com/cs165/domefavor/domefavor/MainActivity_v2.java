@@ -53,6 +53,20 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
 
     private int mSize = 0;
 
+    public Fragment getFragment(int id){
+        switch(id){
+            case 0:
+                return mFirstFragment;
+            case 1:
+                return mSecondFragment;
+            case 2:
+                return mThirdFragment;
+            case 3:
+                return mFourthFragment;
+        }
+        return null;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +94,8 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity_v2.this, "Center Btn is Clicked.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent (MainActivity_v2.this, NewTaskActivity.class);
+                startActivity(intent);
             }
         });
         mSize = getResources().getDimensionPixelSize(R.dimen.weibo_tab_size);
@@ -165,7 +181,7 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
                 switch (position){
                     case  VIEW_FIRST:
                         if(null == mFirstFragment)
-                            mFirstFragment = new FragmentNewTask();
+                            mFirstFragment = new FragmentTaskList();
                         return mFirstFragment;
 
                     case VIEW_SECOND:
@@ -199,13 +215,13 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
             if(position >= 0 && position < VIEW_SIZE){
                 switch (position){
                     case  VIEW_FIRST:
-                        return  "first";
+                        return  "Home";
                     case  VIEW_SECOND:
-                        return  "second";
+                        return  "List";
                     case  VIEW_THIRD:
-                        return  "third";
+                        return  "Map";
                     case  VIEW_FOURTH:
-                        return  "fourth";
+                        return  "Profile";
                     default:
                         break;
                 }
@@ -358,4 +374,5 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
             return null;
         }
     }
+
 }
