@@ -21,10 +21,6 @@ import android.support.design.widget.FloatingActionButton;
 
 import java.util.ArrayList;
 
-//import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
-
 /**
  *
  * Created by Jilai Zhou on 5/19/2016.

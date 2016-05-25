@@ -28,10 +28,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:support-v13:23.0.0'
     compile 'com.google.android.gms:play-services-auth:8.4.0'
-    compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     compile 'com.android.support:design:23.4.0'
     compile 'homhomlin.lib:apsts:1.4.0'
-
 }
 
 apply plugin: 'com.google.gms.google-services'

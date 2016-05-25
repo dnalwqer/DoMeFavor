@@ -38,6 +38,9 @@ public class TaskItem {
         this.status = status;
     }
 
+    TaskItem(){
+    }
+
     void setStatus(String status) { this.status = status; }
     void setPersonID(String personID){
         this.personID = personID;
