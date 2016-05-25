@@ -1,10 +1,11 @@
 package com.cs165.domefavor.domefavor;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,35 +34,11 @@ public class InfoActivity extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.price_list);
         list = new ArrayList<>();
 
-        adapter = new PriceAdapter(this, list);
-        listview.setAdapter(adapter);
-
         Intent intent = getIntent();
         Bundle mbundle = intent.getExtras();
+
         taskID = mbundle.getString("ID");
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                new AlertDialog.Builder(getApplicationContext())
-                        .setTitle("Accept")
-                        .setMessage("Do you want to accept this offer?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-                finish();
-            }
-        });
+        new getPriceTask().execute(taskID);
     }
 
     class PriceAdapter extends BaseAdapter {
@@ -96,14 +73,62 @@ public class InfoActivity extends AppCompatActivity {
                 convertView = layoutInflater.inflate(R.layout.priceitem_layout, null);
             }
 
-            TextView textView1 = (TextView) findViewById(R.id.price_list_name);
-            TextView textView2 = (TextView) findViewById(R.id.price_list_email);
-            TextView textView3 = (TextView) findViewById(R.id.price_list_price);
+            TextView textView1 = (TextView) convertView.findViewById(R.id.price_list_name);
+            TextView textView2 = (TextView) convertView.findViewById(R.id.price_list_email);
+            TextView textView3 = (TextView) convertView.findViewById(R.id.price_list_price);
 
             textView1.setText("ID:" + list.get(position).getPersonID());
             textView2.setText("Age: " + list.get(position).getAge());
-            textView3.setText("Price" + list.get(position).getPrice());
+            textView3.setText("Price: " + list.get(position).getPrice());
             return convertView;
         }
+    }
+
+    class getPriceTask extends AsyncTask<String, Void, List<PriceItem>> {
+        @Override
+        protected List<PriceItem> doInBackground(String... ID) {
+            List<PriceItem> items = null;
+            try {
+                items = Server.getAllPrice(ID[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return items;
+        }
+
+        @Override
+        protected void onPostExecute(List<PriceItem> items) {
+            if (items != null) {
+                for (int i = 0; i < items.size(); i++) {
+                    list.add(items.get(i));
+                }
+                adapter = new PriceAdapter(getApplicationContext(), list);
+                listview.setAdapter(adapter);
+                displayAdpater();
+            }
+        }
+    }
+
+    public void displayAdpater() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                new AlertDialog.Builder(InfoActivity.this)
+                        .setTitle("Accept")
+                        .setMessage("Do you want to accept this offer?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
     }
 }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,15 +22,21 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import info.hoang8f.android.segmented.SegmentedGroup;
+
 /**
  *
  * Created by Jilai Zhou on 5/19/2016.
  */
-public class FragmentProfile extends Fragment implements FloatingLabelEditText.EditTextListener, View.OnClickListener {
+public class FragmentProfile extends Fragment implements FloatingLabelEditText.EditTextListener, View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     private TextView name, email;
     private ImageView image;
     private Button save, cancel;
+    private Bundle mbundle;
+    private SegmentedGroup segment;
+    private String gender = "Male";
+    private String age = "18";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +48,7 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         Intent intent = getActivity().getIntent();
-        Bundle mbundle = intent.getExtras();
+        mbundle = intent.getExtras();
 
         name = (TextView) view.findViewById(R.id.profile_name);
         name.setText(mbundle.getString("Name"));
@@ -57,10 +64,10 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
             image.setImageResource(R.drawable.default_profile);
         }
 
+        segment = (SegmentedGroup) view.findViewById(R.id.segment);
+        segment.setOnCheckedChangeListener(this);
         save = (Button) view.findViewById(R.id.saveprofile);
-        cancel = (Button) view.findViewById(R.id.cancelprofile);
         save.setOnClickListener(this);
-        cancel.setOnClickListener(this);
 
         ((FloatingLabelEditText) view.findViewById(R.id.edit_text2)).setEditTextListener(this);
         return view;
@@ -68,17 +75,51 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
 
     @Override
     public void onTextChanged(FloatingLabelEditText source, String text) {
-        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+        age = text;
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.saveprofile) {
 
+            PriceItem item = new PriceItem(0.0, mbundle.getString("Email"), age, gender);
+            new saveProfileTask().execute(item);
         }
-        else if (v.getId() == R.id.cancelprofile) {
+    }
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.segmentbutton1:
+                gender = "Male";
+                break;
+            case R.id.segmentbutton2:
+                gender = "Female";
+                break;
+            case R.id.segmentbutton3:
+                gender = "Unknown";
+                break;
+            default:
         }
+    }
+
+    class saveProfileTask extends AsyncTask<PriceItem, Void, Void> {
+        @Override
+        protected Void doInBackground(PriceItem... params) {
+            try {
+                Server.saveProfile(params[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Toast.makeText(getActivity(), "Saved successfully", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     class downloadTask extends AsyncTask<String, Void, Uri> {
