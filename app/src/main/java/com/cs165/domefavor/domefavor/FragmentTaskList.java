@@ -30,13 +30,13 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
  * Created by Jilai Zhou on 5/19/2016.
  */
 public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout.OnRefreshListener,
-        LoaderManager.LoaderCallbacks<ArrayList<TaskItem>>, View.OnClickListener{
+        LoaderManager.LoaderCallbacks<ArrayList<TaskItem>>{
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ListView mListView;
     private TaskListAdapter mTaskListAdapter;
     private View view;
     private FloatingActionButton mFAB;
-    private ArrayList<TaskItem> mTaskItemList;
+    private static ArrayList<TaskItem> mTaskItemList;
 
 
     public void onCreate(Bundle mBundle){
@@ -55,10 +55,14 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
         mTaskListAdapter = new TaskListAdapter(getActivity());
         mListView.setAdapter(mTaskListAdapter);
 
-        mFAB = (FloatingActionButton)view.findViewById(R.id.fab);
-        setupFAB();
+//        mFAB = (FloatingActionButton)view.findViewById(R.id.fab);
+//        setupFAB();
         getLoaderManager().initLoader(0, null, this);
         return view;
+    }
+
+    public static ArrayList<TaskItem> getAllTask (){
+        return mTaskItemList;
     }
 
     @Override
@@ -78,6 +82,7 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
             mSwipeRefreshLayout.setRefreshing(false);
         }
         mTaskListAdapter.clear();
+        mTaskItemList = data;
         mTaskListAdapter.addAll(data);
         mTaskListAdapter.notifyDataSetChanged();
     }
@@ -86,47 +91,26 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
     public void onLoaderReset(android.support.v4.content.Loader<ArrayList<TaskItem>> loader) {
         mTaskListAdapter.clear();
     }
+
+//    private void setupFAB(){
+//        ImageView iconSortName = new ImageView(getActivity());
+//        iconSortName.setImageResource(R.drawable.ic_action_alphabets);
 //
-//    @Override
-//    public Loader<ArrayList<TaskItem>> onCreateLoader(int id, Bundle args) {
-//        return new TaskListLoader(getActivity());
+//        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(getActivity());
+//        itemBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.selector_sub_button_gray));
+//
+//        SubActionButton buttonSortName = itemBuilder.setContentView(iconSortName).build();
+//        buttonSortName.setTag("TEST");
+//        buttonSortName.setOnClickListener(this);
+//
+//        FloatingActionMenu mFABMenu = new FloatingActionMenu.Builder(getActivity())
+//                .addSubActionView(buttonSortName)
+//                .attachTo(mFAB)
+//                .build();
+//
+//
 //    }
-//    @Override
-//    public void onLoadFinished(Loader<ArrayList<TaskItem>> loader, ArrayList<TaskItem> data) {
-//
-//    }
-//
-//    @Override
-//    public void onLoaderReset(Loader<ArrayList<TaskItem>> loader) {
-//
-//    }
 
-    private void setupFAB(){
-        ImageView iconSortName = new ImageView(getActivity());
-        iconSortName.setImageResource(R.drawable.ic_action_alphabets);
-
-        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(getActivity());
-        itemBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.selector_sub_button_gray));
-
-        SubActionButton buttonSortName = itemBuilder.setContentView(iconSortName).build();
-        buttonSortName.setTag("TEST");
-        buttonSortName.setOnClickListener(this);
-
-        FloatingActionMenu mFABMenu = new FloatingActionMenu.Builder(getActivity())
-                .addSubActionView(buttonSortName)
-                .attachTo(mFAB)
-                .build();
-
-
-    }
-
-    /**
-     * onClick method for SubActionButton in Floating Action Button
-     */
-    @Override
-    public void onClick(View v) {
-
-    }
 
     //ListAdapter may use Weiqiang's class.
     public class TaskListAdapter extends ArrayAdapter<TaskItem> {

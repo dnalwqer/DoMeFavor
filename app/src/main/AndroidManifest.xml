@@ -41,7 +41,11 @@
         </activity>
 
         <activity android:name=".SignInActivity" />
-        <activity android:name=".InfoActivity"></activity>
+        <activity android:name=".InfoActivity">
+        </activity>
+        <activity android:name=".NewTaskActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
     </application>
 
 </manifest>

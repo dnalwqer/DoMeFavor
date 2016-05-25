@@ -9,4 +9,6 @@
 
     <color name="btn_bg_pressed_color">#ffacac</color>
     <color name="btn_bg_color">#ff5959</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#20000000</color>
 </resources>

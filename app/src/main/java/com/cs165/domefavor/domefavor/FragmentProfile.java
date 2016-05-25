@@ -77,7 +77,7 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
 
         }
         else if (v.getId() == R.id.cancelprofile) {
-            
+
         }
     }
 

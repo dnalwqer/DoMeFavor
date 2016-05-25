@@ -43,10 +43,20 @@ public class QueryTaskServlet extends HttpServlet {
 				} else if (ob.has("personID")) {
 					email = ob.getString("personID");
 					result = ContactDatastore.queryname(email);
+					JSONArray finalResult = new JSONArray();
+					for(Contact task: result){
+						finalResult.put(taskConstruct(task));
+					}
+
 					ArrayList<Price> list = PriceDatastore.queryEmail(email);
 					for(Price cur : list){
-						result.addAll(ContactDatastore.queryid(cur.id));
+						finalResult.put(bidConstruct(ContactDatastore.queryid(cur.id).get(0)));
 					}
+
+					resp.setContentType("text");
+					resp.setCharacterEncoding("UTF-8");
+					resp.getWriter().write(finalResult.toString());
+					return;
 				} else result = ContactDatastore.query("");
 			}
 		} catch (JSONException e) {
@@ -86,5 +96,41 @@ public class QueryTaskServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		doGet(req, resp);
+	}
+
+	public JSONObject taskConstruct(Contact task){
+		JSONObject cur = new JSONObject();
+		try {
+			cur.put("taskName", task.taskName);
+			cur.put("content",task.content);
+			cur.put("time",task.time);
+			cur.put("taskID",task.id);
+			cur.put("latitude", task.lat);
+			cur.put("longitude",task.lng);
+			cur.put("personID",task.poster);
+			cur.put("price",task.price);
+			cur.put("status","post");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return cur;
+	}
+
+	public JSONObject bidConstruct(Contact task){
+		JSONObject cur = new JSONObject();
+		try {
+			cur.put("taskName", task.taskName);
+			cur.put("content",task.content);
+			cur.put("time",task.time);
+			cur.put("taskID",task.id);
+			cur.put("latitude", task.lat);
+			cur.put("longitude",task.lng);
+			cur.put("personID",task.poster);
+			cur.put("price",task.price);
+			cur.put("status","take");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return cur;
 	}
 }

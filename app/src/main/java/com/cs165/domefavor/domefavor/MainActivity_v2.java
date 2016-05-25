@@ -80,6 +80,8 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity_v2.this, "Center Btn is Clicked.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent (MainActivity_v2.this, NewTaskActivity.class);
+                startActivity(intent);
             }
         });
         mSize = getResources().getDimensionPixelSize(R.dimen.weibo_tab_size);
@@ -199,11 +201,11 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
             if(position >= 0 && position < VIEW_SIZE){
                 switch (position){
                     case  VIEW_FIRST:
-                        return  "Tasks";
+                        return  "Home";
                     case  VIEW_SECOND:
-                        return  "Map";
+                        return  "List";
                     case  VIEW_THIRD:
-                        return  "History";
+                        return  "Map";
                     case  VIEW_FOURTH:
                         return  "Profile";
                     default:
