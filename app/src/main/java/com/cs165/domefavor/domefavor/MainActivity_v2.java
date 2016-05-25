@@ -181,7 +181,7 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
                 switch (position){
                     case  VIEW_FIRST:
                         if(null == mFirstFragment)
-                            mFirstFragment = new FragmentTaskList();
+                            mFirstFragment = new FragmentHistory();
                         return mFirstFragment;
 
                     case VIEW_SECOND:

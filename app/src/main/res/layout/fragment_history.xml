@@ -1,0 +1,30 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cs165.domefavor.domefavor.HistoryFragment">
+
+    <LinearLayout android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Tasks posted: "/>
+            <ListView
+                android:layout_height="170dp"
+                android:layout_width="match_parent"
+                android:id="@+id/profile_list_1">
+            </ListView>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Tasks bid: "/>
+            <ListView
+                android:layout_height="170dp"
+                android:layout_width="match_parent"
+                android:id="@+id/profile_list_2">
+            </ListView>
+    </LinearLayout>
+
+</FrameLayout>
