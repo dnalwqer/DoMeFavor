@@ -17,12 +17,6 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-/**
- *
- *
- * @author lwq
- *
- */
 public class Mail {
 
     public static void sendEmail(String receiver, String subject, String content) throws MessagingException {
@@ -30,7 +24,7 @@ public class Mail {
 
             String msg ="email text....";
             final String from ="gaixuetong@163.com";
-            final  String password ="13805313623a";
+            final  String password ="";
 
 
             Properties props = new Properties();
