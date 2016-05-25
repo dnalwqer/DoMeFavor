@@ -165,7 +165,7 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
                 switch (position){
                     case  VIEW_FIRST:
                         if(null == mFirstFragment)
-                            mFirstFragment = new FragmentNewTask();
+                            mFirstFragment = new FragmentHistory();
                         return mFirstFragment;
 
                     case VIEW_SECOND:
@@ -199,13 +199,13 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
             if(position >= 0 && position < VIEW_SIZE){
                 switch (position){
                     case  VIEW_FIRST:
-                        return  "first";
+                        return  "Tasks";
                     case  VIEW_SECOND:
-                        return  "second";
+                        return  "Map";
                     case  VIEW_THIRD:
-                        return  "third";
+                        return  "History";
                     case  VIEW_FOURTH:
-                        return  "fourth";
+                        return  "Profile";
                     default:
                         break;
                 }

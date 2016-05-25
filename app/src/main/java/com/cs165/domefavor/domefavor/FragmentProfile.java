@@ -1,47 +1,39 @@
 package com.cs165.domefavor.domefavor;
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.marvinlabs.widget.floatinglabel.edittext.FloatingLabelEditText;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * Created by Jilai Zhou on 5/19/2016.
  */
-public class FragmentProfile extends Fragment {
+public class FragmentProfile extends Fragment implements FloatingLabelEditText.EditTextListener, View.OnClickListener {
 
     private TextView name, email;
-    private ListView listview1, listview2;
-    private MyAdapter adapter1, adapter2;
-    private ArrayList<TaskItem> list1, list2;
     private ImageView image;
+    private Button save, cancel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        list1 = new ArrayList<>();
-        TaskItem item = new TaskItem("","buy","-70.970479","41.613032",new java.util.Date().toString(), "good", 12.3, "dart", "");
-        list1.add(item);
-        list2 = new ArrayList<>();
-        list2.add(item);
     }
 
     //inflate the fragment in the UI
@@ -65,65 +57,27 @@ public class FragmentProfile extends Fragment {
             image.setImageResource(R.drawable.default_profile);
         }
 
+        save = (Button) view.findViewById(R.id.saveprofile);
+        cancel = (Button) view.findViewById(R.id.cancelprofile);
+        save.setOnClickListener(this);
+        cancel.setOnClickListener(this);
 
-        listview1 = (ListView) view.findViewById(R.id.profile_list_1);
-        listview2 = (ListView) view.findViewById(R.id.profile_list_2);
-
-        adapter1 = new MyAdapter(getActivity(), list1);
-        adapter2 = new MyAdapter(getActivity(), list2);
-        listview1.setAdapter(adapter1);
-        listview2.setAdapter(adapter2);
-
-        listview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), InfoActivity.class);
-                Bundle mbundle = new Bundle();
-                mbundle.putString("ID", list2.get(position).getTaskID());
-                startActivity(intent);
-            }
-        });
+        ((FloatingLabelEditText) view.findViewById(R.id.edit_text2)).setEditTextListener(this);
         return view;
     }
 
-    class MyAdapter extends BaseAdapter {
-        public Context context;
-        public List<TaskItem> list;
-        private LayoutInflater layoutInflater;
-        public MyAdapter(Context context, List<TaskItem> list) {
-            this.context = context;
-            this.list = list;
-            layoutInflater = LayoutInflater.from(this.context);
+    @Override
+    public void onTextChanged(FloatingLabelEditText source, String text) {
+        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.saveprofile) {
+
         }
-
-
-        @Override
-        public int getCount() {
-            return list.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return list.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = layoutInflater.inflate(R.layout.item_layout, null);
-            }
-
-            TextView textview1 = (TextView) convertView.findViewById(R.id.profile_task_name);
-            TextView textview2 = (TextView) convertView.findViewById(R.id.profile_task);
-
-            textview1.setText(list.get(position).getTaskName());
-            textview2.setText(list.get(position).getContent());
-            return convertView;
+        else if (v.getId() == R.id.cancelprofile) {
+            
         }
     }
 
