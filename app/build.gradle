@@ -10,7 +10,13 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -31,6 +37,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:8.4.0'
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     compile 'com.android.support:design:23.4.0'
+    compile 'com.google.android.gms:play-services:8.4.0'
     compile 'homhomlin.lib:apsts:1.4.0'
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.marvinlabs:android-floatinglabel-widgets:1.6.1@aar'
