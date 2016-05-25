@@ -32,6 +32,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +42,8 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
     private MapView mapView;
     private GoogleMap map;
     private boolean firstTime = true;
-    private static LatLng loc;
+    private LatLng loc;
+    private List<Marker> markerList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -128,11 +130,15 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
 
     public void addMarker(){
         List<TaskItem> tasks = FragmentTaskList.getAllTask();
-        Log.d("XUEMAP", tasks.size() + "");
+        for(int i = 0 ; i < markerList.size() ; ++i){
+            markerList.get(i).remove();
+        }
+
         for(int i = 0 ; i < tasks.size() ; ++i){
             TaskItem task = tasks.get(i);
-            map.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(task.getLatitude()), Double.parseDouble(task.getLongitude())))
-                    .title(task.getTaskName()).snippet(task.getContent()));
+            Marker m = map.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(task.getLatitude()), Double.parseDouble(task.getLongitude())))
+                    .title(task.getTaskName()).snippet(task.getContent()).alpha(0.7f));
+            markerList.add(m);
         }
     }
 
