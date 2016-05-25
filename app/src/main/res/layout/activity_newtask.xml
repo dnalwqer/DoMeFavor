@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:orientation="vertical"
@@ -10,57 +11,83 @@
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/task_name"/>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/task_name"/>-->
 
-        <EditText
+        <!--<EditText-->
+            <!--android:id="@+id/editTaskName"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:hint="@string/task_name_hint"-->
+            <!--android:inputType="text"-->
+            <!--android:singleLine="true">-->
+        <!--</EditText>-->
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/task_detail"/>-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/editTaskDetail"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:hint="@string/task_detail_hint"-->
+            <!--android:inputType="textMultiLine"-->
+            <!--android:scrollbars="vertical"-->
+            <!--android:lines="8">-->
+        <!--</EditText>-->
+        <com.marvinlabs.widget.floatinglabel.edittext.FloatingLabelEditText
             android:id="@+id/editTaskName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:hint="@string/task_name_hint"
-            android:inputType="text"
-            android:singleLine="true">
-        </EditText>
+            android:layout_margin="15dp"
+            app:flw_labelText="Task Name"
+            app:flw_labelTextColor="@android:color/holo_blue_dark"
+            app:flw_inputWidgetTextColor="@android:color/holo_green_dark"
+            app:flw_labelTextSize="20sp"
+            app:flw_inputWidgetTextSize="26sp"
+            />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/task_detail"/>
-
-        <EditText
+        <com.marvinlabs.widget.floatinglabel.edittext.FloatingLabelEditText
             android:id="@+id/editTaskDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:hint="@string/task_detail_hint"
-            android:inputType="textMultiLine"
-            android:scrollbars="vertical"
-            android:lines="8">
-        </EditText>
+            android:layout_margin="15dp"
+            app:flw_labelText="Task Details"
+            app:flw_labelTextColor="@android:color/holo_blue_dark"
+            app:flw_inputWidgetTextColor="@android:color/holo_green_dark"
+            app:flw_labelTextSize="20sp"
+            app:flw_inputWidgetTextSize="26sp"
 
-        <Button
-            android:id="@+id/editTaskTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/task_time"
-            android:background="@android:color/transparent"
             />
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/task_address" />
+            android:layout_height="40dp"
+            android:layout_margin="15dp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editTaskAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/task_address_hint"
-            android:layout_margin="5dp"
-            android:inputType="text" />
+            <TextView
+                android:id="@+id/timeView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="20sp"
+                />
+
+            <Button
+                android:id="@+id/editTaskTime"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:scaleType="centerInside"
+                android:layout_marginRight="20dp"
+                />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

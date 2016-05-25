@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.marvinlabs.widget.floatinglabel.edittext.FloatingLabelEditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,12 +23,14 @@ import java.util.Locale;
  *
  * Created by Jilai Zhou on 5/23/2016.
  */
-public class NewTaskActivity extends AppCompatActivity {
+public class NewTaskActivity extends AppCompatActivity implements FloatingLabelEditText.EditTextListener {
     private static final String TAG = "NTAct";
 
     private TaskItem mTask;
     private String mTime;
     private Calendar mCalendar;
+    private FloatingLabelEditText nameTextBox, detailTextBox;
+    private TextView timeText;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -35,6 +41,16 @@ public class NewTaskActivity extends AppCompatActivity {
         Button postBtn = (Button) findViewById(R.id.postButton);
         Button resetBtn = (Button) findViewById(R.id.resetButton);
 
+        nameTextBox = (FloatingLabelEditText) findViewById(R.id.editTaskName);
+        nameTextBox.setEditTextListener(this);
+        detailTextBox = (FloatingLabelEditText) findViewById(R.id.editTaskDetail);
+        detailTextBox.setEditTextListener(this);
+
+        //display current time
+        timeText = (TextView)findViewById(R.id.timeView);
+        mCalendar = Calendar.getInstance();
+        getTimeStr();
+        editTimeBtn.setBackgroundResource(R.drawable.ic_small_time_change);
 
         editTimeBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -65,10 +81,13 @@ public class NewTaskActivity extends AppCompatActivity {
     }
 
     private void clearTextbox(){
-        EditText nameTextBox = (EditText) findViewById(R.id.editTaskName);
-        EditText detailTextBox = (EditText) findViewById(R.id.editTaskDetail);
-        nameTextBox.setText("");
-        detailTextBox.setText("");
+        nameTextBox.setInputWidgetText("");
+        detailTextBox.setInputWidgetText("");
+        nameTextBox.setLabelText("Task Name");
+        detailTextBox.setLabelText("Task Details");
+        mCalendar = Calendar.getInstance();
+        getTimeStr();
+
     }
 
     public void callTimeDialog(){
@@ -85,11 +104,18 @@ public class NewTaskActivity extends AppCompatActivity {
         mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         mCalendar.set(Calendar.MINUTE, minute);
         mCalendar.set(Calendar.SECOND, 0);
+        getTimeStr();
     }
 
-    private void setupTime(){
+    private void getTimeStr(){
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss MMM dd yyyy", Locale.US);
         mTime = sdf.format(mCalendar.getTime());
+        timeText.setText(mTime);
     }
 
+    @Override
+    public void onTextChanged(FloatingLabelEditText source, String text) {
+//        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+//
+    }
 }
