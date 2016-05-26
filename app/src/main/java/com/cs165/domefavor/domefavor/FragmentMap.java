@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -67,7 +68,7 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
 
 
         map.setOnInfoWindowClickListener(this);
-        Button botton = (Button)v.findViewById(R.id.mapRefreshButton);
+        ImageButton botton = (ImageButton)v.findViewById(R.id.mapRefreshButton);
         botton.setOnClickListener(this);
 //        Location loc = map.getMyLocation();
 //        // Updates the location and zoom of the MapView

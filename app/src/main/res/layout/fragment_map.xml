@@ -9,17 +9,18 @@
         android:layout_height="match_parent">
     </com.google.android.gms.maps.MapView>
 
-    <Button
+    <ImageButton
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:layout_alignParentRight="true"
         android:layout_gravity="top"
-        android:text="R"
-        android:padding="1dp"
+        android:src="@drawable/refresh_map"
+        android:drawablePadding="1dp"
+        android:padding="7dp"
         android:id = "@+id/mapRefreshButton"
+        android:scaleType="fitCenter"
         android:layout_marginTop="50dp"
         android:layout_marginRight="12dp"
-        android:paddingRight="1dp"
         android:background="#c8ffffff"/>
 
 </RelativeLayout>
