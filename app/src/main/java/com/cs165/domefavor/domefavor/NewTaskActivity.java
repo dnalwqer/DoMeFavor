@@ -71,10 +71,10 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
 
         postBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                LatLng loc = FragmentMap.getLatLng();
+                LatLng loc = FragmentMap.getLatLng();
 
-                mTask.setLongitude(""+-72.2862464);
-                mTask.setLatitude(""+43.7089025);
+                mTask.setLongitude(""+loc.longitude);
+                mTask.setLatitude(""+loc.latitude);
                 postTask();
                 finish();
                 Log.d(TAG, "post something");
@@ -94,7 +94,7 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
 //        Log.d(TAG, "" + nameTextBox.getInputWidgetText());
         mTask.setTaskName("" + nameTextBox.getInputWidgetText());
         mTask.setContent("" + detailTextBox.getInputWidgetText());
-        mTask.setPrice(Integer.parseInt("" + priceTextBox.getInputWidgetText()));
+        mTask.setPrice(Double.parseDouble("" + priceTextBox.getInputWidgetText()));
 
 
         new postTaskAsyncTask().execute();

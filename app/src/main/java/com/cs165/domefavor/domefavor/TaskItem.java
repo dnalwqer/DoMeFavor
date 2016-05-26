@@ -78,7 +78,7 @@ public class TaskItem {
         this.content = content;
     }
 
-    void setPrice(int price){
+    void setPrice(double price){
         this.price = price;
     }
 

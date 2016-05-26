@@ -79,7 +79,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
             if (data.get(i).getStatus().equals("post")) {
                 list1.add(data.get(i));
             }
-            else if (data.get(i).getStatus().equals("post")) {
+            else if (data.get(i).getStatus().equals("take")) {
                 list2.add(data.get(i));
             }
         }

@@ -115,7 +115,7 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
         mTaskItemList = data;
         mExpandableListItemAdapter.addAll(data);
         mExpandableListItemAdapter.notifyDataSetChanged();
-//        ((FragmentMap) currMapFragment).addMarker(mTaskItemList);
+        ((FragmentMap) currMapFragment).addMarker(mTaskItemList);
     }
 
     @Override
