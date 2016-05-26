@@ -128,8 +128,8 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
         marker.showInfoWindow();
     }
 
-    public void addMarker(){
-        List<TaskItem> tasks = FragmentTaskList.getAllTask();
+    public void addMarker(ArrayList<TaskItem> list){
+        List<TaskItem> tasks = list;
         for(int i = 0 ; i < markerList.size() ; ++i){
             markerList.get(i).remove();
         }

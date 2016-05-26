@@ -38,6 +38,7 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
     private static ArrayList<TaskItem> mTaskItemList;
     private MyExpandableListItemAdapter mExpandableListItemAdapter;
     private LatLng mLocation;
+    private Fragment currMapFragment;
     private static final int INITIAL_DELAY_MILLIS = 500;
 
     public void onCreate(Bundle mBundle){
@@ -65,8 +66,7 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
         mListView.setDivider(null);
         mListView.setDividerHeight(0);;
 
-        getLoaderManager().initLoader(0, null, this);
-//        mLocation =((FragmentMap) ((MainActivity_v2) getActivity()).getFragment(2)).getLatLng();
+        currMapFragment =((MainActivity_v2) getActivity()).getFragment(2);
 //        Log.d("loc", ""+mLocation.latitude +" : " +mLocation.longitude);
 
         return view;
@@ -78,7 +78,7 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
     }
 
     public void refreshData(LatLng loc){
-//        mLocation = loc;
+        mLocation = loc;
         getLoaderManager().initLoader(0, null, this);
     }
 
@@ -86,6 +86,7 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
     public void onRefresh() {
         Log.d("FragTaskList", "I'm on refresh");
         refreshData(mLocation);
+
     }
 
     @Override
@@ -102,6 +103,7 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
         mTaskItemList = data;
         mExpandableListItemAdapter.addAll(data);
         mExpandableListItemAdapter.notifyDataSetChanged();
+        ((FragmentMap) currMapFragment).addMarker(mTaskItemList);
     }
 
     @Override

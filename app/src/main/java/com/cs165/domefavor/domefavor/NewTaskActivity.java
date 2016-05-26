@@ -62,7 +62,8 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
 
         postBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                postTask();
+                postTask();
+                finish();
                 Log.d(TAG, "post something");
             }
         });
@@ -76,7 +77,6 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
     }
     private void postTask(){
         int defaultID = -1;
-        Location loc = Utilities.getLocation(this);
 //        mTaskItem = new TaskItem(defaultID, );
     }
 
