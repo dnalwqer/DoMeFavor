@@ -39,6 +39,14 @@ public class TaskItem {
     }
 
     TaskItem(){
+        taskID = "";
+        taskName = "";
+        this.longitude = "";
+        this.latitude = "";
+        time = "";
+        content = "";
+        this.price = 0;
+        this.personID = "";
     }
 
     void setStatus(String status) { this.status = status; }

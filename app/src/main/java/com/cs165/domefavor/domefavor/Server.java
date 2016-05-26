@@ -1,5 +1,7 @@
 package com.cs165.domefavor.domefavor;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,7 +44,8 @@ public class Server {
         itemJson.put(TaskItem.personIDS, item.getPersonID());
         itemJson.put(TaskItem.statusS, item.getStatus());
 
-        sendData("data="+itemJson.toString(), url);
+        sendData("data=" + itemJson.toString(), url);
+        Log.d("server", itemJson.toString());
     }
 
     public static List<TaskItem> getAllTasks(String longitude, String latitude) throws Exception{
