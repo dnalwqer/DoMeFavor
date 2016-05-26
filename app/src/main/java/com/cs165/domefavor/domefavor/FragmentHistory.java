@@ -92,7 +92,7 @@ public class FragmentHistory extends Fragment {
         protected List<TaskItem> doInBackground(Void... params) {
             List<TaskItem> tasks = null;
             try {
-                tasks = Server.getPersonTasks();
+                tasks = Server.getPersonTasks("123");
             } catch (Exception e) {
                 e.printStackTrace();
             }

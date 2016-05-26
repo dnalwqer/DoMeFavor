@@ -46,7 +46,7 @@ public class test_han extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    List<TaskItem> tasks = Server.getPersonTasks();
+                    List<TaskItem> tasks = Server.getPersonTasks("asd");
                     for (int i = 0; i < tasks.size(); ++i) {
                         System.out.println(tasks.get(i).getTaskID());
                     }
@@ -61,7 +61,7 @@ public class test_han extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Server.changePrice(23.4, "1464050662004buy");
+                    Server.changePrice(23.4, "1464050662004buy","asd");
                 } catch (Exception e) {
                 }
             }
