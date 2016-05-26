@@ -20,7 +20,7 @@ public class test_han extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                TaskItem item = new TaskItem("", "buy", "-70.970479", "41.613032", new java.util.Date().toString(), "good", 12.3,
+                TaskItem item = new TaskItem("", "buy", "-72.2862464", "43.7089025", new java.util.Date().toString(), "good", 12.3,
                         "cs165sp@gmail.com", "");
                 try {
                     Server.saveNewTask(item);
@@ -35,7 +35,7 @@ public class test_han extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Server.getAllTasks("-70.970479", "41.613032");
+                    Server.getAllTasks("-72.2862464", "43.7089025");
                 } catch (Exception e) {}
             }
         }).start();
