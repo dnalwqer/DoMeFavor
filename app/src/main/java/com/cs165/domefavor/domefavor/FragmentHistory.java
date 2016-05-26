@@ -2,6 +2,7 @@ package com.cs165.domefavor.domefavor;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -36,6 +37,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
         Intent intent = getActivity().getIntent();
         Bundle mbundle = intent.getExtras();
         personID = mbundle.getString("Email");
+
     }
 
     //inflate the fragment in the UI

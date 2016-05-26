@@ -16,13 +16,22 @@
 
 package com.cs165.domefavor.domefavor;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
+
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.nhaarman.listviewanimations.itemmanipulation.expandablelistitem.ExpandableListItemAdapter;
@@ -30,15 +39,17 @@ import com.nhaarman.listviewanimations.itemmanipulation.expandablelistitem.Expan
 public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskItem> {
 
     private final Context mContext;
+    private String mID;
 
     /**
      * Creates a new ExpandableListItemAdapter with the specified list, or an empty list if
      * items == null.
      */
-    public MyExpandableListItemAdapter(final Context context) {
+    public MyExpandableListItemAdapter(final Context context, String ID) {
 //        super(context, R.layout.activity_expandablelistitem_card, R.id.activity_expandablelistitem_card_title, R.id.activity_expandablelistitem_card_content);
         super(context);
         mContext = context;
+        mID = ID;
     }
 
     @NonNull
@@ -73,7 +84,7 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
             tv = inflater.inflate(R.layout.activity_expandeditem_card, null);
         }
 
-        TaskItem task = getItem(position);
+        final TaskItem task = getItem(position);
 
         TextView taskNameView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_content_name);
         TextView taskTimeView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_content_time);
@@ -92,9 +103,58 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         bidBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("bid","I'm bidding number " + position);
+                Log.d("bid", "I'm bidding number " + position);
+
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
+                Setup_Dialog_Bid(dialogBuilder, mContext, task).create().show();
+//                if (bidPrice != -1){
+//                    new bidAsyncTask().execute(task.getTaskID());
+//                }
             }
         });
         return tv;
     }
+
+    private AlertDialog.Builder Setup_Dialog_Bid(AlertDialog.Builder builder, Context context, final TaskItem task){
+        final EditText edittext = new EditText(context);
+        edittext.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        builder.setTitle(R.string.dialog_bid_title);
+        builder.setView(edittext);
+
+        //setup positive and negative buttons and add listeners
+        DialogInterface.OnClickListener PositiveButtonListener = new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog,int whichButton) {
+                String bidPriceStr = edittext.getText().toString();
+                String[] params = {bidPriceStr, task.getTaskID()};
+                if (!bidPriceStr.equals("")) {
+//                    Log.d("Bid", bidPriceStr);
+//                    Log.d("Bid", "bid price is " + Double.parseDouble(bidPriceStr));
+                    new bidAsyncTask().execute(params);
+                }
+            }
+        };
+        DialogInterface.OnClickListener NegativeButtonListener = new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog,int whichButton) {
+                edittext.setText("");
+            }
+        };
+        builder.setPositiveButton(R.string.dialog_button_ok, PositiveButtonListener);
+        builder.setNegativeButton(R.string.dialog_button_cancel, NegativeButtonListener);
+        return builder;
+    }
+
+    public class bidAsyncTask extends AsyncTask<String, Void, Void>{
+
+        @Override
+        protected Void doInBackground(String... params) {
+            Log.d("BidAsyncTask", params[0] + " : " + params[1]);
+            try{
+                Server.changePrice(Double.parseDouble(params[0]), params[1] ,mID);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
 }

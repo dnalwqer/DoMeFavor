@@ -62,7 +62,19 @@
             app:flw_inputWidgetTextColor="@android:color/holo_green_dark"
             app:flw_labelTextSize="20sp"
             app:flw_inputWidgetTextSize="26sp"
+            />
 
+        <com.marvinlabs.widget.floatinglabel.edittext.FloatingLabelEditText
+            android:id="@+id/editTaskPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:inputType="number"
+            app:flw_labelText="Offer($)"
+            app:flw_labelTextColor="@android:color/holo_blue_dark"
+            app:flw_inputWidgetTextColor="@android:color/holo_green_dark"
+            app:flw_labelTextSize="20sp"
+            app:flw_inputWidgetTextSize="26sp"
             />
 
         <RelativeLayout

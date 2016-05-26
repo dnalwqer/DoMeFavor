@@ -2,7 +2,9 @@ package com.cs165.domefavor.domefavor;
 
 import android.support.v4.content.AsyncTaskLoader;
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
+
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -24,6 +26,7 @@ public class TaskListLoader extends AsyncTaskLoader <ArrayList<TaskItem>> {
 
     @Override
     public ArrayList<TaskItem> loadInBackground() {
+
 //        return Utilities.createListForTest();
         System.out.println("loadInBackground");
         LatLng loc = FragmentMap.getLatLng();
