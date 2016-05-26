@@ -42,7 +42,7 @@ public class AddPriceServlet extends HttpServlet {
                     .forward(req, resp);
             return;
         }
-
+        PriceDatastore.deletedup(id, taker);
         Price prices = new Price(price, id, taker);
         boolean ret = PriceDatastore.add(prices);
 //        if (ret) {

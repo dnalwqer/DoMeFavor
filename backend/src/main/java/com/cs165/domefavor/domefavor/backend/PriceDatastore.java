@@ -75,6 +75,27 @@ public class PriceDatastore {
         return ret;
     }
 
+    public static boolean deletedup(String taskID, String taker){
+        boolean ret = false;
+        Query query = new Query(Price.Price_ENTITY_NAME);
+        // get every record from datastore, no filter
+        query.setFilter(null);
+        // set query's ancestor to get strong consistency
+        query.setAncestor(getKey());
+
+        PreparedQuery pq = mDatastore.prepare(query);
+
+        for (Entity entity : pq.asIterable()) {
+            Price price = getPriceFromEntity(entity);
+            if (price != null && price.taker.equals(taker) && price.id.equals(taskID)) {
+                mDatastore.delete(entity.getKey());
+                ret = true;
+            }
+        }
+
+        return ret;
+    }
+
     public static void deleteAll(){
         ArrayList<Price> list = query("");
         for(Price cur : list){
