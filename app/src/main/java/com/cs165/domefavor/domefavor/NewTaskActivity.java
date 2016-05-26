@@ -50,7 +50,7 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
         timeText = (TextView)findViewById(R.id.timeView);
         mCalendar = Calendar.getInstance();
         getTimeStr();
-        editTimeBtn.setBackgroundResource(R.drawable.ic_small_time_change);
+        editTimeBtn.setBackgroundResource(R.drawable.ic_time_change);
 
         editTimeBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
