@@ -17,20 +17,14 @@
 package com.cs165.domefavor.domefavor;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.gcm.Task;
 import com.nhaarman.listviewanimations.itemmanipulation.expandablelistitem.ExpandableListItemAdapter;
 
 public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskItem> {
@@ -103,5 +97,4 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         });
         return tv;
     }
-
 }

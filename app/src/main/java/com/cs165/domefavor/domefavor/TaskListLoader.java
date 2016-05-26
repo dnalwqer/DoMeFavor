@@ -2,6 +2,7 @@ package com.cs165.domefavor.domefavor;
 
 import android.support.v4.content.AsyncTaskLoader;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -23,14 +24,22 @@ public class TaskListLoader extends AsyncTaskLoader <ArrayList<TaskItem>> {
 
     @Override
     public ArrayList<TaskItem> loadInBackground() {
-        return Utilities.createListForTest();
-//        LatLng lng = FragmentMap.getLatLng();
-//        ArrayList<TaskItem> tasks = null;
-//        try {
-//             tasks = (ArrayList<TaskItem>)Server.getAllTasks(lng.latitude + "", lng.longitude + "");
-//        }catch(Exception e){
-//            System.out.println(e.getMessage());
-//        }
-//        return tasks;
+//        return Utilities.createListForTest();
+        System.out.println("loadInBackground");
+        LatLng loc = FragmentMap.getLatLng();
+        ArrayList<TaskItem> tasks = new ArrayList<>();
+        if(loc == null){
+            Toast.makeText(getContext(), "Cannot Get Location", Toast.LENGTH_SHORT).show();
+            return tasks;
+        }
+        try {
+            System.out.println(loc.latitude + "   ,   " + loc.longitude);
+            tasks = (ArrayList<TaskItem>)Server.getAllTasks(loc.longitude + "", loc.latitude + "");
+//            tasks = (ArrayList<TaskItem>)Server.getAllTasks("-70.970479", "41.613032");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        System.out.println("TasksSize:"+tasks.size());
+        return tasks;
     }
 }
