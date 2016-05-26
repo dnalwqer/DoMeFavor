@@ -86,7 +86,6 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
     public void onRefresh() {
         Log.d("FragTaskList", "I'm on refresh");
         refreshData(mLocation);
-
     }
 
     @Override
