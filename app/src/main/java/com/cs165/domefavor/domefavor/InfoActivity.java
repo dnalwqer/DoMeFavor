@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class InfoActivity extends AppCompatActivity {
     private ListView listview;
     private PriceAdapter adapter;
     private List<PriceItem> list;
-    private String taskID;
+    private String taskID, personID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class InfoActivity extends AppCompatActivity {
         Bundle mbundle = intent.getExtras();
 
         taskID = mbundle.getString("ID");
+        personID = mbundle.getString("PersonID");
         new getPriceTask().execute(taskID);
     }
 
@@ -118,7 +120,7 @@ public class InfoActivity extends AppCompatActivity {
                         .setMessage("Do you want to accept this offer?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                
+                                new closeTask().execute(taskID, personID);
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -130,5 +132,22 @@ public class InfoActivity extends AppCompatActivity {
                         .show();
             }
         });
+    }
+
+    class closeTask extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... ID) {
+            try {
+                Server.closeOneTask(ID[0], ID[1]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void para) {
+            Toast.makeText(getApplicationContext(), "Close the task successfully", Toast.LENGTH_SHORT).show();
+        }
     }
 }

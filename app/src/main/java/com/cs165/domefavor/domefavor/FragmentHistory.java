@@ -13,6 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +27,14 @@ public class FragmentHistory extends Fragment {
     private ListView listview1, listview2;
     private MyAdapter adapter1, adapter2;
     private ArrayList<TaskItem> list1, list2;
-    private ArrayList<TaskItem> list;
+    private static final int INITIAL_DELAY_MILLIS = 500;
+    private MyExpandableListItemAdapter mExpandableListItemAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         list1 = new ArrayList<>();
         list2 = new ArrayList<>();
-        list = new ArrayList<>();
     }
 
     //inflate the fragment in the UI
@@ -110,10 +112,20 @@ public class FragmentHistory extends Fragment {
                         list2.add(tasks.get(i));
                     }
                 }
-                adapter1 = new MyAdapter(getActivity(), list1);
-                adapter2 = new MyAdapter(getActivity(), list2);
-                listview1.setAdapter(adapter1);
-                listview2.setAdapter(adapter2);
+
+                mExpandableListItemAdapter = new MyExpandableListItemAdapter(getActivity(), list1);
+                AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mExpandableListItemAdapter);
+                alphaInAnimationAdapter.setAbsListView(listview1);
+
+                assert alphaInAnimationAdapter.getViewAnimator() != null;
+                alphaInAnimationAdapter.getViewAnimator().setInitialDelayMillis(INITIAL_DELAY_MILLIS);
+
+                listview1.setAdapter(mExpandableListItemAdapter);
+
+//                adapter1 = new MyAdapter(getActivity(), list1);
+//                adapter2 = new MyAdapter(getActivity(), list2);
+//                listview1.setAdapter(adapter1);
+//                listview2.setAdapter(adapter2);
 
                 listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -121,6 +133,7 @@ public class FragmentHistory extends Fragment {
                         Intent intent = new Intent(getActivity(), InfoActivity.class);
                         Bundle mbundle = new Bundle();
                         mbundle.putString("ID", list1.get(position).getTaskID());
+                        mbundle.putString("PersonID", list1.get(position).getPersonID());
                         intent.putExtras(mbundle);
                         startActivity(intent);
                     }
