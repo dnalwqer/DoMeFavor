@@ -84,17 +84,21 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
 //    }
 
     public void refreshData(){
+
         if (getLoaderManager().getLoader(0)==null)
             getLoaderManager().initLoader(0, null, this);
         else getLoaderManager().restartLoader(0,null,this);
+
     }
 
     @Override
     public void onRefresh() {
         Log.d("FragTaskList", "I'm on refresh");
+
 //        mLocation = ((FragmentMap)currMapFragment).getLatLng();
 //        refreshData(mLocation);
         refreshData();
+
     }
 
     @Override
