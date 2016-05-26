@@ -35,6 +35,7 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
 
     public AdvancedPagerSlidingTabStrip mAPSTS;
     public APSTSViewPager mVP;
+    private String mID;
     private Fragment mFirstFragment = null;
     private Fragment mSecondFragment = null;
     private Fragment mThirdFragment = null;
@@ -74,6 +75,10 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
         findViews();
         init();
 
+        Intent intent = getIntent();
+        Bundle mBundle = intent.getExtras();
+        mID = mBundle.getString("Email");
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -82,6 +87,8 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
     }
+
+
 
     private void findViews(){
         mAPSTS = (AdvancedPagerSlidingTabStrip)findViewById(R.id.tabs);
@@ -95,6 +102,9 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
             public void onClick(View v) {
                 Toast.makeText(MainActivity_v2.this, "Center Btn is Clicked.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent (MainActivity_v2.this, NewTaskActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("Email", mID);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -110,6 +120,8 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
         mVP.setCurrentItem(VIEW_FIRST);
         mAPSTS.showDot(VIEW_FIRST, "99+");
     }
+
+    public String getID(){return mID;}
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

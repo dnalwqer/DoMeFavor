@@ -1,5 +1,6 @@
 package com.cs165.domefavor.domefavor;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
@@ -39,10 +40,14 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
     private MyExpandableListItemAdapter mExpandableListItemAdapter;
     private LatLng mLocation;
     private Fragment currMapFragment;
+    private String mID;
     private static final int INITIAL_DELAY_MILLIS = 500;
 
-    public void onCreate(Bundle mBundle){
-        super.onCreate(mBundle);
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        Intent intent = getActivity().getIntent();
+        Bundle mBundle = intent.getExtras();
+        mID = mBundle.getString("Email");
     }
 
 
@@ -55,7 +60,7 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
 
         mListView = (ListView) view.findViewById(android.R.id.list);
 //        mTaskListAdapter = new TaskListAdapter(getActivity());
-        mExpandableListItemAdapter = new MyExpandableListItemAdapter(getActivity());
+        mExpandableListItemAdapter = new MyExpandableListItemAdapter(getActivity(),mID);
 
         AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mExpandableListItemAdapter);
         alphaInAnimationAdapter.setAbsListView(mListView);
@@ -68,24 +73,28 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
 
         currMapFragment =((MainActivity_v2) getActivity()).getFragment(2);
 //        Log.d("loc", ""+mLocation.latitude +" : " +mLocation.longitude);
+//        getLoaderManager().initLoader(0, null, this);
 
         return view;
 
     }
 
-    public static ArrayList<TaskItem> getAllTask (){
-        return mTaskItemList;
-    }
+//    public static ArrayList<TaskItem> getAllTask (){
+//        return mTaskItemList;
+//    }
 
-    public void refreshData(LatLng loc){
-        mLocation = loc;
-        getLoaderManager().initLoader(0, null, this);
+    public void refreshData(){
+        if (getLoaderManager().getLoader(0)==null)
+            getLoaderManager().initLoader(0, null, this);
+        else getLoaderManager().restartLoader(0,null,this);
     }
 
     @Override
     public void onRefresh() {
         Log.d("FragTaskList", "I'm on refresh");
-        refreshData(mLocation);
+//        mLocation = ((FragmentMap)currMapFragment).getLatLng();
+//        refreshData(mLocation);
+        refreshData();
     }
 
     @Override
@@ -102,38 +111,11 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
         mTaskItemList = data;
         mExpandableListItemAdapter.addAll(data);
         mExpandableListItemAdapter.notifyDataSetChanged();
-        ((FragmentMap) currMapFragment).addMarker(mTaskItemList);
+//        ((FragmentMap) currMapFragment).addMarker(mTaskItemList);
     }
 
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<ArrayList<TaskItem>> loader) {
         mExpandableListItemAdapter.clear();
     }
-
-//    //ListAdapter may use Weiqiang's class.
-//    public class TaskListAdapter extends ArrayAdapter<TaskItem> {
-//        public TaskListAdapter(Context context){
-//            super(context,android.R.layout.two_line_list_item);
-//        }
-//
-//        public View getView(int position, View convertView, ViewGroup parent){
-//            LayoutInflater inflater = (LayoutInflater)getContext()
-//                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//
-//            View listItemView = convertView;
-//            if (convertView==null)
-//                listItemView = inflater.inflate(R.layout.tasklist_single_item, null);
-//
-//            TextView lineOneView = (TextView)listItemView.findViewById(R.id.textview1);
-//            TextView lineTwoView = (TextView)listItemView.findViewById(R.id.textview2);
-//
-//            TaskItem task = getItem(position);
-//
-//            lineOneView.setText(task.getTaskName());
-//            lineTwoView.setText(task.getTime());
-//
-//            return listItemView;
-//        }
-//
-//    }
 }

@@ -26,6 +26,7 @@ public class FragmentHistory extends Fragment {
     private MyAdapter adapter1, adapter2;
     private ArrayList<TaskItem> list1, list2;
     private ArrayList<TaskItem> list;
+    private String mID;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,9 @@ public class FragmentHistory extends Fragment {
         list1 = new ArrayList<>();
         list2 = new ArrayList<>();
         list = new ArrayList<>();
+        Intent intent = getActivity().getIntent();
+        Bundle mBundle = intent.getExtras();
+        mID = mBundle.getString("Email");
     }
 
     //inflate the fragment in the UI
@@ -92,7 +96,7 @@ public class FragmentHistory extends Fragment {
         protected List<TaskItem> doInBackground(Void... params) {
             List<TaskItem> tasks = null;
             try {
-                tasks = Server.getPersonTasks();
+                tasks = Server.getPersonTasks(mID);
             } catch (Exception e) {
                 e.printStackTrace();
             }

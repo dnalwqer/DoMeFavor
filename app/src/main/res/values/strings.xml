@@ -39,6 +39,9 @@
     <string name="header_task_time">Time: </string>
     <string name="header_task_offer">Offer($): </string>
     <string name="header_locatioin">Location: </string>
+    <string name="dialog_bid_title">Reward you need($)</string>
+    <string name="dialog_button_ok">OK</string>
+    <string name="dialog_button_cancel">CANCEL</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

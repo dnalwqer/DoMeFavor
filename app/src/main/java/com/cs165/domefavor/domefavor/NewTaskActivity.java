@@ -1,7 +1,9 @@
 package com.cs165.domefavor.domefavor;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -28,8 +30,9 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
 
     private TaskItem mTask;
     private String mTime;
+    private String mID;
     private Calendar mCalendar;
-    private FloatingLabelEditText nameTextBox, detailTextBox;
+    private FloatingLabelEditText nameTextBox, detailTextBox, priceTextBox;
     private TextView timeText;
 
     public void onCreate(Bundle savedInstanceState){
@@ -37,6 +40,10 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
         setContentView(R.layout.activity_newtask);
 
         mTask = new TaskItem();
+        Intent intent = getIntent();
+        Bundle mBundle = intent.getExtras();
+        mID = mBundle.getString("Email");
+
         Button editTimeBtn = (Button)findViewById(R.id.editTaskTime);
         Button postBtn = (Button) findViewById(R.id.postButton);
         Button resetBtn = (Button) findViewById(R.id.resetButton);
@@ -45,6 +52,8 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
         nameTextBox.setEditTextListener(this);
         detailTextBox = (FloatingLabelEditText) findViewById(R.id.editTaskDetail);
         detailTextBox.setEditTextListener(this);
+        priceTextBox = (FloatingLabelEditText) findViewById(R.id.editTaskPrice);
+        priceTextBox.setEditTextListener(this);
 
         //display current time
         timeText = (TextView)findViewById(R.id.timeView);
@@ -77,7 +86,14 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
     }
     private void postTask(){
         int defaultID = -1;
-//        mTaskItem = new TaskItem(defaultID, );
+        mTask.setPersonID(mID);
+//        Log.d(TAG, "" + nameTextBox.getInputWidgetText());
+        mTask.setTaskName("" + nameTextBox.getInputWidgetText());
+        mTask.setContent("" + detailTextBox.getInputWidgetText());
+        mTask.setPrice(Integer.parseInt("" + priceTextBox.getInputWidgetText()));
+//        Log.d(TAG,mTask.getPrice()+"");
+
+        new postTaskAsyncTask().execute();
     }
 
     private void clearTextbox(){
@@ -117,5 +133,18 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
     public void onTextChanged(FloatingLabelEditText source, String text) {
 //        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
 //
+    }
+
+    private class postTaskAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                Server.saveNewTask(mTask);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }

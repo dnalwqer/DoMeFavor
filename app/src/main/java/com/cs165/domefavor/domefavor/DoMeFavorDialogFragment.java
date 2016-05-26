@@ -6,13 +6,17 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
 
 /**
+ *
  * Created by Jilai Zhou on 5/23/2016.
  */
 public class DoMeFavorDialogFragment extends DialogFragment{
@@ -20,6 +24,7 @@ public class DoMeFavorDialogFragment extends DialogFragment{
     public static final String DIALOG_ID_KEY = "dialog_id";
     public static final int DIALOG_ID_DATE = 0;
     public static final int DIALOG_ID_TIME = 1;
+    public static final int DIALOG_ID_BID = 2;
 
     public static DoMeFavorDialogFragment newInstance(int id){
         DoMeFavorDialogFragment frag = new DoMeFavorDialogFragment();
@@ -35,6 +40,7 @@ public class DoMeFavorDialogFragment extends DialogFragment{
         AlertDialog.Builder builder;
         final Calendar mDateAndTime;
         final int hour, min, year, month, day;
+        final EditText edittext = new EditText(parent);
 
         switch (dialog_id){
             case DIALOG_ID_DATE:
