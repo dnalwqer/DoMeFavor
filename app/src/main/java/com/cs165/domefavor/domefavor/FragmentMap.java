@@ -1,37 +1,25 @@
 package com.cs165.domefavor.domefavor;
 
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +29,8 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
     private MapView mapView;
     private GoogleMap map;
     private boolean firstTime = true;
-    private static LatLng loc;
+    private LatLng loc;
+    private List<Marker> markerList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -113,7 +102,7 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
                 if(firstTime) {
                     firstTime = false;
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
-                    addMarker();
+//                    addMarker();
                 }else
                     map.animateCamera(CameraUpdateFactory.newLatLng(loc));
             }
@@ -126,13 +115,17 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
         marker.showInfoWindow();
     }
 
-    public void addMarker(){
-        List<TaskItem> tasks = FragmentTaskList.getAllTask();
-        Log.d("XUEMAP", tasks.size() + "");
+    public void addMarker(ArrayList<TaskItem> list){
+        List<TaskItem> tasks = list;
+        for(int i = 0 ; i < markerList.size() ; ++i){
+            markerList.get(i).remove();
+        }
+
         for(int i = 0 ; i < tasks.size() ; ++i){
             TaskItem task = tasks.get(i);
-            map.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(task.getLatitude()), Double.parseDouble(task.getLongitude())))
-                    .title(task.getTaskName()).snippet(task.getContent()));
+            Marker m = map.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(task.getLatitude()), Double.parseDouble(task.getLongitude())))
+                    .title(task.getTaskName()).snippet(task.getContent()).alpha(0.7f));
+            markerList.add(m);
         }
     }
 

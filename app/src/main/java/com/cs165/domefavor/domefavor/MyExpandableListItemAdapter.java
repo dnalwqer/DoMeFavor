@@ -17,105 +17,84 @@
 package com.cs165.domefavor.domefavor;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
-import android.util.LruCache;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.nhaarman.listviewanimations.itemmanipulation.expandablelistitem.ExpandableListItemAdapter;
 
-import java.util.List;
-
-public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<Integer> {
+public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskItem> {
 
     private final Context mContext;
-    public List<TaskItem> list;
-    private final BitmapCache mMemoryCache;
 
-    public MyExpandableListItemAdapter(final Context context, List<TaskItem> items) {
-        super(context, R.layout.activity_expandablelistitem_card, R.id.activity_expandablelistitem_card_title, R.id.activity_expandablelistitem_card_content);
+    /**
+     * Creates a new ExpandableListItemAdapter with the specified list, or an empty list if
+     * items == null.
+     */
+    public MyExpandableListItemAdapter(final Context context) {
+//        super(context, R.layout.activity_expandablelistitem_card, R.id.activity_expandablelistitem_card_title, R.id.activity_expandablelistitem_card_content);
+        super(context);
         mContext = context;
-        list = items;
-        mMemoryCache = new BitmapCache();
-        for (int i = 0; i < items.size(); i++) {
-            add(i);
-        }
     }
 
     @NonNull
     @Override
     public View getTitleView(final int position, final View convertView, @NonNull final ViewGroup parent) {
-        TextView tv = (TextView) convertView;
-        if (tv == null) {
-            tv = new TextView(mContext);
-        }
-        tv.setText(list.get(position).getTaskName());
+//        View tv = convertView;
+//        if (tv == null) {
+//            tv = new View(mContext);
+//        }
+        LayoutInflater inflater = (LayoutInflater)mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View tv = convertView;
+        if (convertView==null)
+            tv = inflater.inflate(R.layout.activity_expandablelistitem_card, null);
+
+        TaskItem task = getItem(position);
+        TextView taskNameView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_title_name);
+        TextView taskTimeView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_title_time);
+        taskNameView.setText(task.getTaskName());
+        taskTimeView.setText(task.getTime());
         return tv;
     }
 
     @NonNull
     @Override
     public View getContentView(final int position, final View convertView, @NonNull final ViewGroup parent) {
-        ImageView imageView = (ImageView) convertView;
-        if (imageView == null) {
-            imageView = new ImageView(mContext);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        View tv =  convertView;
+        LayoutInflater inflater = (LayoutInflater)mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (tv == null) {
+            tv = inflater.inflate(R.layout.activity_expandeditem_card, null);
         }
 
-        int imageResId;
-        switch (getItem(position) % 5) {
-            case 0:
-                imageResId = R.drawable.img_nature1;
-                break;
-            case 1:
-                imageResId = R.drawable.img_nature2;
-                break;
-            case 2:
-                imageResId = R.drawable.img_nature3;
-                break;
-            case 3:
-                imageResId = R.drawable.img_nature4;
-                break;
-            default:
-                imageResId = R.drawable.img_nature5;
-        }
+        TaskItem task = getItem(position);
 
-        Bitmap bitmap = getBitmapFromMemCache(imageResId);
-        if (bitmap == null) {
-            bitmap = BitmapFactory.decodeResource(mContext.getResources(), imageResId);
-            addBitmapToMemoryCache(imageResId, bitmap);
-        }
-        imageView.setImageBitmap(bitmap);
+        TextView taskNameView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_content_name);
+        TextView taskTimeView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_content_time);
+        TextView taskDetailView =(TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_detail) ;
+        TextView taskPriceView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_price);
+        TextView taskLocView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_location);
 
-        return imageView;
-    }
+        taskNameView.setText(mContext.getString(R.string.header_task_name) + "  "+task.getTaskName());
+        taskTimeView.setText(mContext.getString(R.string.header_task_time) + "  "+task.getTime());
+        taskDetailView.setText(mContext.getString(R.string.header_task_detail) +"  "+ task.getContent());
+        taskPriceView.setText(mContext.getString(R.string.header_task_offer) +"  "+ Double.toString(task.getPrice()));
+        taskLocView.setText(mContext.getString(R.string.header_locatioin) + "  "+ task.getLongitude() + " : " + task.getLatitude());
 
-    private void addBitmapToMemoryCache(final int key, final Bitmap bitmap) {
-        if (getBitmapFromMemCache(key) == null) {
-            mMemoryCache.put(key, bitmap);
-        }
-    }
-
-    private Bitmap getBitmapFromMemCache(final int key) {
-        return mMemoryCache.get(key);
-    }
-}
-
-class BitmapCache extends LruCache<Integer, Bitmap> {
-
-    private static final int KILO = 1024;
-    private static final int MEMORY_FACTOR = 2 * KILO;
-
-    public BitmapCache() {
-        super((int) (Runtime.getRuntime().maxMemory() / MEMORY_FACTOR));
-    }
-
-    @Override
-    protected int sizeOf(final Integer key, final Bitmap value) {
-        return value.getRowBytes() * value.getHeight() / KILO;
+        Button bidBtn= (Button) tv.findViewById(R.id.bid);
+        bidBtn.setBackgroundResource(R.drawable.ic_bid);
+        bidBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("bid","I'm bidding number " + position);
+            }
+        });
+        return tv;
     }
 }

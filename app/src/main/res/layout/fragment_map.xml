@@ -10,15 +10,16 @@
     </com.google.android.gms.maps.MapView>
 
     <Button
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:layout_alignParentRight="true"
         android:layout_gravity="top"
-        android:text="D"
+        android:text="R"
         android:padding="1dp"
         android:id = "@+id/mapRefreshButton"
-        android:layout_marginTop="45dp"
-        android:layout_marginRight="8dp"
-        android:paddingRight="1dp"/>
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="12dp"
+        android:paddingRight="1dp"
+        android:background="#c8ffffff"/>
 
 </RelativeLayout>

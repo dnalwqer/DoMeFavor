@@ -1,6 +1,6 @@
 package com.cs165.domefavor.domefavor;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.content.Context;
@@ -19,11 +19,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
 
-import java.util.ArrayList;
+import com.google.android.gms.maps.model.LatLng;
+import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
 
-//import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+import java.util.ArrayList;
 
 /**
  *
@@ -33,11 +32,14 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
         LoaderManager.LoaderCallbacks<ArrayList<TaskItem>>{
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ListView mListView;
-    private TaskListAdapter mTaskListAdapter;
+//    private TaskListAdapter mTaskListAdapter;
     private View view;
     private FloatingActionButton mFAB;
     private static ArrayList<TaskItem> mTaskItemList;
-
+    private MyExpandableListItemAdapter mExpandableListItemAdapter;
+    private LatLng mLocation;
+    private Fragment currMapFragment;
+    private static final int INITIAL_DELAY_MILLIS = 500;
 
     public void onCreate(Bundle mBundle){
         super.onCreate(mBundle);
@@ -52,23 +54,39 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mListView = (ListView) view.findViewById(android.R.id.list);
-        mTaskListAdapter = new TaskListAdapter(getActivity());
-        mListView.setAdapter(mTaskListAdapter);
+//        mTaskListAdapter = new TaskListAdapter(getActivity());
+        mExpandableListItemAdapter = new MyExpandableListItemAdapter(getActivity());
 
-//        mFAB = (FloatingActionButton)view.findViewById(R.id.fab);
-//        setupFAB();
-        getLoaderManager().initLoader(0, null, this);
+        AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mExpandableListItemAdapter);
+        alphaInAnimationAdapter.setAbsListView(mListView);
+        assert alphaInAnimationAdapter.getViewAnimator() != null;
+        alphaInAnimationAdapter.getViewAnimator().setInitialDelayMillis(INITIAL_DELAY_MILLIS);
+
+        mListView.setAdapter(mExpandableListItemAdapter);
+        mListView.setDivider(null);
+        mListView.setDividerHeight(0);;
+
+        currMapFragment =((MainActivity_v2) getActivity()).getFragment(2);
+//        Log.d("loc", ""+mLocation.latitude +" : " +mLocation.longitude);
+
         return view;
+
     }
 
     public static ArrayList<TaskItem> getAllTask (){
         return mTaskItemList;
     }
 
+    public void refreshData(LatLng loc){
+        mLocation = loc;
+        getLoaderManager().initLoader(0, null, this);
+    }
+
     @Override
     public void onRefresh() {
         Log.d("FragTaskList", "I'm on refresh");
-        getLoaderManager().initLoader(0, null, this);
+        refreshData(mLocation);
+
     }
 
     @Override
@@ -81,61 +99,42 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
         if (mSwipeRefreshLayout.isRefreshing()){
             mSwipeRefreshLayout.setRefreshing(false);
         }
-        mTaskListAdapter.clear();
+        mExpandableListItemAdapter.clear();
         mTaskItemList = data;
-        mTaskListAdapter.addAll(data);
-        mTaskListAdapter.notifyDataSetChanged();
+        mExpandableListItemAdapter.addAll(data);
+        mExpandableListItemAdapter.notifyDataSetChanged();
+        ((FragmentMap) currMapFragment).addMarker(mTaskItemList);
     }
 
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<ArrayList<TaskItem>> loader) {
-        mTaskListAdapter.clear();
+        mExpandableListItemAdapter.clear();
     }
 
-//    private void setupFAB(){
-//        ImageView iconSortName = new ImageView(getActivity());
-//        iconSortName.setImageResource(R.drawable.ic_action_alphabets);
+//    //ListAdapter may use Weiqiang's class.
+//    public class TaskListAdapter extends ArrayAdapter<TaskItem> {
+//        public TaskListAdapter(Context context){
+//            super(context,android.R.layout.two_line_list_item);
+//        }
 //
-//        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(getActivity());
-//        itemBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.selector_sub_button_gray));
+//        public View getView(int position, View convertView, ViewGroup parent){
+//            LayoutInflater inflater = (LayoutInflater)getContext()
+//                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //
-//        SubActionButton buttonSortName = itemBuilder.setContentView(iconSortName).build();
-//        buttonSortName.setTag("TEST");
-//        buttonSortName.setOnClickListener(this);
+//            View listItemView = convertView;
+//            if (convertView==null)
+//                listItemView = inflater.inflate(R.layout.tasklist_single_item, null);
 //
-//        FloatingActionMenu mFABMenu = new FloatingActionMenu.Builder(getActivity())
-//                .addSubActionView(buttonSortName)
-//                .attachTo(mFAB)
-//                .build();
+//            TextView lineOneView = (TextView)listItemView.findViewById(R.id.textview1);
+//            TextView lineTwoView = (TextView)listItemView.findViewById(R.id.textview2);
 //
+//            TaskItem task = getItem(position);
+//
+//            lineOneView.setText(task.getTaskName());
+//            lineTwoView.setText(task.getTime());
+//
+//            return listItemView;
+//        }
 //
 //    }
-
-
-    //ListAdapter may use Weiqiang's class.
-    public class TaskListAdapter extends ArrayAdapter<TaskItem> {
-        public TaskListAdapter(Context context){
-            super(context,android.R.layout.two_line_list_item);
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent){
-            LayoutInflater inflater = (LayoutInflater)getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            View listItemView = convertView;
-            if (convertView==null)
-                listItemView = inflater.inflate(R.layout.tasklist_single_item, null);
-
-            TextView lineOneView = (TextView)listItemView.findViewById(R.id.textview1);
-            TextView lineTwoView = (TextView)listItemView.findViewById(R.id.textview2);
-
-            TaskItem task = getItem(position);
-
-            lineOneView.setText(task.getTaskName());
-            lineTwoView.setText(task.getTime());
-
-            return listItemView;
-        }
-
-    }
 }

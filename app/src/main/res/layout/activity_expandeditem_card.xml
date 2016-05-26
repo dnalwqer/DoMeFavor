@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_expandablelistitem_card_content"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/activity_expandablelistitem_card_content_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:typeface="serif"/>
+
+        <TextView
+            android:id="@+id/activity_expandablelistitem_card_content_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:typeface="serif"/>
+
+        <TextView
+            android:id="@+id/activity_expandablelistitem_card_content_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:typeface="serif"/>
+
+        <TextView
+            android:id="@+id/activity_expandablelistitem_card_content_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:typeface="serif"/>
+
+        <TextView
+            android:id="@+id/activity_expandablelistitem_card_content_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:typeface="serif"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bid"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerInside"
+        android:layout_marginRight="20dp"
+        />
+
+
+</RelativeLayout>

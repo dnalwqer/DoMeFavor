@@ -5,8 +5,10 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import java.util.Calendar;
 
@@ -44,11 +46,24 @@ public class DoMeFavorDialogFragment extends DialogFragment{
                 DatePickerDialog.OnDateSetListener mDateListener = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        ((NewTaskActivity)getActivity()).updateDate(year, monthOfYear, dayOfMonth);
 
                     }
                 };
                 return new DatePickerDialog(parent, mDateListener,year,month,day);
 
+            case DIALOG_ID_TIME:
+                mDateAndTime= Calendar.getInstance();
+                hour = mDateAndTime.get(Calendar.HOUR_OF_DAY);
+                min = mDateAndTime.get(Calendar.MINUTE);
+                TimePickerDialog.OnTimeSetListener mTimeListener = new TimePickerDialog.OnTimeSetListener(){
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        ((NewTaskActivity)getActivity()).updateTime(hourOfDay, minute);
+                    }
+                };
+                return new TimePickerDialog(parent, mTimeListener, hour, min, false);
 
             default:
                 return null;
