@@ -52,7 +52,9 @@ public class QueryTaskServlet extends HttpServlet {
 					ArrayList<Price> list = PriceDatastore.queryEmail(email);
 					if (list != null && list.size() != 0)
 					for(Price cur : list){
-						finalResult.put(bidConstruct(ContactDatastore.queryid(cur.id).get(0)));
+						ArrayList<Contact> res = ContactDatastore.queryid(cur.id);
+						if(res != null && res.size() != 0)
+						finalResult.put(bidConstruct(res.get(0)));
 					}
 
 					resp.setContentType("text");
