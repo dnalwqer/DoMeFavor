@@ -115,7 +115,8 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
                 if(firstTime) {
                     firstTime = false;
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
-                    addMarker();
+                    refresh();
+  //                  addMarker();
                 }else
                     map.animateCamera(CameraUpdateFactory.newLatLng(loc));
             }
@@ -128,8 +129,7 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
         marker.showInfoWindow();
     }
 
-    public void addMarker(){
-        List<TaskItem> tasks = FragmentTaskList.getAllTask();
+    public void addMarker(List<TaskItem> tasks){
         for(int i = 0 ; i < markerList.size() ; ++i){
             markerList.get(i).remove();
         }
@@ -147,8 +147,12 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
     }
 
     public void onClick(View v){
+       refresh();
+    }
+
+    private void refresh(){
         MainActivity_v2 parent = (MainActivity_v2)getActivity();
         FragmentTaskList fragmentTaskList = (FragmentTaskList)parent.getFragment(1);
-        fragmentTaskList.onRefresh();
+        fragmentTaskList.refreshData(loc);
     }
 }
