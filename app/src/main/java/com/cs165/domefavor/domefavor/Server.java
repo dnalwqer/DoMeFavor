@@ -55,8 +55,8 @@ public class Server {
         return tasksFromServer(itemJson, url);
     }
 
-    public static List<TaskItem> getPersonTasks() throws Exception{
-        String personID = "cs165sp@gmail.com";   //han get personID
+    public static List<TaskItem> getPersonTasks(String personID) throws Exception{
+//        String personID = "cs165sp@gmail.com";   //han get personID
         URL url = getUrl(SERVER+PERSONTASK);
 
         JSONObject itemJson = new JSONObject();
@@ -65,8 +65,8 @@ public class Server {
         return tasksFromServer(itemJson, url);
     }
 
-    public static void changePrice(double price, String taskID) throws Exception{
-        String personID = "cs165sp@gmail.com";   //han get personID
+    public static void changePrice(double price, String taskID, String personID) throws Exception{
+ //       String personID = "cs165sp@gmail.com";   //han get personID
         URL url = getUrl(SERVER+CHANGEPRICE);
 
         JSONObject itemJson = new JSONObject();

@@ -26,12 +26,16 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
     private RecyclerView listview1, listview2;
     private ArrayList<TaskItem> list1, list2;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private String personID;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         list1 = new ArrayList<>();
         list2 = new ArrayList<>();
+        Intent intent = getActivity().getIntent();
+        Bundle mbundle = intent.getExtras();
+        personID = mbundle.getString("Email");
     }
 
     //inflate the fragment in the UI
@@ -59,7 +63,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
 
     @Override
     public Loader<List<TaskItem>> onCreateLoader(int id, Bundle args) {
-        return new TaskLoader(getActivity());
+        return new TaskLoader(getActivity(), personID);
     }
 
     @Override
@@ -101,8 +105,10 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
 }
 
 class TaskLoader extends AsyncTaskLoader<List<TaskItem>> {
-    public TaskLoader(Context context) {
+    public String personID;
+    public TaskLoader(Context context, String personID) {
         super(context);
+        this.personID = personID;
     }
 
     @Override
@@ -114,7 +120,7 @@ class TaskLoader extends AsyncTaskLoader<List<TaskItem>> {
     public List<TaskItem> loadInBackground() {
         List<TaskItem> tasks = null;
         try {
-            tasks = Server.getPersonTasks();
+            tasks = Server.getPersonTasks(personID);
         } catch (Exception e) {
             e.printStackTrace();
         }
