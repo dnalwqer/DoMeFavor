@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.marvinlabs.widget.floatinglabel.edittext.FloatingLabelEditText;
 
 import java.text.SimpleDateFormat;
@@ -30,7 +31,7 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
 
     private TaskItem mTask;
     private String mTime;
-    private String mID;
+    private String mID, mLng, mLat;
     private Calendar mCalendar;
     private FloatingLabelEditText nameTextBox, detailTextBox, priceTextBox;
     private TextView timeText;
@@ -43,7 +44,6 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
         Intent intent = getIntent();
         Bundle mBundle = intent.getExtras();
         mID = mBundle.getString("Email");
-
         Button editTimeBtn = (Button)findViewById(R.id.editTaskTime);
         Button postBtn = (Button) findViewById(R.id.postButton);
         Button resetBtn = (Button) findViewById(R.id.resetButton);
@@ -71,6 +71,10 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
 
         postBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+//                LatLng loc = FragmentMap.getLatLng();
+
+                mTask.setLongitude(""+-72.2862464);
+                mTask.setLatitude(""+43.7089025);
                 postTask();
                 finish();
                 Log.d(TAG, "post something");
@@ -91,7 +95,7 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
         mTask.setTaskName("" + nameTextBox.getInputWidgetText());
         mTask.setContent("" + detailTextBox.getInputWidgetText());
         mTask.setPrice(Integer.parseInt("" + priceTextBox.getInputWidgetText()));
-//        Log.d(TAG,mTask.getPrice()+"");
+
 
         new postTaskAsyncTask().execute();
     }
@@ -126,6 +130,7 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
     private void getTimeStr(){
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss MMM dd yyyy", Locale.US);
         mTime = sdf.format(mCalendar.getTime());
+        mTask.setTime(mTime);
         timeText.setText(mTime);
     }
 
@@ -141,6 +146,14 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
         protected Void doInBackground(Void... params) {
             try {
                 Server.saveNewTask(mTask);
+                Log.d(TAG, "person ID is " + mTask.getPersonID());
+                Log.d(TAG, "task ID is " + mTask.getTime());
+                Log.d(TAG, "task name is " + mTask.getTaskName());
+                Log.d(TAG, "task content is " + mTask.getContent());
+                Log.d(TAG, "task time is " + mTask.getTime());
+                Log.d(TAG, "task lat is " +mTask.getLatitude());
+                Log.d(TAG, "task lng is " +mTask.getLongitude());
+
             }catch (Exception e){
                 e.printStackTrace();
             }

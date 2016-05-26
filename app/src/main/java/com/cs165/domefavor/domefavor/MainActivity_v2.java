@@ -23,6 +23,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.model.LatLng;
 import com.lhh.apst.library.AdvancedPagerSlidingTabStrip;
 import com.lhh.apst.library.Margins;
 
@@ -102,6 +103,7 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
             public void onClick(View v) {
                 Toast.makeText(MainActivity_v2.this, "Center Btn is Clicked.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent (MainActivity_v2.this, NewTaskActivity.class);
+
                 Bundle bundle = new Bundle();
                 bundle.putString("Email", mID);
                 intent.putExtras(bundle);
