@@ -60,6 +60,8 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
         mCalendar = Calendar.getInstance();
         getTimeStr();
         editTimeBtn.setBackgroundResource(R.drawable.ic_time_change);
+        resetBtn.setBackgroundResource(R.drawable.selector_button_reset);
+        postBtn.setBackgroundResource(R.drawable.selector_button_post);
 
         editTimeBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -94,7 +96,8 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
 //        Log.d(TAG, "" + nameTextBox.getInputWidgetText());
         mTask.setTaskName("" + nameTextBox.getInputWidgetText());
         mTask.setContent("" + detailTextBox.getInputWidgetText());
-        mTask.setPrice(Double.parseDouble("" + priceTextBox.getInputWidgetText()));
+        if (!priceTextBox.getInputWidgetText().toString().equals(""))
+            mTask.setPrice(Double.parseDouble("" + priceTextBox.getInputWidgetText()));
 
 
         new postTaskAsyncTask().execute();
