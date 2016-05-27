@@ -37,7 +37,6 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
         Intent intent = getActivity().getIntent();
         Bundle mbundle = intent.getExtras();
         personID = mbundle.getString("Email");
-
     }
 
     //inflate the fragment in the UI

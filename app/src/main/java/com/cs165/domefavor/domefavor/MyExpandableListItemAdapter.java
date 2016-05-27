@@ -34,12 +34,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.nhaarman.listviewanimations.itemmanipulation.expandablelistitem.ExpandableListItemAdapter;
+
+import java.text.DecimalFormat;
 
 public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskItem> {
 
     private final Context mContext;
     private String mID;
+    private LatLng mLoc;
 
     /**
      * Creates a new ExpandableListItemAdapter with the specified list, or an empty list if
@@ -69,7 +73,14 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         TaskItem task = getItem(position);
         TextView taskNameView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_title_name);
         TextView taskTimeView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_title_time);
-        taskNameView.setText(task.getTaskName());
+//        Log.d("strLeng", ""+task.getTaskName().toString().length());
+        if (task.getTaskName().length()>24) {
+            String str = task.getTaskName().substring(0, 23) + "...";
+            taskNameView.setText(str);
+        }
+        else {
+            taskNameView.setText(task.getTaskName());
+        }
         taskTimeView.setText(task.getTime());
         return tv;
     }
@@ -96,7 +107,14 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         taskTimeView.setText(mContext.getString(R.string.header_task_time) + "  "+task.getTime());
         taskDetailView.setText(mContext.getString(R.string.header_task_detail) +"  "+ task.getContent());
         taskPriceView.setText(mContext.getString(R.string.header_task_offer) +"  "+ Double.toString(task.getPrice()));
-        taskLocView.setText(mContext.getString(R.string.header_locatioin) + "  "+ task.getLongitude() + " : " + task.getLatitude());
+        Double dis = 0.0;
+        try {
+            mLoc = FragmentMap.getLatLng();
+            dis = distance(mLoc.longitude, mLoc.latitude, Double.parseDouble(task.getLongitude()), Double.parseDouble(task.getLatitude()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        taskLocView.setText(mContext.getString(R.string.header_locatioin) + "  "+  String.format( "%.2f", dis/1000));
 
         Button bidBtn= (Button) tv.findViewById(R.id.bid);
         bidBtn.setBackgroundResource(R.drawable.ic_bid);
@@ -157,4 +175,22 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         }
     }
 
+    public double distance(double long1, double lat1, double long2,
+                                  double lat2) {
+        double a, b, R;
+        R = 6378137; // earth radius
+        lat1 = lat1 * Math.PI / 180.0;
+        lat2 = lat2 * Math.PI / 180.0;
+        a = lat1 - lat2;
+        b = (long1 - long2) * Math.PI / 180.0;
+        double d;
+        double sa2, sb2;
+        sa2 = Math.sin(a / 2.0);
+        sb2 = Math.sin(b / 2.0);
+        d = 2
+                * R
+                * Math.asin(Math.sqrt(sa2 * sa2 + Math.cos(lat1)
+                * Math.cos(lat2) * sb2 * sb2));
+        return d;
+    }
 }

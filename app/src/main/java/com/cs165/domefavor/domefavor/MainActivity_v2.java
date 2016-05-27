@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -86,6 +88,7 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
         Bundle mBundle = intent.getExtras();
         mID = mBundle.getString("Email");
 
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -95,7 +98,16 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
                 .build();
     }
 
-
+    public void setABTitle(String str){
+        try {
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            getSupportActionBar().setCustomView(R.layout.abs_layout);
+            TextView v = (TextView) findViewById(R.id.abs_title);
+            v.setText(str);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     private void findViews(){
         mAPSTS = (AdvancedPagerSlidingTabStrip)findViewById(R.id.tabs);
@@ -165,7 +177,22 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
 
     @Override
     public void onPageSelected(int position) {
-
+        switch (position){
+            case 0:
+                getSupportActionBar().setTitle("DO ME FAVOR");
+                break;
+            case 1:
+                getSupportActionBar().setTitle("LIST");
+                break;
+            case 2:
+                getSupportActionBar().setTitle("MAP");
+                break;
+            case 3:
+                getSupportActionBar().setTitle("PROFILE");
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -342,13 +369,13 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
             if(index >= 0 && index < VIEW_SIZE){
                 switch (index){
                     case  VIEW_FIRST:
-                        return  R.mipmap.tabbar_home;
+                        return  R.mipmap.ic_home_gray;
                     case VIEW_SECOND:
-                        return  R.mipmap.tabbar_message_center;
+                        return  R.mipmap.ic_list_gray;
                     case VIEW_THIRD:
-                        return  R.mipmap.tabbar_discover;
+                        return  R.mipmap.ic_map_gray;
                     case VIEW_FOURTH:
-                        return  R.mipmap.tabbar_profile;
+                        return  R.mipmap.ic_perm_identity_gray;
                     default:
                         break;
                 }
@@ -361,13 +388,13 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
             if(index >= 0 && index < VIEW_SIZE){
                 switch (index){
                     case  VIEW_FIRST:
-                        return  R.mipmap.tabbar_home_selected;
+                        return  R.mipmap.ic_home_orange;
                     case VIEW_SECOND:
-                        return  R.mipmap.tabbar_message_center_highlighted;
+                        return  R.mipmap.ic_list_orange;
                     case VIEW_THIRD:
-                        return  R.mipmap.tabbar_discover_highlighted;
+                        return  R.mipmap.ic_map_orange;
                     case VIEW_FOURTH:
-                        return  R.mipmap.tabbar_profile_highlighted;
+                        return  R.mipmap.ic_perm_identity_orange;
                     default:
                         break;
                 }
