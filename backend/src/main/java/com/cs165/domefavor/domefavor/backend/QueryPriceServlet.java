@@ -40,9 +40,10 @@ public class QueryPriceServlet extends HttpServlet {
             try {
                 cur.put("price", price.price);
                 ArrayList<Profile> list = ProfileDatastore.query(price.taker);
-                Profile profile = (list == null || list.size() == 0) ? new Profile("N/A", "N/A", "N/A") : list.get(0);
+                Profile profile = (list == null || list.size() == 0) ? new Profile("N/A", "N/A", "N/A", "N/A") : list.get(0);
                 cur.put("age", profile.age);
                 cur.put("gender", profile.gender);
+                cur.put("url", profile.url);
 //                cur.put("personID", profile.email);
                 cur.put("id", price.id);
                 cur.put("personID", price.taker);
