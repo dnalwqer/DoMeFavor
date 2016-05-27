@@ -133,7 +133,7 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
 
             editor.commit();
 
-            PriceItem item = new PriceItem(0.0, mbundle.getString("Email"), age, gender, "asd");
+            PriceItem item = new PriceItem(0.0, mbundle.getString("Email"), age, gender, "https://lh6.googleusercontent.com/-jyr1Yk-udY4/AAAAAAAAAAI/AAAAAAAAAFI/_NcVd5KgjCE/photo.jpg");
             new saveProfileTask().execute(item);
         }
     }
