@@ -21,7 +21,7 @@ public class test_han extends AppCompatActivity {
             @Override
             public void run() {
                 TaskItem item = new TaskItem("", "buy", "-72.2862464", "43.7089025", new java.util.Date().toString(), "good", 12.3,
-                        "cs165sp@gmail.com", "");
+                        "cs165sp@gmail.com", "", "sd");
                 try {
                     Server.saveNewTask(item);
                 } catch (Exception e) {
@@ -102,7 +102,7 @@ public class test_han extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Server.saveProfile(new PriceItem(0, "cs165sp@gmail.com", "female", "23"));
+                    Server.saveProfile(new PriceItem(0, "cs165sp@gmail.com", "female", "23", "asd"));
                 } catch (Exception e) {
                 }
             }

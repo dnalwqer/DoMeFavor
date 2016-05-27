@@ -207,7 +207,7 @@ public class Server {
         itemJson.put(PriceItem.genderS, item.getGender());
         itemJson.put(PriceItem.personIDS, item.getPersonID());
         itemJson.put(PriceItem.urlS, item.getUrl());
-        
+
         sendData("data=" + itemJson.toString(), url);
     }
 }

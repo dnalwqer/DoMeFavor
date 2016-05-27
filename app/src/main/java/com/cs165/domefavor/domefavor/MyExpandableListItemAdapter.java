@@ -17,14 +17,10 @@
 package com.cs165.domefavor.domefavor;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
