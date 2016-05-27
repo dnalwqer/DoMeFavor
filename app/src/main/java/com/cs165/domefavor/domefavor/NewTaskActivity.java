@@ -87,6 +87,7 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
             public void onClick(View v) {
                 Log.d(TAG, "reset the data");
                 clearTextbox();
+                finish();
             }
         });
     }

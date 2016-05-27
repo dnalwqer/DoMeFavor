@@ -17,8 +17,10 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.VisibleRegion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +104,8 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
             if(map != null){
                 if(firstTime) {
                     firstTime = false;
-                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
+//                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
+                    ZoomMap(loc);
                     refresh();
   //                addMarker();
                 }else;
@@ -111,6 +114,28 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
             }
         }
     };
+
+    public void ZoomMap(LatLng lastLatLng){
+        VisibleRegion vr = map.getProjection().getVisibleRegion();
+        double left = vr.latLngBounds.southwest.longitude;
+        double top = vr.latLngBounds.northeast.latitude;
+        double right = vr.latLngBounds.northeast.longitude;
+        double bottom = vr.latLngBounds.southwest.latitude;
+        double vRange = right - left;
+        double hRange = top - bottom;
+//        Log.d(TAG, top + " : " + right);
+//        Log.d(TAG, bottom + " : " + left);
+//        Log.d(TAG, "vRange is " + vRange);
+//        Log.d(TAG, "hRange is " + hRange);
+        LatLng northeastBound = new LatLng(top -0.1 * vRange , right - 0.1 * hRange );
+        LatLng southwestBound = new LatLng(bottom + 0.1 * vRange, left + 0.1 * hRange);
+
+        LatLngBounds bounds = new LatLngBounds(southwestBound,northeastBound);
+
+        if (!bounds.contains(lastLatLng))
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLatLng, 17));
+
+    }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
