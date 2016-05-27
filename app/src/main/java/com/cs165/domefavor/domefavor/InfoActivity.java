@@ -1,19 +1,14 @@
 package com.cs165.domefavor.domefavor;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,17 +17,18 @@ import java.util.List;
 public class InfoActivity extends AppCompatActivity {
 
 
-    private ListView listview;
-    private PriceAdapter adapter;
+    private RecyclerView listview;
+    private RecyclerInfoAdapter adapter;
     private List<PriceItem> list;
     private String taskID, personID;
+    private int status = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        listview = (ListView) findViewById(R.id.price_list);
+        listview = (RecyclerView) findViewById(R.id.price_list);
         list = new ArrayList<>();
 
         Intent intent = getIntent();
@@ -40,87 +36,74 @@ public class InfoActivity extends AppCompatActivity {
 
         taskID = mbundle.getString("ID");
         personID = mbundle.getString("PersonID");
-        new getPriceTask().execute(taskID);
+        listview.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    class PriceAdapter extends BaseAdapter {
-        public Context context;
-        public List<PriceItem> list;
-        private LayoutInflater layoutInflater;
-        public PriceAdapter(Context context, List<PriceItem> list) {
-            this.list = list;
-            this.context = context;
-            layoutInflater = LayoutInflater.from(this.context);
-        }
-
-
-        @Override
-        public int getCount() {
-            return list.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return list.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = layoutInflater.inflate(R.layout.priceitem_layout, null);
-            }
-
-            TextView textView1 = (TextView) convertView.findViewById(R.id.price_list_name);
-            TextView textView2 = (TextView) convertView.findViewById(R.id.price_list_email);
-            TextView textView3 = (TextView) convertView.findViewById(R.id.price_list_price);
-
-            textView1.setText("ID:" + list.get(position).getPersonID());
-            textView2.setText("Age: " + list.get(position).getAge());
-            textView3.setText("Price: " + list.get(position).getPrice());
-            return convertView;
-        }
+    @Override
+    protected void onResume() {
+        new getPriceTask().execute(taskID);
+        super.onResume();
     }
 
     class getPriceTask extends AsyncTask<String, Void, List<PriceItem>> {
         @Override
         protected List<PriceItem> doInBackground(String... ID) {
             List<PriceItem> items = null;
+            System.out.println(ID[0]);
             try {
                 items = Server.getAllPrice(ID[0]);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            System.out.println("size"+items.size());
             return items;
         }
 
         @Override
         protected void onPostExecute(List<PriceItem> items) {
-            if (items != null) {
+            if (items.size() != 0) {
                 for (int i = 0; i < items.size(); i++) {
                     list.add(items.get(i));
                 }
-                adapter = new PriceAdapter(getApplicationContext(), list);
+
+                adapter = new RecyclerInfoAdapter(list);
                 listview.setAdapter(adapter);
                 displayAdpater();
+                if (status == 1) {
+                    finish();
+                }
+            }
+            else if (items.size() == 0){
+                new AlertDialog.Builder(InfoActivity.this)
+                        .setTitle("Notification")
+                        .setMessage("No one has bid your task!")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .show();
             }
         }
     }
 
     public void displayAdpater() {
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listview.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(View view, final int position) {
                 new AlertDialog.Builder(InfoActivity.this)
                         .setTitle("Accept")
                         .setMessage("Do you want to accept this offer?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 new closeTask().execute(taskID, personID);
+//                                try {
+//                                    Mail.sendEmail(personID, "Notification", "You have choosen a task!");
+//                                    Mail.sendEmail(list.get(position - 1).getPersonID(), "Notification", "Your bid is successful!");
+//                                } catch (MessagingException e) {
+//                                    e.printStackTrace();
+//                                }
+                                status = 1;
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -131,7 +114,7 @@ public class InfoActivity extends AppCompatActivity {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
             }
-        });
+        }));
     }
 
     class closeTask extends AsyncTask<String, Void, Void> {
