@@ -43,6 +43,7 @@ public class ProfileDatastore {
         entity.setProperty(Profile.FIELD_NAME_age, profile.age);
         entity.setProperty(Profile.FIELD_NAME_email, profile.email);
         entity.setProperty(Profile.FIELD_NAME_gender, profile.gender);
+        entity.setProperty(Profile.FIELD_NAME_url, profile.url);
 
         mDatastore.put(entity);
 
@@ -128,7 +129,8 @@ public class ProfileDatastore {
         return new Profile(
                 (String) entity.getProperty(Profile.FIELD_NAME_age),
                 (String) entity.getProperty(Profile.FIELD_NAME_email),
-                (String) entity.getProperty(Profile.FIELD_NAME_gender)
+                (String) entity.getProperty(Profile.FIELD_NAME_gender),
+                (String) entity.getProperty(Profile.FIELD_NAME_url)
         );
     }
 

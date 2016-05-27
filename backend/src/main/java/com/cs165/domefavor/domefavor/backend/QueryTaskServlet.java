@@ -80,6 +80,7 @@ public class QueryTaskServlet extends HttpServlet {
 				cur.put("personID",task.poster);
 				cur.put("price",task.price);
 				cur.put("status","y");
+				profileadd(cur);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -114,6 +115,7 @@ public class QueryTaskServlet extends HttpServlet {
 			cur.put("personID",task.poster);
 			cur.put("price",task.price);
 			cur.put("status","post");
+			profileadd(cur);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -132,9 +134,19 @@ public class QueryTaskServlet extends HttpServlet {
 			cur.put("personID",task.poster);
 			cur.put("price",task.price);
 			cur.put("status","take");
+			profileadd(cur);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		return cur;
+	}
+
+	public JSONObject profileadd(JSONObject cur){
+		ArrayList<Profile> list = ProfileDatastore.query(cur.getString("personID"));
+		Profile profile = (list == null || list.size() == 0) ? new Profile("N/A", "N/A", "N/A", "N/A") : list.get(0);
+		cur.put("age", profile.age);
+		cur.put("gender", profile.gender);
+		cur.put("url", profile.url);
 		return cur;
 	}
 }
