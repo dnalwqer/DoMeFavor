@@ -24,6 +24,7 @@ tools:context=".legacy.MainActivity">
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
+        android:typeface="serif"
         android:textSize="40sp" />
 
     <ImageView
