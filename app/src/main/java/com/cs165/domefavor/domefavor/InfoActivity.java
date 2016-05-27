@@ -79,7 +79,8 @@ public class InfoActivity extends AppCompatActivity {
                         .setMessage("No one has bid your task!")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
+                                status = 1;
+                                finish();
                             }
                         })
                         .show();
