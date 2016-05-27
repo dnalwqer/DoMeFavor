@@ -38,7 +38,7 @@
     <string name="header_task_detail">Detail: </string>
     <string name="header_task_time">Time: </string>
     <string name="header_task_offer">Offer($): </string>
-    <string name="header_locatioin">Location: </string>
+    <string name="header_locatioin">Distance(km): </string>
     <string name="dialog_bid_title">Reward you need($)</string>
     <string name="dialog_button_ok">OK</string>
     <string name="dialog_button_cancel">CANCEL</string>

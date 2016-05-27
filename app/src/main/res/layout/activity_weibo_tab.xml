@@ -15,12 +15,11 @@
             android:fillViewport="false"/>
         <ImageView
             android:id="@+id/ivCenterBtn"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:padding="5dp"
             android:layout_centerInParent="true"
-            android:background="#fa8100"
-            android:src="@mipmap/tabbar_compose_icon_add_highlighted"/>
+            android:src="@mipmap/ic_add_circle_outline_orange"/>
     </RelativeLayout>
 
 
