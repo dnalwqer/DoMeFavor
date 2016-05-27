@@ -2,6 +2,7 @@ package com.cs165.domefavor.domefavor;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,11 +34,13 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
 
     private TextView name, email;
     private ImageView image;
-    private Button save, cancel;
+    private Button save;
     private Bundle mbundle;
     private SegmentedGroup segment;
+    private RadioButton radio1, radio2, radio3;
     private String gender = "Male";
     private String age = "18";
+    private FloatingLabelEditText editText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,12 +68,19 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
             image.setImageResource(R.drawable.default_profile);
         }
 
+        radio1 = (RadioButton) view.findViewById(R.id.segmentbutton1);
+        radio2 = (RadioButton) view.findViewById(R.id.segmentbutton2);
+        radio3 = (RadioButton) view.findViewById(R.id.segmentbutton3);
+        editText = (FloatingLabelEditText) view.findViewById(R.id.edit_text2);
+        loadProfile();
+
         segment = (SegmentedGroup) view.findViewById(R.id.segment);
         segment.setOnCheckedChangeListener(this);
+
+
+        editText.setEditTextListener(this);
         save = (Button) view.findViewById(R.id.saveprofile);
         save.setOnClickListener(this);
-
-        ((FloatingLabelEditText) view.findViewById(R.id.edit_text2)).setEditTextListener(this);
         return view;
     }
 
@@ -78,11 +89,51 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
         age = text;
     }
 
+    public void loadProfile() {
+        String mKey = "profile";
+        SharedPreferences mPrefs = getActivity().getSharedPreferences(mKey, Context.MODE_PRIVATE);
+
+        mKey = "Age";
+        String pro_age = mPrefs.getString(mKey, " ");
+        if (pro_age != " ")
+            editText.setInputWidgetText(pro_age);
+
+        mKey = "Gender";
+        String pro_gender = mPrefs.getString(mKey, " ");
+        if (pro_gender != " ") {
+            switch (pro_gender) {
+                case "Male":
+                    radio1.setChecked(true);
+                    break;
+                case "Female":
+                    radio2.setChecked(true);
+                    break;
+                case "Unknown":
+                    radio3.setChecked(true);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.saveprofile) {
 
-            PriceItem item = new PriceItem(0.0, mbundle.getString("Email"), age, gender);
+            String mKey = "profile";
+            SharedPreferences mPrefs = getActivity().getSharedPreferences(mKey, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.clear();
+
+            mKey = "Age";
+            editor.putString(mKey, age);
+
+            mKey = "Gender";
+            editor.putString(mKey, gender);
+
+            editor.commit();
+
+            PriceItem item = new PriceItem(0.0, mbundle.getString("Email"), age, gender, "asd");
             new saveProfileTask().execute(item);
         }
     }

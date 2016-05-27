@@ -11,15 +11,18 @@ public class Profile {
     public static final String FIELD_NAME_age = "age";
     public static final String FIELD_NAME_email = "email";
     public static final String FIELD_NAME_gender = "gender";
+    public static final String FIELD_NAME_url = "url";
     public static final String KEY_NAME = FIELD_NAME_email;
 
     public String age;
     public String email;
     public String gender;
+    public String url;
 
-    public Profile(String age, String email, String gender) {
+    public Profile(String age, String email, String gender, String url) {
         this.gender = gender;
         this.email = email;
         this.age = age;
+        this.url = url;
     }
 }

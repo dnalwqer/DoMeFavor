@@ -27,17 +27,6 @@
                 android:focusableInTouchMode="true" >
                 <requestFocus />
             </ImageView>
-
-            <Button
-                android:id="@+id/btnChangePhoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:textSize="15dp"
-                android:onClick="onChangePhotoClicked"
-                android:text="@string/profile_change_button" >
-            </Button>
         </LinearLayout>
 
         <LinearLayout
@@ -86,7 +75,7 @@
             android:layout_width="match_parent"
             android:orientation="horizontal">
             <TextView android:layout_height="match_parent"
-                android:layout_width="100dp"
+                android:layout_width="150dp"
                 android:text="Gender: "/>
             <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/segment"
@@ -105,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Male"
-                    style="@style/RadioButton" />
+                    style="@style/RadioButton"/>
 
                 <RadioButton
                     android:id="@+id/segmentbutton2"

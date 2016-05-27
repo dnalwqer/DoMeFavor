@@ -14,6 +14,7 @@ public class TaskItem {
     private String personID;
     private String status;
     private double price;
+    private String url;
 
     public static String taskIDS = "taskID";
     public static String nameS = "taskName";
@@ -24,9 +25,10 @@ public class TaskItem {
     public static String priceS = "price";
     public static String personIDS = "personID";
     public static String statusS = "status";
+    public static String urlS = "url";
 
     TaskItem(String id, String name, String longitude, String latitude, String tim,
-             String con, double price, String personID, String status){
+             String con, double price, String personID, String status, String url){
         taskID = id;
         taskName = name;
         this.longitude = longitude;
@@ -36,6 +38,7 @@ public class TaskItem {
         this.price = price;
         this.personID = personID;
         this.status = status;
+        this.url = url;
     }
 
     TaskItem(){
@@ -82,9 +85,9 @@ public class TaskItem {
         this.price = price;
     }
 
-    String getTaskID(){
-        return taskID;
-    }
+    void setUrl(String url) { this.url = url; }
+
+    String getTaskID(){ return taskID; }
 
     String getTaskName(){
         return taskName;
@@ -111,6 +114,8 @@ public class TaskItem {
     }
 
     String getStatus() { return status; }
+
+    String getUrl() { return url; }
 
     double getPrice(){
         return price;

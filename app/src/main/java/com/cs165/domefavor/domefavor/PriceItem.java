@@ -8,17 +8,20 @@ public class PriceItem {
     private String personID;
     private String age;
     private String gender;
+    private String url;
 
     public static final String priceS = "price";
     public static final String personIDS = "personID";
     public static final String ageS = "age";
     public static final String genderS = "gender";
+    public static final String urlS = "url";
 
-    public PriceItem(double price, String personID, String age, String gender){
+    public PriceItem(double price, String personID, String age, String gender, String url){
         this.price = price;
         this.personID = personID;
         this.age = age;
         this.gender = gender;
+        this.url = url;
     }
 
     public void setPrice(double price) { this.price = price; }
@@ -28,6 +31,10 @@ public class PriceItem {
     public void setGender(String gender) { this.gender = gender; }
 
     public void setAge(String age) { this.age = age; }
+
+    public void setUrl(String url) { this.url = url; }
+
+    public String getUrl(){ return url; }
 
     public String getAge() { return age; }
 

@@ -17,14 +17,10 @@
 package com.cs165.domefavor.domefavor;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,8 +39,6 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
 
     private final Context mContext;
     private String mID;
-    private LatLng mLoc;
-
     /**
      * Creates a new ExpandableListItemAdapter with the specified list, or an empty list if
      * items == null.
@@ -109,7 +103,7 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         taskPriceView.setText(mContext.getString(R.string.header_task_offer) +"  "+ Double.toString(task.getPrice()));
         Double dis = 0.0;
         try {
-            mLoc = FragmentMap.getLatLng();
+            LatLng mLoc = FragmentMap.getLatLng();
             dis = distance(mLoc.longitude, mLoc.latitude, Double.parseDouble(task.getLongitude()), Double.parseDouble(task.getLatitude()));
         }catch (Exception e){
             e.printStackTrace();
