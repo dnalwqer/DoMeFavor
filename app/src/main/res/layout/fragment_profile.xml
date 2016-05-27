@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:segmentedgroup="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    >
+<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -67,7 +72,9 @@
             android:id="@+id/edit_text2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
+            android:layout_margin="15dp"
+            app:flw_labelTextSize="15sp"
+            app:flw_inputWidgetTextSize="20sp"
             app:flw_labelText="Age: " />
 
         <LinearLayout
@@ -75,13 +82,14 @@
             android:layout_width="match_parent"
             android:orientation="horizontal">
             <TextView android:layout_height="match_parent"
-                android:layout_width="150dp"
+                android:layout_width="135dp"
+                android:layout_marginLeft="15dp"
                 android:text="Gender: "/>
             <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/segment"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="200dp"
+                android:layout_marginRight="240dp"
                 android:layout_margin="10dp"
                 android:orientation="vertical"
                 segmentedgroup:sc_tint_color="#727272"
@@ -94,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Male"
-                    style="@style/RadioButton"/>
+                    style="@style/RadioButton" />
 
                 <RadioButton
                     android:id="@+id/segmentbutton2"
@@ -128,3 +136,4 @@
             </Button>
         </LinearLayout>
 </LinearLayout>
+</ScrollView>
