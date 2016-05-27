@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="android-floatinglabel-widgets-1.6.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.marvinlabs/android-floatinglabel-widgets/1.6.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.marvinlabs/android-floatinglabel-widgets/1.6.1/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.marvinlabs/android-floatinglabel-widgets/1.6.1/f4a6fbf6a3a51a6467b4cfe7202900c85f2e65d5/android-floatinglabel-widgets-1.6.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

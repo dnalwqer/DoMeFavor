@@ -34,11 +34,13 @@ public class AddProfileServlet extends HttpServlet {
         String age = "";
         String gender = "";
         String taker = "";
+        String url = "";
         try {
 //            ob = list.getJSONObject(0);
             age = ob.getString("age");
             gender = ob.getString("gender");
             taker = ob.getString("personID");
+            url = ob.getString("url");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -50,7 +52,7 @@ public class AddProfileServlet extends HttpServlet {
             return;
         }
         ProfileDatastore.delete(taker);
-        Profile profiles = new Profile(age, taker, gender);
+        Profile profiles = new Profile(age, taker, gender, url );
         boolean ret = ProfileDatastore.add(profiles);
 //        if (ret) {
 //            req.setAttribute("_retStr", "Add contact " + id + " succ");
