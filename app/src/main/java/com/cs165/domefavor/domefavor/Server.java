@@ -96,7 +96,8 @@ public class Server {
                 PriceItem price = new PriceItem(priceJson.getDouble(PriceItem.priceS),
                         priceJson.getString(PriceItem.personIDS),
                         priceJson.getString(PriceItem.ageS),
-                        priceJson.getString(PriceItem.genderS));
+                        priceJson.getString(PriceItem.genderS),
+                        priceJson.getString(PriceItem.urlS));
                 prices.add(price);
             }
         } catch (JSONException e) {
@@ -131,7 +132,8 @@ public class Server {
                         taskJson.getString(TaskItem.contentS),
                         taskJson.getDouble(TaskItem.priceS),
                         taskJson.getString(TaskItem.personIDS),
-                        taskJson.getString(TaskItem.statusS));
+                        taskJson.getString(TaskItem.statusS),
+                        taskJson.getString(TaskItem.urlS));
                 tasks.add(task);
             }
         } catch (JSONException e) {
@@ -196,7 +198,7 @@ public class Server {
             }
         }
     }
-    //TODO: new added
+
     public static void saveProfile(PriceItem item) throws Exception{
         URL url = getUrl(SERVER + SAVEPROFILE);
 
@@ -204,7 +206,8 @@ public class Server {
         itemJson.put(PriceItem.ageS, item.getAge());
         itemJson.put(PriceItem.genderS, item.getGender());
         itemJson.put(PriceItem.personIDS, item.getPersonID());
-
+        itemJson.put(PriceItem.urlS, item.getUrl());
+        
         sendData("data=" + itemJson.toString(), url);
     }
 }

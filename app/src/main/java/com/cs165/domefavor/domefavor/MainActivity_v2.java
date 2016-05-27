@@ -344,9 +344,9 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
                     case  VIEW_FIRST:
                         return  R.mipmap.tabbar_home;
                     case VIEW_SECOND:
-                        return  R.mipmap.tabbar_message_center;
+                        return  R.mipmap.list;
                     case VIEW_THIRD:
-                        return  R.mipmap.tabbar_discover;
+                        return  R.mipmap.map;
                     case VIEW_FOURTH:
                         return  R.mipmap.tabbar_profile;
                     default:
