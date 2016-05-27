@@ -29,11 +29,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.nhaarman.listviewanimations.itemmanipulation.expandablelistitem.ExpandableListItemAdapter;
-
-import java.text.DecimalFormat;
 
 public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskItem> {
 
@@ -167,6 +166,12 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
             }
             return null;
         }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Toast.makeText(mContext, "You have bid the task!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public double distance(double long1, double lat1, double long2,
