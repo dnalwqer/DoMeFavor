@@ -34,11 +34,12 @@
     <!--fragment task list-->
     <string name="button_title_refresh">Refresh</string>
     <string name="title_activity_maps">Map</string>
-    <string name="header_task_name">Task: </string>
-    <string name="header_task_detail">Detail: </string>
-    <string name="header_task_time">Time: </string>
-    <string name="header_task_offer">Offer($): </string>
-    <string name="header_locatioin">Distance(km): </string>
+    <string name="header_task_person_ID"><b>Person ID: </b></string>
+    <string name="header_task_name"><b>Task: </b></string>
+    <string name="header_task_detail"><b>Detail: </b></string>
+    <string name="header_task_time"><b>Time: </b></string>
+    <string name="header_task_offer"><b>Offer($): </b></string>
+    <string name="header_locatioin"><b>Distance(km): </b></string>
     <string name="dialog_bid_title">Reward you need($)</string>
     <string name="dialog_button_ok">OK</string>
     <string name="dialog_button_cancel">CANCEL</string>
