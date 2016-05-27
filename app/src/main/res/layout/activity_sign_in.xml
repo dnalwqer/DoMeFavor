@@ -21,10 +21,17 @@ tools:context=".legacy.MainActivity">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_text"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
+        android:typeface="serif"
         android:textSize="40sp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/hand"
+        />
 
     <TextView
         android:id="@+id/status"
@@ -41,7 +48,7 @@ tools:context=".legacy.MainActivity">
     android:layout_width="fill_parent"
     android:layout_height="0dp"
     android:layout_weight="1"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/gray">
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"

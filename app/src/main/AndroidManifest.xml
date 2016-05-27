@@ -57,6 +57,7 @@
 
         <activity android:name=".SignInActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
