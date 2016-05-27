@@ -1,12 +1,17 @@
 package com.cs165.domefavor.domefavor;
 
+import android.*;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -52,6 +57,7 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
 
     private static final int VIEW_SIZE = 4;
     private static final String TAG = "MainActivity";
+    private static final int REQUEST_FINE_LOCATION =122;
 
     private int mSize = 0;
 
@@ -75,7 +81,7 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
         setContentView(R.layout.activity_weibo_tab);
         findViews();
         init();
-
+        checkPermission();
         Intent intent = getIntent();
         Bundle mBundle = intent.getExtras();
         mID = mBundle.getString("Email");
@@ -102,7 +108,7 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity_v2.this, "Center Btn is Clicked.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent (MainActivity_v2.this, NewTaskActivity.class);
+                Intent intent = new Intent(MainActivity_v2.this, NewTaskActivity.class);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("Email", mID);
@@ -120,9 +126,36 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
         mAPSTS.setViewPager(mVP);
         mAPSTS.setOnPageChangeListener(this);
         mVP.setCurrentItem(VIEW_FIRST);
-        mAPSTS.showDot(VIEW_FIRST, "99+");
+//        mAPSTS.showDot(VIEW_FIRST, "99+");
     }
 
+    //check permission for external storage. and ask the user to allow the permission if no permission
+    public void checkPermission() {
+        boolean hasPermission = (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+        if (!hasPermission) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_FINE_LOCATION);
+        }
+    }
+
+    //activity after the permission request.
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode)
+        {
+            case REQUEST_FINE_LOCATION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    //reload my activity with permission granted or use the features what required the permission
+                } else
+                {
+                    Toast.makeText(this, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
     public String getID(){return mID;}
 
     @Override
