@@ -38,7 +38,7 @@ public class PriceDatastore {
         Key parentKey = getKey();
 
 
-        Entity entity = new Entity(Price.Price_ENTITY_NAME, price.id,
+        Entity entity = new Entity(Price.Price_ENTITY_NAME, price.id + price.taker,
                 parentKey);
         entity.setProperty(Price.FIELD_NAME_id, price.id);
         entity.setProperty(Price.FIELD_NAME_taker, price.taker);
@@ -106,9 +106,19 @@ public class PriceDatastore {
     public static ArrayList<Price> query(String name) {
         ArrayList<Price> resultList = new ArrayList<Price>();
         if (name != null && !name.equals("")) {
-            Price Price = getPriceByName(name, null);
-            if (Price != null) {
-                resultList.add(Price);
+            Query query = new Query(Price.Price_ENTITY_NAME);
+            // get every record from datastore, no filter
+            query.setFilter(null);
+            // set query's ancestor to get strong consistency
+            query.setAncestor(getKey());
+
+            PreparedQuery pq = mDatastore.prepare(query);
+
+            for (Entity entity : pq.asIterable()) {
+                Price price = getPriceFromEntity(entity);
+                if (price != null && price.id.equals(name)) {
+                    resultList.add(price);
+                }
             }
         } else {
             Query query = new Query(Price.Price_ENTITY_NAME);
