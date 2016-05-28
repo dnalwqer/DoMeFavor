@@ -2,6 +2,8 @@ package com.cs165.domefavor.domefavor;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -14,6 +16,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +31,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
 
     private RecyclerView listview1, listview2;
     private ArrayList<TaskItem> list1, list2;
+    private List<Uri> url1, url2;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private String personID;
 
@@ -33,9 +40,12 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
         super.onCreate(savedInstanceState);
         list1 = new ArrayList<>();
         list2 = new ArrayList<>();
+        url1 = new ArrayList<>();
+        url2 = new ArrayList<>();
         Intent intent = getActivity().getIntent();
         Bundle mbundle = intent.getExtras();
         personID = mbundle.getString("Email");
+
     }
 
     //inflate the fragment in the UI
@@ -81,26 +91,127 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
                 list2.add(data.get(i));
             }
         }
-        RecyclerAdapter recyclerAdapter1 = new RecyclerAdapter(list1);
-        listview1.setAdapter(recyclerAdapter1);
-        RecyclerAdapter recyclerAdapter2 = new RecyclerAdapter(list2);
-        listview2.setAdapter(recyclerAdapter2);
-        listview1.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                // do whatever
-                Intent intent = new Intent(getActivity(), InfoActivity.class);
-                Bundle mbundle = new Bundle();
-                mbundle.putString("ID", list1.get(position-1).getTaskID());
-                mbundle.putString("PersonID", list1.get(position-1).getPersonID());
-                intent.putExtras(mbundle);
-                startActivity(intent);
-            }
-        }));
+        for (int i = 0; i  < list1.size(); i++) {
+            new downloadTask().execute(list1.get(i).getUrl(), list1.get(i).getTaskID());
+        }
+        for (int i = 0; i < list2.size(); i++) {
+            new downloadTask2().execute(list2.get(i).getUrl(), list2.get(i).getTaskID());
+        }
     }
 
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<List<TaskItem>> loader) {
+    }
+
+
+    class downloadTask extends AsyncTask<String, Void, Uri> {
+        @Override
+        protected Uri doInBackground(String... params) {
+            if (!params[0].equals("NA")) {
+                try {
+                    String name = "photo" + params[1];
+                    if (Uri.fromFile(getActivity().getFileStreamPath(name)) != null) {
+                        url1.add(Uri.fromFile(getActivity().getFileStreamPath(name)));
+                        return Uri.fromFile(getActivity().getFileStreamPath(name));
+                    }
+                    FileOutputStream fos = getActivity().openFileOutput(name, Context.MODE_WORLD_READABLE);
+                    URL url = new URL(params[0]);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setConnectTimeout(5000);
+                    conn.setRequestMethod("GET");
+                    conn.setDoInput(true);
+                    if (conn.getResponseCode() == 200) {
+                        System.out.println("get result!");
+                        InputStream is = conn.getInputStream();
+                        byte[] buffer = new byte[1024];
+                        int len = 0;
+                        while ((len = is.read(buffer)) != -1) {
+                            fos.write(buffer, 0, len);
+                        }
+                        is.close();
+                        fos.close();
+                        url1.add(Uri.fromFile(getActivity().getFileStreamPath(name)));
+                        return Uri.fromFile(getActivity().getFileStreamPath(name));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+            else {
+                url1.add(null);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Uri uri) {
+            if (url1.size() == list1.size()) {
+                RecyclerAdapter recyclerAdapter1 = new RecyclerAdapter(list1, url1);
+                listview1.setAdapter(recyclerAdapter1);
+                listview1.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        // do whatever
+                        Intent intent = new Intent(getActivity(), InfoActivity.class);
+                        Bundle mbundle = new Bundle();
+                        mbundle.putString("ID", list1.get(position-1).getTaskID());
+                        mbundle.putString("PersonID", list1.get(position-1).getPersonID());
+                        intent.putExtras(mbundle);
+                        startActivity(intent);
+                    }
+                }));
+            }
+        }
+    }
+
+    class downloadTask2 extends AsyncTask<String, Void, Uri> {
+        @Override
+        protected Uri doInBackground(String... params) {
+            if (!params[0].equals("NA")) {
+                try {
+                    String name = "photo" + params[1];
+                    if (Uri.fromFile(getActivity().getFileStreamPath(name)) != null) {
+                        url2.add(Uri.fromFile(getActivity().getFileStreamPath(name)));
+                        return Uri.fromFile(getActivity().getFileStreamPath(name));
+                    }
+                    FileOutputStream fos = getActivity().openFileOutput(name, Context.MODE_WORLD_READABLE);
+                    URL url = new URL(params[0]);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setConnectTimeout(5000);
+                    conn.setRequestMethod("GET");
+                    conn.setDoInput(true);
+                    if (conn.getResponseCode() == 200) {
+                        System.out.println("get result!");
+                        InputStream is = conn.getInputStream();
+                        byte[] buffer = new byte[1024];
+                        int len = 0;
+                        while ((len = is.read(buffer)) != -1) {
+                            fos.write(buffer, 0, len);
+                        }
+                        is.close();
+                        fos.close();
+                        url2.add(Uri.fromFile(getActivity().getFileStreamPath(name)));
+                        return Uri.fromFile(getActivity().getFileStreamPath(name));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+            else {
+                url2.add(null);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Uri uri) {
+            if (url2.size() == list2.size()) {
+                RecyclerAdapter recyclerAdapter2 = new RecyclerAdapter(list2, url2);
+                listview2.setAdapter(recyclerAdapter2);
+            }
+        }
     }
 }
 

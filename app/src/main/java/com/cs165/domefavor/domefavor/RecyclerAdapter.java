@@ -1,6 +1,7 @@
 package com.cs165.domefavor.domefavor;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +17,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int TYPE_HEADER = 2;
     private static final int TYPE_ITEM = 1;
     private List<TaskItem> mItemList;
+    private List<Uri> mList;
 
-    public RecyclerAdapter(List<TaskItem> itemList) {
-        mItemList = itemList;
+    public RecyclerAdapter(List<TaskItem> itemList, List<Uri> mList) {
+        this.mItemList = itemList;
+        this.mList = mList;
     }
 
     @Override
@@ -39,7 +42,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (!isPositionHeader(position)) {
             RecyclerItemViewHolder holder = (RecyclerItemViewHolder) viewHolder;
             String itemText = mItemList.get(position - 1).getTaskName(); // header
-            holder.setItemText(itemText);
+            Uri uri = mList.get(position - 1);
+            holder.setItemText(itemText, uri);
         }
     }
 
@@ -65,5 +69,4 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private boolean isPositionHeader(int position) {
         return position == 0;
     }
-
 }
