@@ -20,7 +20,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,9 +48,8 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         mID = ID;
     }
 
-    @NonNull
     @Override
-    public View getTitleView(final int position, final View convertView, @NonNull final ViewGroup parent) {
+    public View getTitleView(final int position, final View convertView, final ViewGroup parent) {
 //        View tv = convertView;
 //        if (tv == null) {
 //            tv = new View(mContext);
@@ -78,9 +76,8 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         return tv;
     }
 
-    @NonNull
     @Override
-    public View getContentView(final int position, final View convertView, @NonNull final ViewGroup parent) {
+    public View getContentView(final int position, final View convertView,  final ViewGroup parent) {
         View tv =  convertView;
         LayoutInflater inflater = (LayoutInflater)mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -90,12 +87,14 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
 
         final TaskItem task = getItem(position);
 
+        TextView taskPersonView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_personID);
         TextView taskNameView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_content_name);
         TextView taskTimeView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_content_time);
         TextView taskDetailView =(TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_detail) ;
         TextView taskPriceView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_price);
         TextView taskLocView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_location);
 
+        taskPersonView.setText(mContext.getString(R.string.header_task_person_ID)+ "  "+ task.getPersonID());
         taskNameView.setText(mContext.getString(R.string.header_task_name) + "  "+task.getTaskName());
         taskTimeView.setText(mContext.getString(R.string.header_task_time) + "  "+task.getTime());
         taskDetailView.setText(mContext.getString(R.string.header_task_detail) +"  "+ task.getContent());

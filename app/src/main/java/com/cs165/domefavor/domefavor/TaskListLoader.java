@@ -27,7 +27,7 @@ public class TaskListLoader extends AsyncTaskLoader <ArrayList<TaskItem>> {
     @Override
     public ArrayList<TaskItem> loadInBackground() {
 
-//        return Utilities.createListForTest();
+
         System.out.println("loadInBackground");
         LatLng loc = FragmentMap.getLatLng();
         ArrayList<TaskItem> tasks = new ArrayList<>();
