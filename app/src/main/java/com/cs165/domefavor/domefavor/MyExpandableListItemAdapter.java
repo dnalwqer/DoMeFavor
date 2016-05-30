@@ -19,6 +19,7 @@ package com.cs165.domefavor.domefavor;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.InputType;
 import android.util.Log;
@@ -27,16 +28,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.nhaarman.listviewanimations.itemmanipulation.expandablelistitem.ExpandableListItemAdapter;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskItem> {
 
     private final Context mContext;
     private String mID;
+
     /**
      * Creates a new ExpandableListItemAdapter with the specified list, or an empty list if
      * items == null.
@@ -54,32 +62,34 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
 //        if (tv == null) {
 //            tv = new View(mContext);
 //        }
-        LayoutInflater inflater = (LayoutInflater)mContext
+        LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View tv = convertView;
-        if (convertView==null)
+        if (convertView == null)
             tv = inflater.inflate(R.layout.activity_expandablelistitem_card, null);
 
         TaskItem task = getItem(position);
-        TextView taskNameView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_title_name);
-        TextView taskTimeView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_title_time);
+        ImageView userImageView = (ImageView) tv.findViewById(R.id.activity_expandablelistitem_card_title_image);
+        TextView taskNameView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_title_name);
+        TextView taskTimeView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_title_time);
 //        Log.d("strLeng", ""+task.getTaskName().toString().length());
-        if (task.getTaskName().length()>24) {
-            String str = task.getTaskName().substring(0, 23) + "...";
+        if (task.getTaskName().length() > 20) {
+            String str = task.getTaskName().substring(0, 19) + "...";
             taskNameView.setText(str);
-        }
-        else {
+        } else {
             taskNameView.setText(task.getTaskName());
         }
         taskTimeView.setText(task.getTime());
+
+        new userImageDownloadTask(userImageView).execute(task.getUrl());
         return tv;
     }
 
     @Override
-    public View getContentView(final int position, final View convertView,  final ViewGroup parent) {
-        View tv =  convertView;
-        LayoutInflater inflater = (LayoutInflater)mContext
+    public View getContentView(final int position, final View convertView, final ViewGroup parent) {
+        View tv = convertView;
+        LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (tv == null) {
             tv = inflater.inflate(R.layout.activity_expandeditem_card, null);
@@ -88,27 +98,27 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         final TaskItem task = getItem(position);
 
         TextView taskPersonView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_personID);
-        TextView taskNameView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_content_name);
-        TextView taskTimeView = (TextView)tv.findViewById(R.id.activity_expandablelistitem_card_content_time);
-        TextView taskDetailView =(TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_detail) ;
+        TextView taskNameView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_name);
+        TextView taskTimeView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_time);
+        TextView taskDetailView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_detail);
         TextView taskPriceView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_price);
         TextView taskLocView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_content_location);
 
-        taskPersonView.setText(mContext.getString(R.string.header_task_person_ID)+ "  "+ task.getPersonID());
-        taskNameView.setText(mContext.getString(R.string.header_task_name) + "  "+task.getTaskName());
-        taskTimeView.setText(mContext.getString(R.string.header_task_time) + "  "+task.getTime());
-        taskDetailView.setText(mContext.getString(R.string.header_task_detail) +"  "+ task.getContent());
-        taskPriceView.setText(mContext.getString(R.string.header_task_offer) +"  "+ Double.toString(task.getPrice()));
+        taskPersonView.setText(mContext.getString(R.string.header_task_person_ID) + "  " + task.getPersonID());
+        taskNameView.setText(mContext.getString(R.string.header_task_name) + "  " + task.getTaskName());
+        taskTimeView.setText(mContext.getString(R.string.header_task_time) + "  " + task.getTime());
+        taskDetailView.setText(mContext.getString(R.string.header_task_detail) + "  " + task.getContent());
+        taskPriceView.setText(mContext.getString(R.string.header_task_offer) + "  " + Double.toString(task.getPrice()));
         Double dis = 0.0;
         try {
             LatLng mLoc = FragmentMap.getLatLng();
             dis = distance(mLoc.longitude, mLoc.latitude, Double.parseDouble(task.getLongitude()), Double.parseDouble(task.getLatitude()));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        taskLocView.setText(mContext.getString(R.string.header_locatioin) + "  "+  String.format( "%.2f", dis/1000));
+        taskLocView.setText(mContext.getString(R.string.header_locatioin) + "  " + String.format("%.2f", dis / 1000));
 
-        Button bidBtn= (Button) tv.findViewById(R.id.bid);
+        Button bidBtn = (Button) tv.findViewById(R.id.bid);
         bidBtn.setBackgroundResource(R.drawable.ic_bid);
         bidBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,15 +135,15 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         return tv;
     }
 
-    private AlertDialog.Builder Setup_Dialog_Bid(AlertDialog.Builder builder, Context context, final TaskItem task){
+    private AlertDialog.Builder Setup_Dialog_Bid(AlertDialog.Builder builder, Context context, final TaskItem task) {
         final EditText edittext = new EditText(context);
         edittext.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         builder.setTitle(R.string.dialog_bid_title);
         builder.setView(edittext);
 
         //setup positive and negative buttons and add listeners
-        DialogInterface.OnClickListener PositiveButtonListener = new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog,int whichButton) {
+        DialogInterface.OnClickListener PositiveButtonListener = new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
                 String bidPriceStr = edittext.getText().toString();
                 String[] params = {bidPriceStr, task.getTaskID()};
                 if (!bidPriceStr.equals("")) {
@@ -143,8 +153,8 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
                 }
             }
         };
-        DialogInterface.OnClickListener NegativeButtonListener = new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog,int whichButton) {
+        DialogInterface.OnClickListener NegativeButtonListener = new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
                 edittext.setText("");
             }
         };
@@ -153,28 +163,8 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         return builder;
     }
 
-    public class bidAsyncTask extends AsyncTask<String, Void, Void>{
-
-        @Override
-        protected Void doInBackground(String... params) {
-            Log.d("BidAsyncTask", params[0] + " : " + params[1]);
-            try{
-                Server.changePrice(Double.parseDouble(params[0]), params[1] ,mID);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            Toast.makeText(mContext, "You have bid the task!", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
     public double distance(double long1, double lat1, double long2,
-                                  double lat2) {
+                           double lat2) {
         double a, b, R;
         R = 6378137; // earth radius
         lat1 = lat1 * Math.PI / 180.0;
@@ -190,5 +180,72 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
                 * Math.asin(Math.sqrt(sa2 * sa2 + Math.cos(lat1)
                 * Math.cos(lat2) * sb2 * sb2));
         return d;
+    }
+
+    public class bidAsyncTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+            Log.d("BidAsyncTask", params[0] + " : " + params[1]);
+            try {
+                Server.changePrice(Double.parseDouble(params[0]), params[1], mID);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Toast.makeText(mContext, "You have bid the task!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public class userImageDownloadTask extends AsyncTask<String, Void, Uri> {
+        private ImageView mImageView;
+
+        public userImageDownloadTask(ImageView imageView){
+            mImageView = imageView;
+        }
+
+        @Override
+        protected Uri doInBackground(String... params) {
+            Log.d("adapter", "download the image");
+            if (!params[0].equals("N/A")) {
+                try {
+                    String name = "photo" + System.currentTimeMillis();
+                    FileOutputStream fos = mContext.openFileOutput(name, Context.MODE_WORLD_READABLE);
+                    URL url = new URL(params[0]);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setConnectTimeout(5000);
+                    conn.setRequestMethod("GET");
+                    conn.setDoInput(true);
+                    if (conn.getResponseCode() == 200) {
+                        System.out.println("get result!");
+                        InputStream is = conn.getInputStream();
+                        byte[] buffer = new byte[1024];
+                        int len = 0;
+                        while ((len = is.read(buffer)) != -1) {
+                            fos.write(buffer, 0, len);
+                        }
+                        is.close();
+                        fos.close();
+                        return Uri.fromFile(mContext.getFileStreamPath(name));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Uri uri) {
+            if (uri != null)
+                mImageView.setImageURI(uri);
+            else
+                mImageView.setImageResource(R.drawable.default_profile);
+        }
     }
 }

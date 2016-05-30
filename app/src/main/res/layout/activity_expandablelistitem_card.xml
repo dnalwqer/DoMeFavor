@@ -28,16 +28,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/activity_expandablelistitem_card_title_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
         <TextView
             android:id="@+id/activity_expandablelistitem_card_title_name"
+            android:layout_marginStart="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/activity_expandablelistitem_card_title_image"
             android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/activity_expandablelistitem_card_title_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             />
