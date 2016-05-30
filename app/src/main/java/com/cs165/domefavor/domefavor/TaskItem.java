@@ -15,6 +15,7 @@ public class TaskItem {
     private String status;
     private double price;
     private String url;
+    private String biders;
 
     public static String taskIDS = "taskID";
     public static String nameS = "taskName";
@@ -26,6 +27,7 @@ public class TaskItem {
     public static String personIDS = "personID";
     public static String statusS = "status";
     public static String urlS = "url";
+    public static String biderS = "biders";
 
     TaskItem(String id, String name, String longitude, String latitude, String tim,
              String con, double price, String personID, String status, String url){
@@ -87,6 +89,8 @@ public class TaskItem {
 
     void setUrl(String url) { this.url = url; }
 
+    void setBiders(String biders) { this.biders = biders; }
+
     String getTaskID(){ return taskID; }
 
     String getTaskName(){
@@ -119,5 +123,9 @@ public class TaskItem {
 
     double getPrice(){
         return price;
+    }
+
+    String getBiders() {
+        return biders;
     }
 }

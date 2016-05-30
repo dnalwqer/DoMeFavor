@@ -116,6 +116,7 @@ public class QueryTaskServlet extends HttpServlet {
 			cur.put("price",task.price);
 			cur.put("status","post");
 			profileadd(cur);
+			bidersadd(cur);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -148,5 +149,9 @@ public class QueryTaskServlet extends HttpServlet {
 		cur.put("gender", profile.gender);
 		cur.put("url", profile.url);
 		return cur;
+	}
+
+	public void bidersadd(JSONObject cur){
+		cur.put("biders", PriceDatastore.query(cur.getString("taskID")).size() + "");
 	}
 }

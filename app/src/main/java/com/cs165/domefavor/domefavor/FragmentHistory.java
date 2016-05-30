@@ -1,6 +1,7 @@
 package com.cs165.domefavor.domefavor;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -10,11 +11,13 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -70,6 +73,14 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
         getLoaderManager().restartLoader(0, null, this);
     }
 
+    public void refresh() {
+        System.out.println("before");
+        if (getLoaderManager().getLoader(0)== null) {
+            System.out.println("wawawaw");
+        }
+        getLoaderManager().restartLoader(0, null, this);
+        System.out.println("hahahah");
+    }
 
     @Override
     public Loader<List<TaskItem>> onCreateLoader(int id, Bundle args) {
@@ -165,11 +176,9 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
                     System.out.println("URL = " + url1.get(i));
                 }
                 RecyclerAdapter recyclerAdapter1 = new RecyclerAdapter(list1, url1);
-                listview1.setAdapter(recyclerAdapter1);
-                listview1.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                recyclerAdapter1.setOnItemClickListener(new RecyclerAdapter.ClickListener() {
                     @Override
-                    public void onItemClick(View view, int position) {
-                        // do whatever
+                    public void onItemClick(int position, View v) {
                         Intent intent = new Intent(getActivity(), InfoActivity.class);
                         Bundle mbundle = new Bundle();
                         mbundle.putString("ID", list1.get(position-1).getTaskID());
@@ -180,8 +189,45 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
                         intent.putExtras(mbundle);
                         startActivity(intent);
                     }
-                }));
+
+                    @Override
+                    public void onItemLongClick(int position, View v) {
+                        final int pos = position;
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle("Close the task")
+                                .setMessage("Are you sure to delete this task?")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        new closeTask().execute(list1.get(pos-1).getTaskID(), personID);
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                })
+                                .show();
+                    }
+                });
+                listview1.setAdapter(recyclerAdapter1);
             }
+        }
+    }
+
+    class closeTask extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... ID) {
+            try {
+                Server.closeOneTask(ID[0], ID[1]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void para) {
+            Toast.makeText(getActivity(), "Delete the task successfully", Toast.LENGTH_SHORT).show();
         }
     }
 
