@@ -144,6 +144,8 @@ public class InfoActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 new closeTask().execute(taskID, personID);
                                 status = 1;
+                                send(getApplication(), list.get(position-1).getPersonID(),taskname
+                                        , "Your bid for " + taskname + "has been choosen!" + "\n" + "Time: " + tasktime + "\n" + "Content:" + taskcontent + "\n" + "The price will be :" + list.get(position-1).getPrice());
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -161,8 +163,6 @@ public class InfoActivity extends AppCompatActivity {
         protected Void doInBackground(String... ID) {
             try {
                 Server.closeOneTask(ID[0], ID[1]);
-                send(getApplication(), personID,taskname
-                        , taskname + "\n" + tasktime+ "\n" + taskcontent);
             } catch (Exception e) {
                 e.printStackTrace();
             }

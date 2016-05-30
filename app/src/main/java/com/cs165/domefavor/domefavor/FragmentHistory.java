@@ -94,12 +94,24 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
                 list2.add(data.get(i));
             }
         }
-        System.out.println("list1 = " + list1.size() + ", list2 = " + list2.size());
-        for (int i = 0; i  < list1.size(); i++) {
-            new downloadTask().execute(list1.get(i).getUrl(), list1.get(i).getTaskID());
+
+        if (list1.size() != 0) {
+            for (int i = 0; i < list1.size(); i++) {
+                new downloadTask().execute(list1.get(i).getUrl(), list1.get(i).getTaskID());
+            }
         }
-        for (int i = 0; i < list2.size(); i++) {
-            new downloadTask2().execute(list2.get(i).getUrl(), list2.get(i).getTaskID());
+        else {
+            RecyclerAdapter recyclerAdapter1 = new RecyclerAdapter(list1, url1);
+            listview1.setAdapter(recyclerAdapter1);
+        }
+        if (list2.size() != 0) {
+            for (int i = 0; i < list2.size(); i++) {
+                new downloadTask2().execute(list2.get(i).getUrl(), list2.get(i).getTaskID());
+            }
+        }
+        else {
+            RecyclerAdapter recyclerAdapter2 = new RecyclerAdapter(list2, url2);
+            listview2.setAdapter(recyclerAdapter2);
         }
     }
 
@@ -147,7 +159,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
         @Override
         protected void onPostExecute(Uri uri) {
             System.out.println("SIZE ==== " + url1.size());
-            if (url1.size() == list1.size() - 1) {
+            if (url1.size() == list1.size()) {
                 System.out.println("hahahaha");
                 for (int i = 0; i < url1.size(); i++) {
                     System.out.println("URL = " + url1.get(i));
