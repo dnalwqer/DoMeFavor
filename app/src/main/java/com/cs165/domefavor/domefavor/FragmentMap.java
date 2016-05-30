@@ -126,8 +126,9 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
             firstTime = false;
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
             refresh();
-        }else
-            map.animateCamera(CameraUpdateFactory.newLatLng(loc));
+        }
+//        }else
+//            map.animateCamera(CameraUpdateFactory.newLatLng(loc));
     }
 
     @Override
