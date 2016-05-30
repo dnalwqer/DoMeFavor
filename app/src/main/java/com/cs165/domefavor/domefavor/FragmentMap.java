@@ -122,13 +122,15 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
 
     @Override
     public void onStart() {
-        mGoogleApiClient.connect();
+        if(mGoogleApiClient != null)
+            mGoogleApiClient.connect();
         super.onStart();
     }
 
     @Override
     public void onStop() {
-        mGoogleApiClient.disconnect();
+        if(mGoogleApiClient != null)
+            mGoogleApiClient.disconnect();
         super.onStop();
     }
 
