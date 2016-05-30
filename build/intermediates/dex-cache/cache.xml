@@ -1,2 +1,404 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="c54246475c1bb64ac6857d1320364bfbfeda2c46">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-fitness-8.4.0_3f6a1b7f065fef79c4bd604bff50bc066d540950/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.android.support/support-v13/23.4.0/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="be09545b7e6ff322c7286d2e80bed3b75b76c529">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.4.0_e31924b43e3306a93d21081cae88570a2f8a9345/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-jackson2/1.20.0/2408070b2abec043624d35b35e30450f1b663858/google-http-client-jackson2-1.20.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="2408070b2abec043624d35b35e30450f1b663858">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/google-http-client-jackson2-1.20.0_e20b4ce98f8907bebbb079fbdb13e95977796ee7/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="0194a7409c40de94fb539d4ad9928ec5d47afeb7">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-safetynet-8.4.0_c2fd23a4a56b5d2de9614a31273ae5e92d161a2b/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="1c9f35e952b212c843f7bd2c7eec8e82ad95602e">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-analytics-8.4.0_c5aa450840b0ff9b4a846abb1e48553a75f6b65e/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.4.0_d06ef44acf7442a0b3d7dee2f1e3a1bccdcb9dfd/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.4.0_ff170457dc8de708ee249d333092dbed77fc8c85/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-ads-8.4.0_1b7646049290d4e376b53d06e259706f6f1a0a6e/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="1a78298e7724d5440d210bcb946b3493250d354d">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-plus-8.4.0_c3b5f2a5f7f4a629988d2099053f3c3fbb8490d9/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-mediarouter-v7-23.0.0_c06954df3f39e7907d1a342aa4764c1bc175976e/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/homhomlin.lib/apsts/1.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="4c8abf56bea29a6a029f78a854f8fe0c942e7e5d">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/homhomlin.lib-apsts-1.4.0_b388d637920ec423d3f54cd6879d27616e16abcc/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="9fe026fb4c7fce21bc5142f6e1bdf844f28061ac">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-appinvite-8.4.0_05c67b739426cdaa3f9cd350eed471bca90415ca/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client/1.20.0/d3e66209ae9e749b2d6833761e7885f60f285564/google-api-client-1.20.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="d3e66209ae9e749b2d6833761e7885f60f285564">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/google-api-client-1.20.0_9c4275640e4471185eff77894041c8fc343b8ac2/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.github.sd6352051.niftydialogeffects/niftydialogeffects/1.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f6e011916db951e72f3a2be65cfb864bf5408035">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.github.sd6352051.niftydialogeffects-niftydialogeffects-1.0.0_5aff13df2c2dcfc546e8facb297a66f91cb4f3ae/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.1.3/f6c3aed1cdfa21b5c1737c915186ea93a95a58bd/jackson-core-2.1.3.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f6c3aed1cdfa21b5c1737c915186ea93a95a58bd">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/jackson-core-2.1.3_17544518890df818007f9ec798b24746c3717a5e/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="b36f30ac5ee5d5214f4b1e2ac49f11889d58e71a">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-drive-8.4.0_4999c376700a6c37740ab3d5be4243d65b082171/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/.gradle/caches/modules-2/files-2.1/com.google.oauth-client/google-oauth-client/1.20.0/1d086ac5756475ddf451af2e2df6e288d18608ca/google-oauth-client-1.20.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="1d086ac5756475ddf451af2e2df6e288d18608ca">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/google-oauth-client-1.20.0_c5dea51aafac8c9d3df6207b72c5f6ac43d5641f/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="966e5771a5a2ebfb31bf00d7cd6cd2546d245517">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-8.4.0_5d4c4023b06b7190358512411d19fe765bb9a40a/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-8.4.0_de218c6ffeb11f19196463e2f989f9101e803975/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.android.support/multidex/1.0.1/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-multidex-1.0.1_0807fcd917df0db394c1cbfddd2e6c977131d3c1/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-wearable-8.4.0_37dc89555181dfd5d73c12e082d24978f66e4f93/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/.gradle/caches/modules-2/files-2.1/com.google.guava/guava-jdk5/13.0/381ae6c8add7c98e9bcddb1e0b898400cd6fc3f7/guava-jdk5-13.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="381ae6c8add7c98e9bcddb1e0b898400cd6fc3f7">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/guava-jdk5-13.0_7ee7781460d7f4d786a477844f76afd19f288aa8/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/1.3.9/40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf/jsr305-1.3.9.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/jsr305-1.3.9_8a314d18c99b5c5cf2cfde50999f5fc0cccc6813/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-23.4.0_f25317ade030d460a58c771e1bfc16a0fef25280/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/info.hoang8f/fbutton/1.0.5/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="2c12397a785c3b1868fbebeffc9553457b27803f">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/info.hoang8f-fbutton-1.0.5_4af55f18813983d838a3aafa578e0e082c959e04/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.android.support/support-v13/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="2bf893856577f5038c0b8007a43fda3b3c5beb23">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v13-23.4.0_dcb4b6a69c53880a522d4d5efaffd585bd6b97ef/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-appindexing-8.4.0_48a0f0a22d61ecc57dedd9a0ba7b3ca3afa0c58d/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.marvinlabs/android-floatinglabel-widgets/1.6.1/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="574ffa10cb80563af55182f84e4597abcef39774">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.marvinlabs-android-floatinglabel-widgets-1.6.1_3570d25ed1f708d96c8c8f42029aacd1e9a1200d/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="2d7fe76982677315c4dc4edfb459c8ca718a9d4c">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-gcm-8.4.0_137c93ddcf8af817612c755e156dfdf7b6264c09/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.4.0_ce990ff29a50a25a9242ea7bc61f4c3fbc6f9a38/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/library-2.4.0_6e525f99a173efe2e90529df4cce127b4f6dbbf2/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="551e78f21acf69ebfb489c0e79647824c838013e">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-cast-8.4.0_661c906585f69ea3b612e88abd2941d1913915dc/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="b82b8e847173c28efffcd291b2a0b1ae9ad17fa4">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-identity-8.4.0_92e5e853d8a2628a0af7b129f9058cbc5644d991/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.4.0_c69485f77aaadc6e7d509572e0aebbeac46934ae/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-measurement/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="613298b7aa012f121ce542881c0a599ebd8078f2">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-measurement-8.4.0_9ef6492ad0d00ecbe9eb812d65ad0071789765b5/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.nhaarman.listviewanimations/lib-core-slh/3.1.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="49223278ec2ede1d05d00868c5ce3e077b4016f8">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.nhaarman.listviewanimations-lib-core-slh-3.1.0_023819d14dca1104b0185339e80b9578ed5e2d96/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-8.4.0_fa715f7dfaf8e7c4481c672f5f52d20806bc819e/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.2.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="bc599eb9531da9d18bc58ec4eb0b1a1d895f6839">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-cardview-v7-23.2.0_c74f8bd968e04ce55abf860c997db970cefdc9be/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-android/1.20.0/313dc99a7963523871495897ca11aa8472b3c6fd/google-http-client-android-1.20.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="313dc99a7963523871495897ca11aa8472b3c6fd">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/google-http-client-android-1.20.0_eee545e0e1c5b97a4cee55a2ea9ef7ca83e7e9ad/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.4.0_78be4180a5705149e69797eb174f40c9d3fe3831/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="c3eb6b0f3aa5918ea63cb8e86a073d1871f13c7e">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_6bf7eb2bd8607003a8754740325e0692407a1a4f/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.nhaarman.listviewanimations/lib-core/3.1.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="acf66033b1418ccf9e15c8e77750981e4809c4ea">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.nhaarman.listviewanimations-lib-core-3.1.0_cc145ccb458f0df3def8eecd40368b4cce0160aa/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client-android/1.20.0/5673179575c32b69a474334255c3044adf18d40/google-api-client-android-1.20.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="05673179575c32b69a474334255c3044adf18d40">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/google-api-client-android-1.20.0_4c91f0ab91d3678ec6b9c496cdff7bc9d2b8194c/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-23.4.0_c449e30042ec75cc58d5f1309f3767b7e5366075/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-maps-8.4.0_d2b335ad99331ccbf6fd06bdec21b40100d6a7ba/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="9cad249cf62751a323d9af568caf12284b7d6062">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-nearby-8.4.0_be5cfe012706485bbefca8a92327848898b18a67/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="08d34b2d135c1cc96ab506fd8bf6916d1e2f391a">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-panorama-8.4.0_cd6548bf240db22268af6274fa233dfdfb2fef52/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/info.hoang8f/android-segmented/1.0.6/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="692a913dff3246e0cc5369c2508f5970ecfeca01">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/info.hoang8f-android-segmented-1.0.6_c45f01090038966ac901f005aee482e6719af47d/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client/1.20.0/93d82db2bca534960253f43424b2ba9d7638b4d2/google-http-client-1.20.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="93d82db2bca534960253f43424b2ba9d7638b4d2">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/google-http-client-1.20.0_5d5468aa672f54b637c6a65685db880b5a1f41f5/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-location-8.4.0_f5b0bcacb232daa41e88a3e925796178d3ebedb5/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.android.support/design/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="5326d9a850d491714fef8cbfaa9ea3416f0bf0d2">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.4.0_31c48ebf7e8c652c516316202df2f2ad6a452138/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="3a364cc6b698d1b3b2d284f64618daaa7fe77ddf">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-games-8.4.0_9b22929028fc15512d47d142be681411131864e7/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f2df436a8f02ce7e4d7d209671fc45f97c470f0e">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-wallet-8.4.0_82339dbfe8cc8b4d148ec833930e6464de0631f0/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.nhaarman.listviewanimations/lib-manipulation/3.1.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="5660e4bf78904137e90e62a5d4cc2e987258f02c">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.nhaarman.listviewanimations-lib-manipulation-3.1.0_33657b748ab74c94eb93124db252d15c8a435f6e/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-vision/8.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="dfecc4d835cdabcdecf7e95f0d20a3ef1e9d8ef4">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-vision-8.4.0_8efd049666146eac7e0fbf6ffe16fe58e518afbb/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.0.0_9e0fa9645c4f00af9fe9cd1acc191efb887d3d2a/classes.dex" />
+    </item>
+    <item
+        jar="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="2f3e8cee89c6fbcd10e6bc7593f7f63193c5a37d">
+        <dex dex="/Users/Alex/Desktop/class/SP/PJ/DoMeFavor/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_2d60829a91e064eb720cf668a616e972b1f23cb5/classes.dex" />
+    </item>
+
+</items>
