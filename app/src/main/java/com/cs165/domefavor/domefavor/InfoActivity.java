@@ -1,7 +1,9 @@
 package com.cs165.domefavor.domefavor;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +13,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +26,7 @@ public class InfoActivity extends AppCompatActivity {
     private RecyclerView listview;
     private RecyclerInfoAdapter adapter;
     private List<PriceItem> list;
+    private List<Uri> url1;
     private String taskID, personID;
     private int status = 0;
 
@@ -30,6 +37,7 @@ public class InfoActivity extends AppCompatActivity {
 
         listview = (RecyclerView) findViewById(R.id.price_list);
         list = new ArrayList<>();
+        url1 = new ArrayList<>();
 
         Intent intent = getIntent();
         Bundle mbundle = intent.getExtras();
@@ -66,11 +74,8 @@ public class InfoActivity extends AppCompatActivity {
                     list.add(items.get(i));
                 }
 
-                adapter = new RecyclerInfoAdapter(list);
-                listview.setAdapter(adapter);
-                displayAdpater();
-                if (status == 1) {
-                    finish();
+                for (int i = 0; i < items.size(); i++) {
+                    new downloadTask().execute(list.get(i).getUrl());
                 }
             }
             else if (items.size() == 0){
@@ -131,6 +136,55 @@ public class InfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void para) {
             Toast.makeText(getApplicationContext(), "Close the task successfully", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    class downloadTask extends AsyncTask<String, Void, Uri> {
+        @Override
+        protected Uri doInBackground(String... params) {
+            if (!params[0].equals("NA")) {
+                try {
+                    String name = "photo" + System.currentTimeMillis();
+                    FileOutputStream fos = openFileOutput(name, Context.MODE_WORLD_READABLE);
+                    URL url = new URL(params[0]);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setConnectTimeout(5000);
+                    conn.setRequestMethod("GET");
+                    conn.setDoInput(true);
+                    if (conn.getResponseCode() == 200) {
+                        System.out.println("get result!");
+                        InputStream is = conn.getInputStream();
+                        byte[] buffer = new byte[1024];
+                        int len = 0;
+                        while ((len = is.read(buffer)) != -1) {
+                            fos.write(buffer, 0, len);
+                        }
+                        is.close();
+                        fos.close();
+                        url1.add(Uri.fromFile(getFileStreamPath(name)));
+                        return Uri.fromFile(getFileStreamPath(name));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+            else {
+                url1.add(null);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Uri uri) {
+            if (url1.size() == list.size()) {
+                adapter = new RecyclerInfoAdapter(list, url1);
+                listview.setAdapter(adapter);
+                displayAdpater();
+                if (status == 1) {
+                    finish();
+                }
+            }
         }
     }
 }

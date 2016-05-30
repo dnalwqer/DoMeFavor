@@ -1,6 +1,7 @@
 package com.cs165.domefavor.domefavor;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +17,11 @@ public class RecyclerInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int TYPE_HEADER = 2;
     private static final int TYPE_ITEM = 1;
     private List<PriceItem> mItemList;
+    private List<Uri> mImage;
 
-    public RecyclerInfoAdapter(List<PriceItem> itemList) {
+    public RecyclerInfoAdapter(List<PriceItem> itemList, List<Uri> mImage) {
         mItemList = itemList;
+        this.mImage = mImage;
     }
 
     @Override
@@ -42,7 +45,8 @@ public class RecyclerInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             String itemAge = mItemList.get(position - 1).getAge();
             String itemGender = mItemList.get(position - 1).getGender();
             String itemPrice = String.valueOf(mItemList.get(position - 1).getPrice());
-            holder.setItemText("Name ID: " + itemID, "Age: " + itemAge, "Gender: " + itemGender, "The price he/she gave:" + itemPrice);
+            Uri uri = mImage.get(position - 1);
+            holder.setItemText("Name ID: " + itemID, "Age: " + itemAge, "Gender: " + itemGender, "The price he/she gave:" + itemPrice, uri);
         }
     }
 

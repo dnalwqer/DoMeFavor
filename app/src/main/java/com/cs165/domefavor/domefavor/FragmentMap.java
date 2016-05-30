@@ -11,6 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -28,7 +33,9 @@ import java.util.List;
 /**
  * Created by xuehanyu on 5/23/16.
  */
-public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClickListener, View.OnClickListener {
+public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClickListener, View.OnClickListener,
+        LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+    private GoogleApiClient mGoogleApiClient;
     private MapView mapView;
     private GoogleMap map;
     private boolean firstTime = true;
@@ -50,7 +57,13 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
             return v;
         }
         map.setMyLocationEnabled(true);
-        map.setOnMyLocationChangeListener(myLocationChangeListener);
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
 
         UiSettings settings = map.getUiSettings();
         settings.setCompassEnabled(true);
@@ -70,13 +83,53 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
 
 
         map.setOnInfoWindowClickListener(this);
-        ImageButton botton = (ImageButton)v.findViewById(R.id.mapRefreshButton);
+        ImageButton botton = (ImageButton) v.findViewById(R.id.mapRefreshButton);
         botton.setOnClickListener(this);
-//        Location loc = map.getMyLocation();
+//        loc = map.getMyLocation();
 //        // Updates the location and zoom of the MapView
 //        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 10);
 //        map.animateCamera(cameraUpdate);
         return v;
+    }
+
+    private void createLocationRequest() {
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient, mLocationRequest, this);
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        createLocationRequest();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        loc = new LatLng(location.getLatitude(), location.getLongitude());
+        if(firstTime) {
+            firstTime = false;
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
+            refresh();
+        }else
+            map.animateCamera(CameraUpdateFactory.newLatLng(loc));
+    }
+
+    @Override
+    public void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
     }
 
     @Override
@@ -95,46 +148,6 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
-    }
-
-    private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
-        @Override
-        public void onMyLocationChange(Location location) {
-            loc = new LatLng(location.getLatitude(), location.getLongitude());
-            if(map != null){
-                if(firstTime) {
-                    firstTime = false;
-//                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
-                    ZoomMap(loc);
-                    refresh();
-  //                addMarker();
-                }else;
-                    //map.moveCamera(CameraUpdateFactory.newLatLng(loc));
-                    //map.animateCamera(CameraUpdateFactory.newLatLng(loc));
-            }
-        }
-    };
-
-    public void ZoomMap(LatLng lastLatLng){
-        VisibleRegion vr = map.getProjection().getVisibleRegion();
-        double left = vr.latLngBounds.southwest.longitude;
-        double top = vr.latLngBounds.northeast.latitude;
-        double right = vr.latLngBounds.northeast.longitude;
-        double bottom = vr.latLngBounds.southwest.latitude;
-        double vRange = right - left;
-        double hRange = top - bottom;
-//        Log.d(TAG, top + " : " + right);
-//        Log.d(TAG, bottom + " : " + left);
-//        Log.d(TAG, "vRange is " + vRange);
-//        Log.d(TAG, "hRange is " + hRange);
-        LatLng northeastBound = new LatLng(top -0.1 * vRange , right - 0.1 * hRange );
-        LatLng southwestBound = new LatLng(bottom + 0.1 * vRange, left + 0.1 * hRange);
-
-        LatLngBounds bounds = new LatLngBounds(southwestBound,northeastBound);
-
-        if (!bounds.contains(lastLatLng))
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(lastLatLng, 17));
-
     }
 
     @Override
@@ -168,5 +181,14 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
         MainActivity_v2 parent = (MainActivity_v2)getActivity();
         FragmentTaskList fragmentTaskList = (FragmentTaskList)parent.getFragment(1);
         fragmentTaskList.refreshData();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
     }
 }
