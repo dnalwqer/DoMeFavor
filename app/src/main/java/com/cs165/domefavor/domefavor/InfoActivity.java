@@ -105,12 +105,6 @@ public class InfoActivity extends AppCompatActivity {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 new closeTask().execute(taskID, personID);
-//                                try {
-//                                    Mail.sendEmail(personID, "Notification", "You have choosen a task!");
-//                                    Mail.sendEmail(list.get(position - 1).getPersonID(), "Notification", "Your bid is successful!");
-//                                } catch (MessagingException e) {
-//                                    e.printStackTrace();
-//                                }
                                 status = 1;
                             }
                         })
