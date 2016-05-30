@@ -31,13 +31,15 @@
         <TextView
             android:id="@+id/activity_expandablelistitem_card_title_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
             android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/activity_expandablelistitem_card_title_time"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             />
