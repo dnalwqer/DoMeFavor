@@ -32,8 +32,7 @@ public class TaskListLoader extends AsyncTaskLoader <ArrayList<TaskItem>> {
         LatLng loc = FragmentMap.getLatLng();
         ArrayList<TaskItem> tasks = new ArrayList<>();
         if(loc == null){
-            Toast.makeText(getContext(), "Cannot Get Location", Toast.LENGTH_SHORT).show();
-            return tasks;
+            return null;
         }
         try {
             System.out.println(loc.latitude + "   ,   " + loc.longitude);

@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -80,12 +82,23 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
 
 
         map.setOnInfoWindowClickListener(this);
-        ImageButton botton = (ImageButton) v.findViewById(R.id.mapRefreshButton);
-        botton.setOnClickListener(this);
-//        loc = map.getMyLocation();
-//        // Updates the location and zoom of the MapView
-//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 10);
-//        map.animateCamera(cameraUpdate);
+        ImageButton button = (ImageButton) v.findViewById(R.id.mapRefreshButton);
+        button.setOnClickListener(this);
+        button.setBackgroundColor(0xc8FFFFFF);
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        v.setBackgroundColor(0xc8DDDDDD);
+                        return true; // if you want to handle the touch event
+                    case MotionEvent.ACTION_UP:
+                        v.setBackgroundColor(0xc8FFFFFF);
+                        return true; // if you want to handle the touch event
+                }
+                return false;
+            }
+        });
         return v;
     }
 
@@ -173,7 +186,11 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
     }
 
     public void onClick(View v){
-       refresh();
+        if(loc == null){
+            Toast.makeText(getContext(), "Cannot Get Location", Toast.LENGTH_SHORT).show();
+        }
+        else
+            refresh();
     }
 
     private void refresh(){

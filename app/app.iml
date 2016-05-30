@@ -21,7 +21,7 @@
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
-        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res/menu;file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/src/debug/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/src/main/res/menu;file://$MODULE_DIR$/src/debug/res" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
     </facet>
@@ -163,17 +163,12 @@
     <orderEntry type="library" exported="" name="lib-manipulation-3.1.0" level="project" />
     <orderEntry type="library" exported="" name="android-segmented-1.0.6" level="project" />
     <orderEntry type="library" exported="" name="multidex-1.0.1" level="project" />
-<<<<<<< HEAD
-    <orderEntry type="library" exported="" name="google-http-client-1.20.0" level="project" />
-    <orderEntry type="library" exported="" name="guava-jdk5-13.0" level="project" />
-=======
     <orderEntry type="library" exported="" name="google-api-client-android-1.20.0" level="project" />
     <orderEntry type="library" exported="" name="backend-android-endpoints" level="project" />
     <orderEntry type="library" exported="" name="play-services-vision-8.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-wearable-8.4.0" level="project" />
     <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-appindexing-8.4.0" level="project" />
->>>>>>> 59eaeab7e9eed3ad1f3f0bc6af6224ccc67b5337
     <orderEntry type="library" exported="" name="play-services-nearby-8.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-8.4.0" level="project" />
     <orderEntry type="library" exported="" name="design-23.4.0" level="project" />

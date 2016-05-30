@@ -27,7 +27,7 @@ public class AppActivity extends AppCompatActivity {
 
 
         d.addView(wView);
-        ScaleAnimation scale = new ScaleAnimation(1.0f, 1.07f,1.0f,1.07f);
+        ScaleAnimation scale = new ScaleAnimation(1.05f, 1.1f,1.05f,1.1f);
         scale.setDuration(3000);
         scale.setFillAfter(true);
         view.startAnimation(scale);
