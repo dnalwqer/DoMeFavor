@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,6 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
+import info.hoang8f.widget.FButton;
 
 /**
  *
@@ -34,13 +34,14 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
 
     private TextView name, email;
     private ImageView image;
-    private Button save;
+    private FButton save;
     private Bundle mbundle;
     private SegmentedGroup segment;
     private RadioButton radio1, radio2, radio3;
     private String gender = "Male";
     private String age = "18";
     private FloatingLabelEditText editText;
+    private Uri uri = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
         email.setText(mbundle.getString("Email"));
 
         image = (ImageView) view.findViewById(R.id.imageProfile);
-        Uri uri = mbundle.getParcelable("Photo");
+        uri = mbundle.getParcelable("Photo");
         if (uri != null)
             new downloadTask().execute(uri.toString());
         else {
@@ -79,7 +80,7 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
 
 
         editText.setEditTextListener(this);
-        save = (Button) view.findViewById(R.id.saveprofile);
+        save = (FButton) view.findViewById(R.id.saveprofile);
         save.setOnClickListener(this);
         return view;
     }
@@ -133,7 +134,14 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
 
             editor.commit();
 
-            PriceItem item = new PriceItem(0.0, mbundle.getString("Email"), age, gender, "https://lh6.googleusercontent.com/-jyr1Yk-udY4/AAAAAAAAAAI/AAAAAAAAAFI/_NcVd5KgjCE/photo.jpg");
+            PriceItem item;
+            if (uri != null) {
+                item = new PriceItem(0.0, mbundle.getString("Email"), age, gender, uri.toString());
+            }
+            else {
+                item = new PriceItem(0.0, mbundle.getString("Email"), age, gender, "N/A");
+            }
+
             new saveProfileTask().execute(item);
         }
     }

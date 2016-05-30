@@ -1,17 +1,17 @@
 package com.cs165.domefavor.domefavor;
 
 import android.app.DialogFragment;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.marvinlabs.widget.floatinglabel.edittext.FloatingLabelEditText;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -35,6 +36,8 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
     private Calendar mCalendar;
     private FloatingLabelEditText nameTextBox, detailTextBox, priceTextBox;
     private TextView timeText;
+    private ImageView btnSpeak;
+    protected static final int RESULT_SPEECH = 1;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -54,6 +57,30 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
         detailTextBox.setEditTextListener(this);
         priceTextBox = (FloatingLabelEditText) findViewById(R.id.editTaskPrice);
         priceTextBox.setEditTextListener(this);
+
+        btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
+
+        btnSpeak.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(
+                        RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
+
+                try {
+                    startActivityForResult(intent, RESULT_SPEECH);
+                    detailTextBox.setInputWidgetText("");
+                } catch (ActivityNotFoundException a) {
+                    Toast t = Toast.makeText(getApplicationContext(),
+                            "Opps! Your device doesn't support Speech to Text",
+                            Toast.LENGTH_SHORT);
+                    t.show();
+                }
+            }
+        });
 
         //display current time
         timeText = (TextView)findViewById(R.id.timeView);
@@ -91,6 +118,26 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case RESULT_SPEECH: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> text = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+                    detailTextBox.setInputWidgetText(text.get(0));
+                }
+                break;
+            }
+
+        }
+    }
+
     private void postTask(){
         int defaultID = -1;
         mTask.setPersonID(mID);

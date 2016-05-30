@@ -124,16 +124,15 @@
         <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:orientation="horizontal">
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:gravity="center_horizontal"
-                android:layout_marginLeft="100dp"
-                android:layout_marginRight="100dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="45dp">
+            <info.hoang8f.widget.FButton
                 android:id="@+id/saveprofile"
-                android:text="Save">
-            </Button>
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Save"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 </LinearLayout>
 </ScrollView>

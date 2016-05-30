@@ -49,6 +49,8 @@ public class InfoActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        list.clear();
+        url1.clear();
         new getPriceTask().execute(taskID);
         super.onResume();
     }
@@ -97,6 +99,39 @@ public class InfoActivity extends AppCompatActivity {
         listview.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, final int position) {
+//                NiftyDialogBuilder dialogBuilder= NiftyDialogBuilder.getInstance(InfoActivity.this);
+//
+//                dialogBuilder
+//                        .withTitle("Accept")                                  //.withTitle(null)  no title
+//                        .withTitleColor("#FFFFFF")                                  //def
+//                        .withDividerColor("#11000000")                              //def
+//                        .withMessage("Do you want to accept this offer?")                     //.withMessage(null)  no Msg
+//                        .withMessageColor("#FFFFFFFF")                              //def  | withMessageColor(int resid)
+//                        .withDialogColor("#727272")                               //def  | withDialogColor(int resid)
+//                        .isCancelableOnTouchOutside(true)                           //def    | isCancelable(true)
+//                        .withDuration(700)                                          //def
+//                        .withEffect(Effectstype.RotateBottom)                                         //def Effectstype.Slidetop
+//                        .withButton1Text("OK")                                      //def gone
+//                        .withButton2Text("Cancel")                                  //def gone
+//                        .setButton1Click(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                new closeTask().execute(taskID, personID);
+////                                try {
+////                                    Mail.sendEmail(personID, "Notification", "You have choosen a task!");
+////                                    Mail.sendEmail(list.get(position - 1).getPersonID(), "Notification", "Your bid is successful!");
+////                                } catch (MessagingException e) {
+////                                    e.printStackTrace();
+////                                }
+//                                status = 1;
+//                            }
+//                        })
+//                        .setButton2Click(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                            }
+//                        })
+//                        .show();
                 new AlertDialog.Builder(InfoActivity.this)
                         .setTitle("Accept")
                         .setMessage("Do you want to accept this offer?")
@@ -142,7 +177,7 @@ public class InfoActivity extends AppCompatActivity {
     class downloadTask extends AsyncTask<String, Void, Uri> {
         @Override
         protected Uri doInBackground(String... params) {
-            if (!params[0].equals("NA")) {
+            if (!params[0].equals("N/A")) {
                 try {
                     String name = "photo" + System.currentTimeMillis();
                     FileOutputStream fos = openFileOutput(name, Context.MODE_WORLD_READABLE);

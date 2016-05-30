@@ -83,6 +83,9 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
         }
         list1.clear();
         list2.clear();
+        url1.clear();
+        url2.clear();
+        System.out.println("DATA = " + data.size());
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).getStatus().equals("post")) {
                 list1.add(data.get(i));
@@ -91,6 +94,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
                 list2.add(data.get(i));
             }
         }
+        System.out.println("list1 = " + list1.size() + ", list2 = " + list2.size());
         for (int i = 0; i  < list1.size(); i++) {
             new downloadTask().execute(list1.get(i).getUrl(), list1.get(i).getTaskID());
         }
@@ -107,13 +111,9 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
     class downloadTask extends AsyncTask<String, Void, Uri> {
         @Override
         protected Uri doInBackground(String... params) {
-            if (!params[0].equals("NA")) {
+            if (!params[0].equals("N/A")) {
                 try {
-                    String name = "photo" + params[1];
-                    if (Uri.fromFile(getActivity().getFileStreamPath(name)) != null) {
-                        url1.add(Uri.fromFile(getActivity().getFileStreamPath(name)));
-                        return Uri.fromFile(getActivity().getFileStreamPath(name));
-                    }
+                    String name = "photo" + System.currentTimeMillis();
                     FileOutputStream fos = getActivity().openFileOutput(name, Context.MODE_WORLD_READABLE);
                     URL url = new URL(params[0]);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -146,7 +146,12 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
 
         @Override
         protected void onPostExecute(Uri uri) {
-            if (url1.size() == list1.size()) {
+            System.out.println("SIZE ==== " + url1.size());
+            if (url1.size() == list1.size() - 1) {
+                System.out.println("hahahaha");
+                for (int i = 0; i < url1.size(); i++) {
+                    System.out.println("URL = " + url1.get(i));
+                }
                 RecyclerAdapter recyclerAdapter1 = new RecyclerAdapter(list1, url1);
                 listview1.setAdapter(recyclerAdapter1);
                 listview1.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
@@ -168,13 +173,10 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
     class downloadTask2 extends AsyncTask<String, Void, Uri> {
         @Override
         protected Uri doInBackground(String... params) {
-            if (!params[0].equals("NA")) {
+            if (!params[0].equals("N/A")) {
                 try {
-                    String name = "photo" + params[1];
-                    if (Uri.fromFile(getActivity().getFileStreamPath(name)) != null) {
-                        url2.add(Uri.fromFile(getActivity().getFileStreamPath(name)));
-                        return Uri.fromFile(getActivity().getFileStreamPath(name));
-                    }
+                    String name = "photo" + System.currentTimeMillis();
+                    System.out.println(getActivity().getFileStreamPath(name));
                     FileOutputStream fos = getActivity().openFileOutput(name, Context.MODE_WORLD_READABLE);
                     URL url = new URL(params[0]);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();

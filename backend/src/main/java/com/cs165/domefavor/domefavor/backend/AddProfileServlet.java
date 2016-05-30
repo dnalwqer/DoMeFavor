@@ -52,7 +52,7 @@ public class AddProfileServlet extends HttpServlet {
             return;
         }
         ProfileDatastore.delete(taker);
-        Profile profiles = new Profile(age, taker, gender, url );
+        Profile profiles = new Profile(age, taker, gender, url);
         boolean ret = ProfileDatastore.add(profiles);
 //        if (ret) {
 //            req.setAttribute("_retStr", "Add contact " + id + " succ");

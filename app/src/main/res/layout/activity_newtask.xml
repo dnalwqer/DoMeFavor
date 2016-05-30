@@ -64,6 +64,16 @@
             app:flw_inputWidgetTextSize="26sp"
             />
 
+        <ImageButton
+            android:id="@+id/btnSpeak"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="Speak"
+            android:src="@android:drawable/ic_btn_speak_now"/>
+
         <com.marvinlabs.widget.floatinglabel.edittext.FloatingLabelEditText
             android:id="@+id/editTaskPrice"
             android:layout_width="match_parent"
