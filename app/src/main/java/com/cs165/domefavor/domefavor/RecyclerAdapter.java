@@ -43,7 +43,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             RecyclerItemViewHolder holder = (RecyclerItemViewHolder) viewHolder;
             String itemText = mItemList.get(position - 1).getTaskName(); // header
             Uri uri = mList.get(position - 1);
-            holder.setItemText(itemText, uri);
+            String bider = mItemList.get(position - 1).getBiders();
+            holder.setItemText(itemText, uri, bider);
         }
     }
 
