@@ -135,6 +135,7 @@ public class Server {
                         taskJson.getString(TaskItem.statusS),
                         taskJson.getString(TaskItem.urlS));
                 tasks.add(task);
+                if(taskJson.has(task.biderS))task.setBiders(taskJson.getString(task.biderS));
             }
         } catch (JSONException e) {
             e.printStackTrace();
