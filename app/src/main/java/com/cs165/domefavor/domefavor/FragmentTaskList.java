@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
@@ -111,11 +112,15 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
         if (mSwipeRefreshLayout.isRefreshing()){
             mSwipeRefreshLayout.setRefreshing(false);
         }
-        mExpandableListItemAdapter.clear();
-        mTaskItemList = data;
-        mExpandableListItemAdapter.addAll(data);
-        mExpandableListItemAdapter.notifyDataSetChanged();
-        ((FragmentMap) currMapFragment).addMarker(mTaskItemList);
+        if(data == null)
+            Toast.makeText(getContext(), "Cannot Get Location", Toast.LENGTH_SHORT).show();
+        else{
+            mExpandableListItemAdapter.clear();
+            mTaskItemList = data;
+            mExpandableListItemAdapter.addAll(data);
+            mExpandableListItemAdapter.notifyDataSetChanged();
+            ((FragmentMap) currMapFragment).addMarker(mTaskItemList);
+        }
     }
 
     @Override
