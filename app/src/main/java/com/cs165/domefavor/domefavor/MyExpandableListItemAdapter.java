@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import com.nhaarman.listviewanimations.itemmanipulation.expandablelistitem.ExpandableListItemAdapter;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -83,6 +84,7 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         taskTimeView.setText(task.getTime());
 
         new userImageDownloadTask(userImageView).execute(task.getUrl());
+        Log.d("number in adapter", ""+position);
         return tv;
     }
 
@@ -231,6 +233,7 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
                         }
                         is.close();
                         fos.close();
+                        Log.d("image length is", ""+mContext.getFileStreamPath(name).length());
                         return Uri.fromFile(mContext.getFileStreamPath(name));
                     }
                 } catch (Exception e) {
@@ -242,8 +245,23 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
 
         @Override
         protected void onPostExecute(Uri uri) {
-            if (uri != null)
+            if (uri != null) {
                 mImageView.setImageURI(uri);
+                File file = new File(uri.getPath());
+                file.delete();
+                try{
+                    if(file.exists()){
+                        Log.d("temp image", "is not deleted");
+                        file.getCanonicalFile().delete();
+                        if(file.exists()){
+                            mContext.deleteFile(file.getName());
+                        }
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
             else
                 mImageView.setImageResource(R.drawable.default_profile);
         }
