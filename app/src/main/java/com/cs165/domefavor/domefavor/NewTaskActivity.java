@@ -2,11 +2,14 @@ package com.cs165.domefavor.domefavor;
 
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,6 +18,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.marvinlabs.widget.floatinglabel.edittext.FloatingLabelEditText;
 
@@ -26,7 +33,7 @@ import java.util.Locale;
  *
  * Created by Jilai Zhou on 5/23/2016.
  */
-public class NewTaskActivity extends AppCompatActivity implements FloatingLabelEditText.EditTextListener {
+public class NewTaskActivity extends AppCompatActivity implements FloatingLabelEditText.EditTextListener, PlaceSelectionListener {
     private static final String TAG = "NTAct";
 
     private TaskItem mTask;
@@ -34,7 +41,9 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
     private String mID, mLng, mLat;
     private Calendar mCalendar;
     private FloatingLabelEditText nameTextBox, detailTextBox, priceTextBox;
+    private TextView mPlaceDetailsText;
     private TextView timeText;
+    private LatLng mLoc;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -54,6 +63,18 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
         detailTextBox.setEditTextListener(this);
         priceTextBox = (FloatingLabelEditText) findViewById(R.id.editTaskPrice);
         priceTextBox.setEditTextListener(this);
+        mLoc = FragmentMap.getLatLng();
+
+        // Retrieve the PlaceAutocompleteFragment.
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        // Register a listener to receive callbacks when a place has been selected or an error has
+        // occurred.
+        autocompleteFragment.setOnPlaceSelectedListener(this);
+
+        mPlaceDetailsText = (TextView) findViewById(R.id.place_details);
+
 
         //display current time
         timeText = (TextView)findViewById(R.id.timeView);
@@ -73,10 +94,9 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
 
         postBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                LatLng loc = FragmentMap.getLatLng();
 
-                mTask.setLongitude(""+loc.longitude);
-                mTask.setLatitude(""+loc.latitude);
+                mTask.setLongitude(""+mLoc.longitude);
+                mTask.setLatitude(""+mLoc.latitude);
                 postTask();
                 finish();
                 Log.d(TAG, "post something");
@@ -91,6 +111,41 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
             }
         });
     }
+
+    /**
+     * Callback invoked when a place has been selected from the PlaceAutocompleteFragment.
+     */
+    @Override
+    public void onPlaceSelected(Place place) {
+        Log.i(TAG, "Place Selected: " + place.getName());
+        mLoc = place.getLatLng();
+        // Format the returned place's details and display them in the TextView.
+        mPlaceDetailsText.setText(formatPlaceDetails(getResources(), place.getName(), place.getId(),
+                place.getAddress(), place.getPhoneNumber(), place.getWebsiteUri()));
+    }
+
+
+    /**
+     * Callback invoked when PlaceAutocompleteFragment encounters an error.
+     */
+    @Override
+    public void onError(Status status) {
+        Log.e(TAG, "onError: Status = " + status.toString());
+
+        Toast.makeText(this, "Place selection failed: " + status.getStatusMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Helper method to format information about a place nicely.
+     */
+    private static Spanned formatPlaceDetails(Resources res, CharSequence name, String id,
+                                              CharSequence address, CharSequence phoneNumber, Uri websiteUri) {
+        Log.e(TAG, res.getString(R.string.place_details, name, address));
+        return Html.fromHtml(res.getString(R.string.place_details, name, address));
+    }
+
+
     private void postTask(){
         int defaultID = -1;
         mTask.setPersonID(mID);
