@@ -21,7 +21,7 @@ import java.util.List;
  * Created by xuehanyu on 5/19/16.
  */
 public class Server {
-    private static final String SERVER = "https://cobalt-entropy-131722.appspot.com";
+    private static final String SERVER = "https://monday-1327.appspot.com";
     private static final String SAVETASK = "/addtask.do";
     private static final String ALLTASK = "/querytask.do";
     private static final String PERSONTASK = "/querytask.do";
