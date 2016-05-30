@@ -30,6 +30,8 @@ public class InfoActivity extends AppCompatActivity {
     private String taskID, personID;
     private int status = 0;
 
+    private String taskname, taskcontent, tasktime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,12 +140,6 @@ public class InfoActivity extends AppCompatActivity {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 new closeTask().execute(taskID, personID);
-//                                try {
-//                                    Mail.sendEmail(personID, "Notification", "You have choosen a task!");
-//                                    Mail.sendEmail(list.get(position - 1).getPersonID(), "Notification", "Your bid is successful!");
-//                                } catch (MessagingException e) {
-//                                    e.printStackTrace();
-//                                }
                                 status = 1;
                             }
                         })
@@ -162,6 +158,8 @@ public class InfoActivity extends AppCompatActivity {
         protected Void doInBackground(String... ID) {
             try {
                 Server.closeOneTask(ID[0], ID[1]);
+                send(getApplication(), personID,taskname
+                        , taskname + "\n" + tasktime+ "\n" + taskcontent);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -221,5 +219,14 @@ public class InfoActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public static void send(Context context, String receiver, String taskname, String content){
+        Intent data = new Intent(Intent.ACTION_SENDTO);
+        data.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        data.setData(Uri.parse("mailto:" + receiver));
+        data.putExtra(Intent.EXTRA_SUBJECT, "New Task From DoMeFavor:" + taskname);
+        data.putExtra(Intent.EXTRA_TEXT, content);
+        context.startActivity(data);
     }
 }

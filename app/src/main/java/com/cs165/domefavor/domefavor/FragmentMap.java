@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -22,10 +21,8 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.VisibleRegion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,13 +119,15 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
 
     @Override
     public void onStart() {
-        mGoogleApiClient.connect();
+        if(mGoogleApiClient != null)
+            mGoogleApiClient.connect();
         super.onStart();
     }
 
     @Override
     public void onStop() {
-        mGoogleApiClient.disconnect();
+        if(mGoogleApiClient != null)
+            mGoogleApiClient.disconnect();
         super.onStop();
     }
 
