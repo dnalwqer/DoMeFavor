@@ -162,6 +162,9 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
                         Bundle mbundle = new Bundle();
                         mbundle.putString("ID", list1.get(position-1).getTaskID());
                         mbundle.putString("PersonID", list1.get(position-1).getPersonID());
+                        mbundle.putString("Content", list1.get(position-1).getContent());
+                        mbundle.putString("TaskName", list1.get(position-1).getTaskName());
+                        mbundle.putString("Time", list1.get(position-1).getTime());
                         intent.putExtras(mbundle);
                         startActivity(intent);
                     }

@@ -46,6 +46,9 @@ public class InfoActivity extends AppCompatActivity {
 
         taskID = mbundle.getString("ID");
         personID = mbundle.getString("PersonID");
+        taskname = mbundle.getString("TaskName");
+        taskcontent = mbundle.getString("Content");
+        tasktime = mbundle.getString("Time");
         listview.setLayoutManager(new LinearLayoutManager(this));
     }
 
