@@ -112,6 +112,10 @@ public class Server {
     public static void closeOneTask(String taskID, String personID, String flag) throws Exception{
         URL url = getUrl(SERVER+CLOSETASK);
 
+        System.out.println(taskID);
+        System.out.println(personID);
+        System.out.println(flag);
+
         JSONObject itemJson = new JSONObject();
         itemJson.put(TaskItem.taskIDS, taskID);
         itemJson.put(TaskItem.personIDS, personID);

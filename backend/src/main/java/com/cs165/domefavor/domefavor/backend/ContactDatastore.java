@@ -96,7 +96,7 @@ public class ContactDatastore {
                 priceD = Double.parseDouble(price.price);
             } catch (Exception e) {
             }
-            ProfileDatastore.addCredit(email, priceD * 0.1);
+          ProfileDatastore.addCredit(email, priceD * 0.1);
         }
     }
     public static boolean delete(String name, String flag, String email) {

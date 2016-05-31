@@ -133,7 +133,7 @@ public class InfoActivity extends AppCompatActivity {
                         .setButton1Click(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                new closeTask().execute(taskID, personID);
+                                new closeTask().execute(taskID, list.get(position - 1).getPersonID());
                                 send(getApplication(), list.get(position - 1).getPersonID(), taskname
                                         , "Your bid for " + taskname + " has been chosen!" + "\n" + "Time: " + tasktime + "\n" + "Content:" + taskcontent + "\n" + "The price will be :" + list.get(position - 1).getPrice());
                                 status = 1;
