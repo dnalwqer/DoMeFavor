@@ -9,6 +9,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Transaction;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,7 +46,7 @@ public class ProfileDatastore {
         try {
             newCredit = Double.parseDouble(profile.credit) + credit;
         }catch(Exception e){}
-        entity.setProperty(Profile.FIELD_NAME_credit, newCredit+"");
+        entity.setProperty(Profile.FIELD_NAME_credit, new DecimalFormat("#.##").format(newCredit)+"");
 
         mDatastore.put(entity);
     }
@@ -65,7 +66,7 @@ public class ProfileDatastore {
         entity.setProperty(Profile.FIELD_NAME_email, profile.email);
         entity.setProperty(Profile.FIELD_NAME_gender, profile.gender);
         entity.setProperty(Profile.FIELD_NAME_url, profile.url);
-        entity.setProperty(Profile.FIELD_NAME_credit, "0");
+        entity.setProperty(Profile.FIELD_NAME_credit, profile.credit);
         mDatastore.put(entity);
 
         return true;

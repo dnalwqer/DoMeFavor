@@ -207,7 +207,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             new closeTask().execute(list1.get(Pos - 1).getTaskID(),
-                                                    list1.get(Pos - 1).getPersonID(), TaskItem.withoutCredit);
+                                                    list1.get(Pos - 1).getBiders(), TaskItem.withoutCredit);
                                         }
                                     })
                                     .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
@@ -219,7 +219,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             new closeTask().execute(list1.get(Pos - 1).getTaskID(),
-                                                    list1.get(Pos - 1).getPersonID(), TaskItem.withCredit);
+                                                    list1.get(Pos - 1).getBiders(), TaskItem.withCredit);
                                         }
                                     })
                                     .show();
