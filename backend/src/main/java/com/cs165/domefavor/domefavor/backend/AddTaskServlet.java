@@ -61,6 +61,8 @@ public class AddTaskServlet extends HttpServlet {
         }
 
         Contact contact = new Contact(taskName, lat, lng, time, content, price, poster);
+        contact.startTime = System.currentTimeMillis(); //@han
+
         boolean ret = ContactDatastore.add(contact);
         if (ret) {
             req.setAttribute("_retStr", "Add contact " + contact.id + " succ");

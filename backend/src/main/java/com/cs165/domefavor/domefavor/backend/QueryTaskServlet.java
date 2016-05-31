@@ -113,10 +113,16 @@ public class QueryTaskServlet extends HttpServlet {
 			cur.put("latitude", task.lat);
 			cur.put("longitude",task.lng);
 			cur.put("personID",task.poster);
-			cur.put("price",task.price);
-			cur.put("status","post");
+			cur.put("price", task.price);
+			if(task.status.equals(Contact.status_tobebid)) {     //@han
+				cur.put("status", "post");
+				bidersadd(cur);
+			}
+			else {
+				cur.put("status", Contact.status_tobefinish);
+				cur.put("biders", task.taker);
+			}
 			profileadd(cur);
-			bidersadd(cur);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

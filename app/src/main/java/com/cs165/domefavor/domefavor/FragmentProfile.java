@@ -82,6 +82,8 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
         editText.setEditTextListener(this);
         save = (FButton) view.findViewById(R.id.saveprofile);
         save.setOnClickListener(this);
+
+        new getProfile().execute(mbundle.getString("Email"));
         return view;
     }
 
@@ -218,3 +220,17 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
         }
     }
 }
+
+
+class getProfile extends AsyncTask<String, Void, PriceItem> {
+    @Override
+    protected PriceItem doInBackground(String... ID) {
+        try {
+            return Server.getProfile(ID[0]);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
+

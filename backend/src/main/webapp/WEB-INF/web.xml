@@ -44,7 +44,6 @@
       <servlet-name>addprice</servlet-name>
       <url-pattern>/addprice.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
       <servlet-name>addprofile</servlet-name>
       <servlet-class>com.cs165.domefavor.domefavor.backend.AddProfileServlet</servlet-class>
@@ -71,6 +70,15 @@
       <servlet-name>deleteprice</servlet-name>
       <url-pattern>/deleteprice.do</url-pattern>
   </servlet-mapping>
+
+    <servlet>
+        <servlet-name>chooseprice</servlet-name>
+        <servlet-class>com.cs165.domefavor.domefavor.backend.ChoosePriceServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>chooseprice</servlet-name>
+        <url-pattern>/chooseprice.do</url-pattern>
+    </servlet-mapping>
   
   <servlet>
       <servlet-name>deleteAll</servlet-name>
@@ -81,6 +89,14 @@
       <url-pattern>/deleteAll.do</url-pattern>
   </servlet-mapping>
 
+    <servlet>
+        <servlet-name>queryprofile</servlet-name>
+        <servlet-class>com.cs165.domefavor.domefavor.backend.QueryProfileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>queryprofile</servlet-name>
+        <url-pattern>/queryprofile.do</url-pattern>
+    </servlet-mapping>
   
    <servlet>
         <servlet-name>SystemServiceServlet</servlet-name>

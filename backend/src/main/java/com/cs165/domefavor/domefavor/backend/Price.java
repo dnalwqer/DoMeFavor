@@ -12,14 +12,16 @@ public class Price {
     public static final String FIELD_NAME_id = "id";
     public static final String FIELD_NAME_taker = "taker";
     public static final String KEY_NAME = FIELD_NAME_id;
-
+    public static final String FIELD_NAME_bidTime = "bidTime";
     public String price;
     public String id;
     public String taker;
+    public int bidTime;
 
     public Price(String price, String id, String taker) {
         this.price = price;
         this.id = id;
         this.taker = taker;
+        bidTime = 0;
     }
 }
