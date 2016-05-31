@@ -76,7 +76,7 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         TextView taskTimeView = (TextView) tv.findViewById(R.id.activity_expandablelistitem_card_title_time);
 //        Log.d("strLeng", ""+task.getTaskName().toString().length());
         if (task.getTaskName().length() > 20) {
-            String str = task.getTaskName().substring(0, 19) + "...";
+            String str = task.getTaskName().substring(0, 14) + "...";
             taskNameView.setText(str);
         } else {
             taskNameView.setText(task.getTaskName());

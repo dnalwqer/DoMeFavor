@@ -1,6 +1,5 @@
 package com.cs165.domefavor.domefavor;
 
-import android.*;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,7 +29,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.model.LatLng;
 import com.lhh.apst.library.AdvancedPagerSlidingTabStrip;
 import com.lhh.apst.library.Margins;
 
@@ -179,7 +177,7 @@ public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPa
     public void onPageSelected(int position) {
         switch (position){
             case 0:
-                getSupportActionBar().setTitle("DO ME FAVOR");
+                getSupportActionBar().setTitle("HOME");
                 break;
             case 1:
                 getSupportActionBar().setTitle("LIST");

@@ -68,10 +68,11 @@
         <ImageButton
             android:id="@+id/btnSpeak"
             android:layout_width="fill_parent"
-            android:layout_height="38dp"
+            android:layout_height="60dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:contentDescription="Speak"
+            android:theme="@style/AppTheme"
             android:src="@android:drawable/ic_btn_speak_now"/>
 
         <com.marvinlabs.widget.floatinglabel.edittext.FloatingLabelEditText

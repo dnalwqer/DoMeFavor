@@ -18,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
+import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -73,6 +75,14 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
         getLoaderManager().restartLoader(0, null, this);
     }
 
+    public void refresh() {
+        System.out.println("before");
+        if (getLoaderManager().getLoader(0)== null) {
+            System.out.println("wawawaw");
+        }
+        getLoaderManager().restartLoader(0, null, this);
+        System.out.println("hahahah");
+    }
 
     @Override
     public Loader<List<TaskItem>> onCreateLoader(int id, Bundle args) {
@@ -166,13 +176,12 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
             System.out.println("SIZE ==== " + url1.size());
             if (url1.size() == list1.size()) {
                 RecyclerAdapter recyclerAdapter1 = new RecyclerAdapter(list1, url1);
-                listview1.setAdapter(recyclerAdapter1);
-                listview1.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                recyclerAdapter1.setOnItemClickListener(new RecyclerAdapter.ClickListener() {
                     @Override
-                    public void onItemClick(View view, int position) {
+                    public void onItemClick(int position, View view) {
                         final int Pos = position;
                         // do whatever
-                        if (list1.get(position-1).getStatus().equals("post")) {
+                        if (list1.get(position - 1).getStatus().equals("post")) {
                             Intent intent = new Intent(getActivity(), InfoActivity.class);
                             Bundle mbundle = new Bundle();
                             mbundle.putString("ID", list1.get(position - 1).getTaskID());
@@ -182,8 +191,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
                             mbundle.putString("Time", list1.get(position - 1).getTime());
                             intent.putExtras(mbundle);
                             startActivity(intent);
-                        }
-                        else {
+                        } else {
                             new AlertDialog.Builder(getActivity())
                                     .setTitle("Test")
                                     .setMessage(list1.get(position - 1).getBiders())
@@ -209,8 +217,59 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
                                     .show();
                         }
                     }
-                }));
+
+                    @Override
+                    public void onItemLongClick(int position, View v) {
+                        final int pos = position;
+                        final NiftyDialogBuilder dialogBuilder= NiftyDialogBuilder.getInstance(getActivity());
+
+                        dialogBuilder
+                                .withTitle("Close the task")                                  //.withTitle(null)  no title
+                                .withTitleColor("#FFFFFF")                                  //def
+                                .withDividerColor("#11000000")                              //def
+                                .withMessage("Are you sure to delete the task?")                     //.withMessage(null)  no Msg
+                                .withMessageColor("#FFFFFFFF")                              //def  | withMessageColor(int resid)
+                                .withDialogColor("#727272")                               //def  | withDialogColor(int resid)
+                                .isCancelableOnTouchOutside(true)                           //def    | isCancelable(true)
+                                .withDuration(700)                                          //def
+                                .withEffect(Effectstype.RotateBottom)                                         //def Effectstype.Slidetop
+                                .withButton1Text("OK")                                      //def gone
+                                .withButton2Text("Cancel")
+                                .setButton1Click(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        new closeTask().execute(list1.get(pos-1).getTaskID(), personID, TaskItem.withoutCredit);
+                                        dialogBuilder.dismiss();
+                                    }
+                                })
+                                .setButton2Click(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialogBuilder.dismiss();
+                                    }
+                                })
+                                .show();
+                    }
+                });
+                listview1.setAdapter(recyclerAdapter1);
             }
+        }
+    }
+
+    class closeTask extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... ID) {
+            try {
+                Server.closeOneTask(ID[0], ID[1], ID[2]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void para) {
+            Toast.makeText(getActivity(), "Delete the task successfully", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -285,14 +344,3 @@ class TaskLoader extends AsyncTaskLoader<List<TaskItem>> {
     }
 }
 
-class closeTask extends AsyncTask<String, Void, Void> {
-    @Override
-    protected Void doInBackground(String... ID) {
-        try {
-            Server.closeOneTask(ID[0], ID[1], ID[2]);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-}
