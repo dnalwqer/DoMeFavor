@@ -9,7 +9,7 @@ public class PriceItem {
     private String age;
     private String gender;
     private String url;
-    private String creditMoney;
+    private String creditMoney;   //the credit used for rewards
 
     public static final String priceS = "price";
     public static final String personIDS = "personID";

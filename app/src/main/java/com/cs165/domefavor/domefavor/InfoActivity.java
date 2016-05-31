@@ -61,6 +61,9 @@ public class InfoActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    /**
+     * Asynctask for getting the price
+     */
     class getPriceTask extends AsyncTask<String, Void, List<PriceItem>> {
         @Override
         protected List<PriceItem> doInBackground(String... ID) {
@@ -116,7 +119,7 @@ public class InfoActivity extends AppCompatActivity {
         listview.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, final int position) {
-                final NiftyDialogBuilder dialogBuilder= NiftyDialogBuilder.getInstance(InfoActivity.this);
+                final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(InfoActivity.this);
 
                 dialogBuilder
                         .withTitle("Accept")                                  //.withTitle(null)  no title
@@ -136,6 +139,7 @@ public class InfoActivity extends AppCompatActivity {
                                 new closeTask().execute(taskID, list.get(position - 1).getPersonID());
                                 send(getApplication(), list.get(position - 1).getPersonID(), taskname
                                         , "Your bid for " + taskname + " has been chosen!" + "\n" + "Time: " + tasktime + "\n" + "Content:" + taskcontent + "\n" + "The price will be :" + list.get(position - 1).getPrice());
+
                                 status = 1;
                                 finish();
                             }
@@ -151,6 +155,9 @@ public class InfoActivity extends AppCompatActivity {
         }));
     }
 
+    /**
+     * AsnycTask for closing the task
+     */
     class closeTask extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... ID) {
@@ -168,6 +175,9 @@ public class InfoActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * AsnycTask for downloading the images
+     */
     class downloadTask extends AsyncTask<String, Void, Uri> {
         @Override
         protected Uri doInBackground(String... params) {
@@ -217,6 +227,9 @@ public class InfoActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *  Sending email
+     */
     public static void send(Context context, String receiver, String taskname, String content){
         Intent data = new Intent(Intent.ACTION_SENDTO);
         data.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

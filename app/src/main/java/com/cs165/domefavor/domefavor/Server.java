@@ -51,6 +51,13 @@ public class Server {
         Log.d("server", itemJson.toString());
     }
 
+    /**
+     * Get all the tasks
+     * @param longitude
+     * @param latitude
+     * @return the list of the taskitem
+     * @throws Exception
+     */
     public static List<TaskItem> getAllTasks(String longitude, String latitude) throws Exception{
         URL url = getUrl(SERVER+ALLTASK);
 
@@ -61,6 +68,12 @@ public class Server {
         return tasksFromServer(itemJson, url);
     }
 
+    /**
+     * get all the tasks related to the person
+     * @param personID
+     * @return the list of the taskitem
+     * @throws Exception
+     */
     public static List<TaskItem> getPersonTasks(String personID) throws Exception{
 //        String personID = "cs165sp@gmail.com";   //han get personID
         URL url = getUrl(SERVER+PERSONTASK);
@@ -71,6 +84,13 @@ public class Server {
         return tasksFromServer(itemJson, url);
     }
 
+    /**
+     * change the price
+     * @param price
+     * @param taskID
+     * @param personID
+     * @throws Exception
+     */
     public static void changePrice(double price, String taskID, String personID) throws Exception{
  //       String personID = "cs165sp@gmail.com";   //han get personID
         URL url = getUrl(SERVER+CHANGEPRICE);
@@ -83,6 +103,12 @@ public class Server {
         sendData("data=" + itemJson.toString(), url);
     }
 
+    /**
+     * get all the prices related to a task
+     * @param taskID
+     * @return the list of the priceitem
+     * @throws Exception
+     */
     public static List<PriceItem> getAllPrice(String taskID) throws Exception{
         URL url = getUrl(SERVER+GETPRICE);
 
@@ -109,6 +135,13 @@ public class Server {
         return prices;
     }
 
+    /**
+     * close one task
+     * @param taskID
+     * @param personID
+     * @param flag
+     * @throws Exception
+     */
     public static void closeOneTask(String taskID, String personID, String flag) throws Exception{
         URL url = getUrl(SERVER+CLOSETASK);
 

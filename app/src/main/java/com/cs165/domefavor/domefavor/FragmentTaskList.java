@@ -22,7 +22,6 @@ import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter
 import java.util.ArrayList;
 
 /**
- *
  * Created by Jilai Zhou on 5/19/2016.
  */
 public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout.OnRefreshListener,

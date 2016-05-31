@@ -27,6 +27,8 @@ import info.hoang8f.widget.FButton;
 
 /**
  *
+ * Fragment for showing the profile
+ *
  * Created by Jilai Zhou on 5/19/2016.
  */
 public class FragmentProfile extends Fragment implements FloatingLabelEditText.EditTextListener, View.OnClickListener, RadioGroup.OnCheckedChangeListener {
@@ -128,6 +130,9 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
         age = text;
     }
 
+    /**
+     * AsyncTask for saving the profile
+     */
     class saveProfileTask extends AsyncTask<PriceItem, Void, Void> {
         @Override
         protected Void doInBackground(PriceItem... params) {
@@ -184,6 +189,9 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
         }
     }
 
+    /**
+     * AsnycTask to get the profile
+     */
     class getProfile extends AsyncTask<String, Void, PriceItem> {
         @Override
         protected PriceItem doInBackground(String... ID) {

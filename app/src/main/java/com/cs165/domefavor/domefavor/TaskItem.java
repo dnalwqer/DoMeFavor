@@ -14,8 +14,8 @@ public class TaskItem {
     private String personID;
     private String status;
     private double price;
-    private String url;
-    private String biders;
+    private String url;             // the image url of the person who posted the task
+    private String biders;          //the number of the persons who bid the task
 
     public static final String taskIDS = "taskID";
     public static final String nameS = "taskName";
