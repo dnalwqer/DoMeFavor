@@ -68,18 +68,19 @@
         <ImageButton
             android:id="@+id/btnSpeak"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
             android:contentDescription="Speak"
+            android:theme="@style/AppTheme"
             android:src="@android:drawable/ic_btn_speak_now"/>
 
         <com.marvinlabs.widget.floatinglabel.edittext.FloatingLabelEditText
             android:id="@+id/editTaskPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:inputType="numberDecimal"
             app:flw_labelText="Offer($)"
             app:flw_labelTextColor="@android:color/holo_blue_dark"
@@ -101,6 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                android:layout_centerVertical="true"
                 android:textColor="@android:color/holo_blue_dark"
                 android:text="Task Time "/>
 
@@ -108,6 +110,7 @@
                 android:id="@+id/timeView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/location_title"
                 android:textColor="@android:color/holo_green_dark"
                 android:textSize="20sp"

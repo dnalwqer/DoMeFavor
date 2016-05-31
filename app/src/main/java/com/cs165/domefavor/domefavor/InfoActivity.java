@@ -116,7 +116,7 @@ public class InfoActivity extends AppCompatActivity {
         listview.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, final int position) {
-                NiftyDialogBuilder dialogBuilder= NiftyDialogBuilder.getInstance(InfoActivity.this);
+                final NiftyDialogBuilder dialogBuilder= NiftyDialogBuilder.getInstance(InfoActivity.this);
 
                 dialogBuilder
                         .withTitle("Accept")                                  //.withTitle(null)  no title
@@ -129,6 +129,7 @@ public class InfoActivity extends AppCompatActivity {
                         .withDuration(700)                                          //def
                         .withEffect(Effectstype.RotateBottom)                                         //def Effectstype.Slidetop
                         .withButton1Text("OK")                                      //def gone
+                        .withButton2Text("Cancel")
                         .setButton1Click(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -139,24 +140,13 @@ public class InfoActivity extends AppCompatActivity {
                                 finish();
                             }
                         })
+                        .setButton2Click(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialogBuilder.dismiss();
+                            }
+                        })
                         .show();
-//                new AlertDialog.Builder(InfoActivity.this)
-//                        .setTitle("Accept")
-//                        .setMessage("Do you want to accept this offer?")
-//                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                new closeTask().execute(taskID, personID);
-//                                status = 1;
-//                                send(getApplication(), list.get(position-1).getPersonID(),taskname
-//                                        , "Your bid for " + taskname + "has been choosen!" + "\n" + "Time: " + tasktime + "\n" + "Content:" + taskcontent + "\n" + "The price will be :" + list.get(position-1).getPrice());
-//                            }
-//                        })
-//                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                            }
-//                        })
-//                        .show();
             }
         }));
     }

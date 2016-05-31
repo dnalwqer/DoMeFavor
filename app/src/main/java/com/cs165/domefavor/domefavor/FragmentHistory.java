@@ -1,7 +1,6 @@
 package com.cs165.domefavor.domefavor;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -11,13 +10,15 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
+import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -193,17 +194,31 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
                     @Override
                     public void onItemLongClick(int position, View v) {
                         final int pos = position;
-                        new AlertDialog.Builder(getActivity())
-                                .setTitle("Close the task")
-                                .setMessage("Are you sure to delete this task?")
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
+                        final NiftyDialogBuilder dialogBuilder= NiftyDialogBuilder.getInstance(getActivity());
+
+                        dialogBuilder
+                                .withTitle("Close the task")                                  //.withTitle(null)  no title
+                                .withTitleColor("#FFFFFF")                                  //def
+                                .withDividerColor("#11000000")                              //def
+                                .withMessage("Are you sure to delete the task?")                     //.withMessage(null)  no Msg
+                                .withMessageColor("#FFFFFFFF")                              //def  | withMessageColor(int resid)
+                                .withDialogColor("#727272")                               //def  | withDialogColor(int resid)
+                                .isCancelableOnTouchOutside(true)                           //def    | isCancelable(true)
+                                .withDuration(700)                                          //def
+                                .withEffect(Effectstype.RotateBottom)                                         //def Effectstype.Slidetop
+                                .withButton1Text("OK")                                      //def gone
+                                .withButton2Text("Cancel")
+                                .setButton1Click(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
                                         new closeTask().execute(list1.get(pos-1).getTaskID(), personID);
+                                        dialogBuilder.dismiss();
                                     }
                                 })
-                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-
+                                .setButton2Click(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialogBuilder.dismiss();
                                     }
                                 })
                                 .show();

@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="40dp"
             android:gravity="center_vertical"
+            android:textSize="18sp"
             style="@style/Base.TextAppearance.AppCompat.Body2"
             android:padding="16dp"/>
 
