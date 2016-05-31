@@ -41,6 +41,11 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * MyExpandableListItemAdapter class
+ * This class set the listview in fragment list class and display client image, task title and task time in the title view
+ * display all task details in the content view.
+ */
 public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskItem> {
 
     private final Context mContext;
@@ -57,6 +62,9 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         mID = ID;
     }
 
+    /**
+     * Display the title view in list view
+     */
     @Override
     public View getTitleView(final int position, final View convertView, final ViewGroup parent) {
 //        View tv = convertView;
@@ -88,6 +96,7 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         return tv;
     }
 
+    //Display the content view in the list view
     @Override
     public View getContentView(final int position, final View convertView, final ViewGroup parent) {
         View tv = convertView;
@@ -137,6 +146,7 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         return tv;
     }
 
+    //pop out the bid dialog. Allow user to type in their desire reward
     private AlertDialog.Builder Setup_Dialog_Bid(AlertDialog.Builder builder, Context context, final TaskItem task) {
         final EditText edittext = new EditText(context);
         edittext.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -165,6 +175,7 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         return builder;
     }
 
+    //help method for calculating the distance between current user location and the task location
     public double distance(double long1, double lat1, double long2,
                            double lat2) {
         double a, b, R;
@@ -184,6 +195,7 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
         return d;
     }
 
+    //AsyncTask for sending the bidding price to server.
     public class bidAsyncTask extends AsyncTask<String, Void, Void> {
 
         @Override
@@ -204,6 +216,7 @@ public class MyExpandableListItemAdapter extends ExpandableListItemAdapter<TaskI
 
     }
 
+    //AsyncTask for downloading images in each task.
     public class userImageDownloadTask extends AsyncTask<String, Void, Uri> {
         private ImageView mImageView;
 

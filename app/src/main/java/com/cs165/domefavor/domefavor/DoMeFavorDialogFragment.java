@@ -16,7 +16,8 @@ import android.widget.TimePicker;
 import java.util.Calendar;
 
 /**
- *
+ * DoMeFavorDialogFragment
+ * This class help building dialog of date picker and time picker.
  * Created by Jilai Zhou on 5/23/2016.
  */
 public class DoMeFavorDialogFragment extends DialogFragment{

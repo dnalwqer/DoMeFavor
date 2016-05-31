@@ -22,7 +22,8 @@ import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter
 import java.util.ArrayList;
 
 /**
- *
+ * FragmentList Class.
+ * This class display all the task near your location. And allow user to bid other people's task.
  * Created by Jilai Zhou on 5/19/2016.
  */
 public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout.OnRefreshListener,
@@ -72,15 +73,13 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
         currMapFragment =((MainActivity_v2) getActivity()).getFragment(2);
 //        Log.d("loc", ""+mLocation.latitude +" : " +mLocation.longitude);
 //        getLoaderManager().initLoader(0, null, this);
-
         return view;
 
     }
 
-//    public static ArrayList<TaskItem> getAllTask (){
-//        return mTaskItemList;
-//    }
-
+    /**
+     * reload the data
+     */
     public void refreshData(){
 
         pin.show();
@@ -90,6 +89,9 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
 
     }
 
+    /**
+     * call back method of swiperefreshlayout
+     */
     @Override
     public void onRefresh() {
         Log.d("FragTaskList", "I'm on refresh");

@@ -33,7 +33,9 @@ import com.lhh.apst.library.AdvancedPagerSlidingTabStrip;
 import com.lhh.apst.library.Margins;
 
 /**
- *
+ * Mainactivity class
+ * This class set the main view of the app and attach four fragments.
+ * It also connects with google client api and can get information from google account.
  * Created by Jilai Zhou on 5/23/2016.
  */
 public class MainActivity_v2 extends AppCompatActivity implements ViewPager.OnPageChangeListener,

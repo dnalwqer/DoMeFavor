@@ -35,7 +35,8 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- *
+ * NewTaskActivity class.
+ * This class allows user to input the new task information and post them to server.
  * Created by Jilai Zhou on 5/23/2016.
  */
 public class NewTaskActivity extends AppCompatActivity implements FloatingLabelEditText.EditTextListener, PlaceSelectionListener {
@@ -143,6 +144,9 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
         });
     }
 
+    /**
+     * call back method of voice input function
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -195,6 +199,7 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
         return Html.fromHtml(res.getString(R.string.place_details, name, address));
     }
 
+    // post new task on the server.
     private void postTask(){
         int defaultID = -1;
         mTask.setPersonID(mID);
@@ -208,6 +213,7 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
         new postTaskAsyncTask().execute();
     }
 
+    // help method for clear all box
     private void clearTextbox(){
         nameTextBox.setInputWidgetText("");
         detailTextBox.setInputWidgetText("");
@@ -218,11 +224,13 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
 
     }
 
+    // pop out the time picker dialog
     public void callTimeDialog(){
         DialogFragment fragmentTime = DoMeFavorDialogFragment.newInstance(DoMeFavorDialogFragment.DIALOG_ID_TIME);
         fragmentTime.show(getFragmentManager(), "new_task_activity_tag");
     }
 
+    // set up the task time based on the user input
     public void updateDate(int year, int monthOfYear, int dayOfMonth){
         mCalendar.set(year, monthOfYear, dayOfMonth);
         callTimeDialog();
@@ -248,6 +256,9 @@ public class NewTaskActivity extends AppCompatActivity implements FloatingLabelE
 //
     }
 
+    /**
+     * AsyncTask for post new task onto server.
+     */
     private class postTaskAsyncTask extends AsyncTask<Void, Void, Void>{
 
         @Override
