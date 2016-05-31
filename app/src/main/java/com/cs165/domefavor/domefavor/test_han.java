@@ -90,7 +90,7 @@ public class test_han extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Server.closeOneTask("1464049740015buy", "cs165sp@gmail.com");
+                    Server.closeOneTask("1464049740015buy", "cs165sp@gmail.com", TaskItem.withoutCredit);
                 } catch (Exception e) {
                 }
             }

@@ -9,12 +9,14 @@ public class PriceItem {
     private String age;
     private String gender;
     private String url;
+    private String creditMoney;
 
     public static final String priceS = "price";
     public static final String personIDS = "personID";
     public static final String ageS = "age";
     public static final String genderS = "gender";
     public static final String urlS = "url";
+    public static final String creditMoneyS = "credit";
 
     public PriceItem(double price, String personID, String age, String gender, String url){
         this.price = price;
@@ -22,6 +24,13 @@ public class PriceItem {
         this.age = age;
         this.gender = gender;
         this.url = url;
+    }
+
+
+    public PriceItem(String age, String gender, String credit) {
+        this.gender = gender;
+        this.age = age;
+        this.creditMoney = credit;
     }
 
     public void setPrice(double price) { this.price = price; }
@@ -34,6 +43,8 @@ public class PriceItem {
 
     public void setUrl(String url) { this.url = url; }
 
+    public void setCreditMoney(String creditMoney) { this.creditMoney = creditMoney; }
+
     public String getUrl(){ return url; }
 
     public String getAge() { return age; }
@@ -43,4 +54,6 @@ public class PriceItem {
     public double getPrice() { return price; }
 
     public String getPersonID() { return personID; }
+
+    public String getCreditMoney() { return creditMoney; }
 }

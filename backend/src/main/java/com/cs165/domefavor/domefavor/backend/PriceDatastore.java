@@ -43,7 +43,7 @@ public class PriceDatastore {
         entity.setProperty(Price.FIELD_NAME_id, price.id);
         entity.setProperty(Price.FIELD_NAME_taker, price.taker);
         entity.setProperty(Price.FIELD_NAME_price, price.price);
-
+        entity.setProperty(Price.FIELD_NAME_bidTime, System.currentTimeMillis());
         mDatastore.put(entity);
 
         return true;

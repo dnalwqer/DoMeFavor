@@ -21,7 +21,8 @@ import java.util.List;
  * Created by xuehanyu on 5/19/16.
  */
 public class Server {
-    private static final String SERVER = "https://monday-1327.appspot.com";
+//    private static final String SERVER = "https://monday-1327.appspot.com";
+    private static final String SERVER = "https://domefavor-687d4.appspot.com";
     private static final String SAVETASK = "/addtask.do";
     private static final String ALLTASK = "/querytask.do";
     private static final String PERSONTASK = "/querytask.do";
@@ -29,6 +30,8 @@ public class Server {
     private static final String GETPRICE = "/queryprice.do";
     private static final String CLOSETASK = "/deletetask.do";
     private static final String SAVEPROFILE = "/addprofile.do";
+    private static final String CHOOSPRICE = "/chooseprice.do";
+    private static final String GETPROFILE = "/queryprofile.do";
 
     public static void saveNewTask(TaskItem item) throws Exception{
         URL url = getUrl(SERVER+SAVETASK);
@@ -77,7 +80,7 @@ public class Server {
         itemJson.put(TaskItem.taskIDS, taskID);
         itemJson.put(TaskItem.personIDS, personID);
 
-        sendData("data="+itemJson.toString(), url);
+        sendData("data=" + itemJson.toString(), url);
     }
 
     public static List<PriceItem> getAllPrice(String taskID) throws Exception{
@@ -86,7 +89,7 @@ public class Server {
         JSONObject itemJson = new JSONObject();
         itemJson.put(TaskItem.taskIDS, taskID);
 
-        String response = sendData("data="+itemJson.toString(), url);
+        String response = sendData("data=" + itemJson.toString(), url);
         List<PriceItem> prices = new ArrayList<>();
         JSONArray jsonArray = new JSONArray();
         try {
@@ -106,18 +109,23 @@ public class Server {
         return prices;
     }
 
-    public static void closeOneTask(String taskID, String personID) throws Exception{
+    public static void closeOneTask(String taskID, String personID, String flag) throws Exception{
         URL url = getUrl(SERVER+CLOSETASK);
+
+        System.out.println(taskID);
+        System.out.println(personID);
+        System.out.println(flag);
 
         JSONObject itemJson = new JSONObject();
         itemJson.put(TaskItem.taskIDS, taskID);
         itemJson.put(TaskItem.personIDS, personID);
+        itemJson.put(TaskItem.flagS, flag);
 
-        sendData("data="+itemJson.toString(), url);
+        sendData("data=" + itemJson.toString(), url);
     }
 
     private static List<TaskItem> tasksFromServer(JSONObject itemJson, URL url){
-        String response = sendData("data="+itemJson.toString(), url);
+        String response = sendData("data=" + itemJson.toString(), url);
         List<TaskItem> tasks = new ArrayList<>();
         JSONArray jsonArray = new JSONArray();
         try {
@@ -210,5 +218,38 @@ public class Server {
         itemJson.put(PriceItem.urlS, item.getUrl());
 
         sendData("data=" + itemJson.toString(), url);
+    }
+
+    public static void choosePrice(String taskID, String personID) throws Exception{
+        URL url = getUrl(SERVER+CHOOSPRICE);
+
+        JSONObject itemJson = new JSONObject();
+        itemJson.put(TaskItem.taskIDS, taskID);
+        itemJson.put(TaskItem.personIDS, personID);
+
+        sendData("data=" + itemJson.toString(), url);
+    }
+
+    public static PriceItem getProfile(String personID) throws Exception{
+        URL url = getUrl(SERVER+GETPROFILE);
+
+        JSONObject itemJson = new JSONObject();
+        itemJson.put(TaskItem.personIDS, personID);
+
+        String response = sendData("data=" + itemJson.toString(), url);
+        PriceItem profile = null;
+        JSONArray jsonArray = new JSONArray();
+        try {
+            jsonArray = new JSONArray(response);
+            if(jsonArray.length() > 0){
+                JSONObject priceJson = jsonArray.getJSONObject(0);
+                profile = new PriceItem(priceJson.getString(PriceItem.ageS),
+                        priceJson.getString(PriceItem.genderS),
+                        priceJson.getString(PriceItem.creditMoneyS));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return profile;
     }
 }

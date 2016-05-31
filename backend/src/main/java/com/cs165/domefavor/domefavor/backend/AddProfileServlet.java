@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,6 +36,7 @@ public class AddProfileServlet extends HttpServlet {
         String gender = "";
         String taker = "";
         String url = "";
+        String credit = "0";
         try {
 //            ob = list.getJSONObject(0);
             age = ob.getString("age");
@@ -51,8 +53,12 @@ public class AddProfileServlet extends HttpServlet {
                     .forward(req, resp);
             return;
         }
-        ProfileDatastore.delete(taker);
-        Profile profiles = new Profile(age, taker, gender, url);
+        ArrayList<Profile> oldProfile= ProfileDatastore.query(taker);
+        if(oldProfile.size() > 0) {
+            ProfileDatastore.delete(taker);
+            credit = oldProfile.get(0).credit;
+        }
+        Profile profiles = new Profile(age, taker, gender, url, credit);
         boolean ret = ProfileDatastore.add(profiles);
 //        if (ret) {
 //            req.setAttribute("_retStr", "Add contact " + id + " succ");

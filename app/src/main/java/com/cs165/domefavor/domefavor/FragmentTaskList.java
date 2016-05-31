@@ -1,27 +1,22 @@
 package com.cs165.domefavor.domefavor;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
-import android.content.Context;
 import android.support.v4.content.Loader;
-import android.location.Location;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.support.design.widget.FloatingActionButton;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.lib.PinWheelDialog;
 import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
 
 import java.util.ArrayList;
@@ -43,6 +38,7 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
     private Fragment currMapFragment;
     private String mID;
     private static final int INITIAL_DELAY_MILLIS = 500;
+    private PinWheelDialog pin;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -57,6 +53,7 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
         view = inflater.inflate(R.layout.fragment_tasklist, container, false);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeTaskList);
+        pin = new PinWheelDialog(getActivity());
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mListView = (ListView) view.findViewById(android.R.id.list);
@@ -86,6 +83,7 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
 
     public void refreshData(){
 
+        pin.show();
         if (getLoaderManager().getLoader(0)==null)
             getLoaderManager().initLoader(0, null, this);
         else getLoaderManager().restartLoader(0,null,this);
@@ -117,6 +115,7 @@ public class FragmentTaskList extends ListFragment implements SwipeRefreshLayout
         else{
             mExpandableListItemAdapter.clear();
             mTaskItemList = data;
+            pin.dismiss();
             mExpandableListItemAdapter.addAll(data);
             mExpandableListItemAdapter.notifyDataSetChanged();
             ((FragmentMap) currMapFragment).addMarker(mTaskItemList);

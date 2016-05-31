@@ -14,7 +14,7 @@ public class DeletePriceServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
         String id = req.getParameter("id");
-        ContactDatastore.delete(id);
+        PriceDatastore.deleteid(id);    //@han
 //        MessagingEndpoint.sendMessage("D" + id);
 //        resp.sendRedirect("/querytask.do");
     }

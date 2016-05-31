@@ -19,6 +19,7 @@
     <string name="profile_change_button">Change</string>
     <string name="profile_name_title">Name: </string>
     <string name="profile_email_title">Email: </string>
+    <string name="profile_name_credit">Credit: </string>
 
     <!-- fragment new task-->
     <string name="task_name">Task Name</string>

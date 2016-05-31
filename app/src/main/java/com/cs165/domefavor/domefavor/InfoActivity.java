@@ -1,17 +1,18 @@
 package com.cs165.domefavor.domefavor;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
+
+import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
+import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -86,11 +87,22 @@ public class InfoActivity extends AppCompatActivity {
                 }
             }
             else if (items.size() == 0){
-                new AlertDialog.Builder(InfoActivity.this)
-                        .setTitle("Notification")
-                        .setMessage("No one has bid your task!")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+                NiftyDialogBuilder dialogBuilder= NiftyDialogBuilder.getInstance(InfoActivity.this);
+
+                dialogBuilder
+                        .withTitle("Notification")                                  //.withTitle(null)  no title
+                        .withTitleColor("#FFFFFF")                                  //def
+                        .withDividerColor("#11000000")                              //def
+                        .withMessage("No one has bid your task!")                     //.withMessage(null)  no Msg
+                        .withMessageColor("#FFFFFFFF")                              //def  | withMessageColor(int resid)
+                        .withDialogColor("#727272")                               //def  | withDialogColor(int resid)
+                        .isCancelableOnTouchOutside(true)                           //def    | isCancelable(true)
+                        .withDuration(700)                                          //def
+                        .withEffect(Effectstype.RotateBottom)                                         //def Effectstype.Slidetop
+                        .withButton1Text("OK")                                      //def gone
+                        .setButton1Click(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
                                 status = 1;
                                 finish();
                             }
@@ -104,53 +116,34 @@ public class InfoActivity extends AppCompatActivity {
         listview.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, final int position) {
-//                NiftyDialogBuilder dialogBuilder= NiftyDialogBuilder.getInstance(InfoActivity.this);
-//
-//                dialogBuilder
-//                        .withTitle("Accept")                                  //.withTitle(null)  no title
-//                        .withTitleColor("#FFFFFF")                                  //def
-//                        .withDividerColor("#11000000")                              //def
-//                        .withMessage("Do you want to accept this offer?")                     //.withMessage(null)  no Msg
-//                        .withMessageColor("#FFFFFFFF")                              //def  | withMessageColor(int resid)
-//                        .withDialogColor("#727272")                               //def  | withDialogColor(int resid)
-//                        .isCancelableOnTouchOutside(true)                           //def    | isCancelable(true)
-//                        .withDuration(700)                                          //def
-//                        .withEffect(Effectstype.RotateBottom)                                         //def Effectstype.Slidetop
-//                        .withButton1Text("OK")                                      //def gone
-//                        .withButton2Text("Cancel")                                  //def gone
-//                        .setButton1Click(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                new closeTask().execute(taskID, personID);
-////                                try {
-////                                    Mail.sendEmail(personID, "Notification", "You have choosen a task!");
-////                                    Mail.sendEmail(list.get(position - 1).getPersonID(), "Notification", "Your bid is successful!");
-////                                } catch (MessagingException e) {
-////                                    e.printStackTrace();
-////                                }
-//                                status = 1;
-//                            }
-//                        })
-//                        .setButton2Click(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                            }
-//                        })
-//                        .show();
-                new AlertDialog.Builder(InfoActivity.this)
-                        .setTitle("Accept")
-                        .setMessage("Do you want to accept this offer?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                new closeTask().execute(taskID, personID);
+                final NiftyDialogBuilder dialogBuilder= NiftyDialogBuilder.getInstance(InfoActivity.this);
+
+                dialogBuilder
+                        .withTitle("Accept")                                  //.withTitle(null)  no title
+                        .withTitleColor("#FFFFFF")                                  //def
+                        .withDividerColor("#11000000")                              //def
+                        .withMessage("Do you want to accept this offer?")                     //.withMessage(null)  no Msg
+                        .withMessageColor("#FFFFFFFF")                              //def  | withMessageColor(int resid)
+                        .withDialogColor("#727272")                               //def  | withDialogColor(int resid)
+                        .isCancelableOnTouchOutside(true)                           //def    | isCancelable(true)
+                        .withDuration(700)                                          //def
+                        .withEffect(Effectstype.RotateBottom)                                         //def Effectstype.Slidetop
+                        .withButton1Text("OK")                                      //def gone
+                        .withButton2Text("Cancel")
+                        .setButton1Click(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                new closeTask().execute(taskID, list.get(position - 1).getPersonID());
+                                send(getApplication(), list.get(position - 1).getPersonID(), taskname
+                                        , "Your bid for " + taskname + "has been choosen!" + "\n" + "Time: " + tasktime + "\n" + "Content:" + taskcontent + "\n" + "The price will be :" + list.get(position - 1).getPrice());
                                 status = 1;
-                                send(getApplication(), list.get(position-1).getPersonID(),taskname
-                                        , "Your bid for " + taskname + "has been choosen!" + "\n" + "Time: " + tasktime + "\n" + "Content:" + taskcontent + "\n" + "The price will be :" + list.get(position-1).getPrice());
+                                finish();
                             }
                         })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
+                        .setButton2Click(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialogBuilder.dismiss();
                             }
                         })
                         .show();
@@ -162,7 +155,7 @@ public class InfoActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... ID) {
             try {
-                Server.closeOneTask(ID[0], ID[1]);
+                Server.choosePrice(ID[0], ID[1]);
             } catch (Exception e) {
                 e.printStackTrace();
             }

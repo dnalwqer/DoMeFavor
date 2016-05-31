@@ -9,6 +9,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Transaction;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +29,27 @@ public class ProfileDatastore {
                 Profile.Profile_PARENT_KEY_NAME);
     }
 
+    //@han
+    public static void addCredit(String email, double credit){
+        Profile profile = getProfileByName(email, null);
+
+        Key parentKey = getKey();
+
+
+        Entity entity = new Entity(Profile.Profile_ENTITY_NAME, profile.email,
+                parentKey);
+        entity.setProperty(Profile.FIELD_NAME_age, profile.age);
+        entity.setProperty(Profile.FIELD_NAME_email, profile.email);
+        entity.setProperty(Profile.FIELD_NAME_gender, profile.gender);
+        entity.setProperty(Profile.FIELD_NAME_url, profile.url);
+        double newCredit = 0;
+        try {
+            newCredit = Double.parseDouble(profile.credit) + credit;
+        }catch(Exception e){}
+        entity.setProperty(Profile.FIELD_NAME_credit, new DecimalFormat("#.##").format(newCredit)+"");
+
+        mDatastore.put(entity);
+    }
 
     public static boolean add(Profile profile) {
 //        if (getprofileByName(profile.id, null) != null) {
@@ -44,7 +66,7 @@ public class ProfileDatastore {
         entity.setProperty(Profile.FIELD_NAME_email, profile.email);
         entity.setProperty(Profile.FIELD_NAME_gender, profile.gender);
         entity.setProperty(Profile.FIELD_NAME_url, profile.url);
-
+        entity.setProperty(Profile.FIELD_NAME_credit, profile.credit);
         mDatastore.put(entity);
 
         return true;
@@ -130,7 +152,8 @@ public class ProfileDatastore {
                 (String) entity.getProperty(Profile.FIELD_NAME_age),
                 (String) entity.getProperty(Profile.FIELD_NAME_email),
                 (String) entity.getProperty(Profile.FIELD_NAME_gender),
-                (String) entity.getProperty(Profile.FIELD_NAME_url)
+                (String) entity.getProperty(Profile.FIELD_NAME_url),
+                (String) entity.getProperty(Profile.FIELD_NAME_credit)
         );
     }
 

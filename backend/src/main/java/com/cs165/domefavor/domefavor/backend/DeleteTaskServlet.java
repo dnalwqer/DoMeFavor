@@ -30,15 +30,17 @@ public class DeleteTaskServlet extends HttpServlet {
 
 		String id = "";
 		String email = "";
-
+		String flag = "";		//@han
 		try {
 			id = ob.getString("taskID");
 			email = ob.getString("personID");
+			flag = ob.getString("flag");	//@han
+
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 
-		ContactDatastore.delete(id);
+		ContactDatastore.delete(id, flag, email);
 		PriceDatastore.deleteid(id);
 //		MessagingEndpoint.sendMessage("D" + id);
 //		resp.sendRedirect("/querytask.do");
