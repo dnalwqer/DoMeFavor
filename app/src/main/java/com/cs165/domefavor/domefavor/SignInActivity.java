@@ -1,6 +1,5 @@
 package com.cs165.domefavor.domefavor;
 
-import android.*;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -126,6 +125,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    /**
+     * getting the result of the sign in
+     */
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();

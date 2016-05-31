@@ -32,6 +32,7 @@ import java.util.List;
 
 /**
  *
+ * Fragment for showing the history
  * Created by Jilai Zhou on 5/19/2016.
  */
 public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRefreshListener, LoaderManager.LoaderCallbacks<List<TaskItem>>{
@@ -94,6 +95,9 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
         return new TaskLoader(getActivity(), personID);
     }
 
+    /**
+     * Called when the data is loaded
+     */
     @Override
     public void onLoadFinished(android.support.v4.content.Loader<List<TaskItem>> loader, List<TaskItem> data) {
         if (mSwipeRefreshLayout.isRefreshing()){
@@ -142,6 +146,9 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
 
+    /**
+     *   define a task to download the image icon
+     */
     class downloadTask extends AsyncTask<String, Void, Uri> {
         @Override
         protected Uri doInBackground(String... params) {
@@ -328,6 +335,9 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
     }
 }
 
+/**
+ * define a loader to get the task list related to you
+ */
 class TaskLoader extends AsyncTaskLoader<List<TaskItem>> {
     public String personID;
     public TaskLoader(Context context, String personID) {

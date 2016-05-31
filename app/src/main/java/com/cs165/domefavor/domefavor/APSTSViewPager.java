@@ -9,6 +9,7 @@ import android.view.MotionEvent;
  * Used for ListView UI.
  * Copied from third party by Jilai on 2016/5/20
  * Created by linhonghong on 2015/8/10.
+
  */
 public class APSTSViewPager extends ViewPager {
     private boolean mNoFocus = false; //if true, keep View don't move

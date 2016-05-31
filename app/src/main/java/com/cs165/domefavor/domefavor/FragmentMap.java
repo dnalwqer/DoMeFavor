@@ -30,6 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
+ * Fragment for showing the map
+ *
  * Created by xuehanyu on 5/23/16.
  */
 public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClickListener, View.OnClickListener,
@@ -91,10 +94,10 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         v.setBackgroundColor(0xc8DDDDDD);
-                        return true; // if you want to handle the touch event
+                        return false; // if you want to handle the touch event
                     case MotionEvent.ACTION_UP:
                         v.setBackgroundColor(0xc8FFFFFF);
-                        return true; // if you want to handle the touch event
+                        return false; // if you want to handle the touch event
                 }
                 return false;
             }
@@ -169,6 +172,7 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
         marker.showInfoWindow();
     }
 
+    //add markers to the map
     public void addMarker(List<TaskItem> tasks){
         for(int i = 0 ; i < markerList.size() ; ++i){
             markerList.get(i).remove();
@@ -187,6 +191,7 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
     }
 
     public void onClick(View v){
+        System.out.println("onCLick");
         if(loc == null){
             Toast.makeText(getContext(), "Cannot Get Location", Toast.LENGTH_SHORT).show();
         }
@@ -194,6 +199,7 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
             refresh();
     }
 
+    //refresh the whole task list
     private void refresh(){
         MainActivity_v2 parent = (MainActivity_v2)getActivity();
         FragmentTaskList fragmentTaskList = (FragmentTaskList)parent.getFragment(1);
