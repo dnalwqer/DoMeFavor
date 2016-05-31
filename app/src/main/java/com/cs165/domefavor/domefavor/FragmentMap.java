@@ -91,10 +91,10 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         v.setBackgroundColor(0xc8DDDDDD);
-                        return true; // if you want to handle the touch event
+                        return false; // if you want to handle the touch event
                     case MotionEvent.ACTION_UP:
                         v.setBackgroundColor(0xc8FFFFFF);
-                        return true; // if you want to handle the touch event
+                        return false; // if you want to handle the touch event
                 }
                 return false;
             }
@@ -187,6 +187,7 @@ public class FragmentMap extends Fragment implements GoogleMap.OnInfoWindowClick
     }
 
     public void onClick(View v){
+        System.out.println("onCLick");
         if(loc == null){
             Toast.makeText(getContext(), "Cannot Get Location", Toast.LENGTH_SHORT).show();
         }
