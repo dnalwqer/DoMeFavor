@@ -53,8 +53,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             RecyclerItemViewHolder holder = (RecyclerItemViewHolder) viewHolder;
             String itemText = mItemList.get(position - 1).getTaskName(); // header
             Uri uri = mList.get(position - 1);
-            String bider = mItemList.get(position - 1).getBiders();
-            holder.setItemText(itemText, uri, bider);
+            if(mItemList.get(position - 1).getStatus().equals("ToBeFinish")) {
+                holder.setItemText(itemText, uri, "Awaits Completion");
+            }else{
+                String bider = mItemList.get(position - 1).getBiders();
+                holder.setItemText(itemText, uri, bider);
+            }
         }
     }
 

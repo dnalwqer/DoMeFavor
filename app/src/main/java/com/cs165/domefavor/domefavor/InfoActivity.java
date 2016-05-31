@@ -155,7 +155,7 @@ public class InfoActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... ID) {
             try {
-                Server.closeOneTask(ID[0], ID[1]);
+                Server.choosePrice(ID[0], ID[1]);
             } catch (Exception e) {
                 e.printStackTrace();
             }

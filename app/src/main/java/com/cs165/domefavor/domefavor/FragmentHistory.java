@@ -1,6 +1,7 @@
 package com.cs165.domefavor.domefavor;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
+import com.lib.PinWheelDialog;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -38,6 +41,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
     private List<Uri> url1, url2;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private String personID;
+    private PinWheelDialog pin;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
 
         listview1 = (RecyclerView) view.findViewById(R.id.profile_list_1);
         listview2 = (RecyclerView) view.findViewById(R.id.profile_list_2);
+        pin = new PinWheelDialog(getActivity());
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipePersonList);
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -71,6 +76,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
 
     @Override
     public void onRefresh() {
+        pin.show();
         getLoaderManager().restartLoader(0, null, this);
     }
 
@@ -104,6 +110,8 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
             }
             else if (data.get(i).getStatus().equals("take")) {
                 list2.add(data.get(i));
+            }else{  //@han
+                list1.add(data.get(i));
             }
         }
 
@@ -113,6 +121,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
             }
         }
         else {
+            pin.dismiss();
             RecyclerAdapter recyclerAdapter1 = new RecyclerAdapter(list1, url1);
             listview1.setAdapter(recyclerAdapter1);
         }
@@ -122,7 +131,8 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
             }
         }
         else {
-            RecyclerAdapter recyclerAdapter2 = new RecyclerAdapter(list2, url2);
+            pin.dismiss();
+            RecyclerAdapter2 recyclerAdapter2 = new RecyclerAdapter2(list2, url2);
             listview2.setAdapter(recyclerAdapter2);
         }
     }
@@ -172,23 +182,48 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
         protected void onPostExecute(Uri uri) {
             System.out.println("SIZE ==== " + url1.size());
             if (url1.size() == list1.size()) {
-                System.out.println("hahahaha");
-                for (int i = 0; i < url1.size(); i++) {
-                    System.out.println("URL = " + url1.get(i));
-                }
+                pin.dismiss();
                 RecyclerAdapter recyclerAdapter1 = new RecyclerAdapter(list1, url1);
                 recyclerAdapter1.setOnItemClickListener(new RecyclerAdapter.ClickListener() {
                     @Override
-                    public void onItemClick(int position, View v) {
-                        Intent intent = new Intent(getActivity(), InfoActivity.class);
-                        Bundle mbundle = new Bundle();
-                        mbundle.putString("ID", list1.get(position-1).getTaskID());
-                        mbundle.putString("PersonID", list1.get(position-1).getPersonID());
-                        mbundle.putString("Content", list1.get(position-1).getContent());
-                        mbundle.putString("TaskName", list1.get(position-1).getTaskName());
-                        mbundle.putString("Time", list1.get(position-1).getTime());
-                        intent.putExtras(mbundle);
-                        startActivity(intent);
+                    public void onItemClick(int position, View view) {
+                        final int Pos = position;
+                        // do whatever
+                        if (list1.get(position - 1).getStatus().equals("post")) {
+                            Intent intent = new Intent(getActivity(), InfoActivity.class);
+                            Bundle mbundle = new Bundle();
+                            mbundle.putString("ID", list1.get(position - 1).getTaskID());
+                            mbundle.putString("PersonID", list1.get(position - 1).getPersonID());
+                            mbundle.putString("Content", list1.get(position - 1).getContent());
+                            mbundle.putString("TaskName", list1.get(position - 1).getTaskName());
+                            mbundle.putString("Time", list1.get(position - 1).getTime());
+                            intent.putExtras(mbundle);
+                            startActivity(intent);
+                        } else {
+                            new AlertDialog.Builder(getActivity())
+                                    .setTitle("Feedback")
+                                    .setMessage("Do you want to give credit to the following person: " + list1.get(position - 1).getBiders())
+                                    .setNegativeButton("No credit", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            new closeTask().execute(list1.get(Pos - 1).getTaskID(),
+                                                    list1.get(Pos - 1).getPersonID(), TaskItem.withoutCredit);
+                                        }
+                                    })
+                                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .setPositiveButton("Give credit", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            new closeTask().execute(list1.get(Pos - 1).getTaskID(),
+                                                    list1.get(Pos - 1).getPersonID(), TaskItem.withCredit);
+                                        }
+                                    })
+                                    .show();
+                        }
                     }
 
                     @Override
@@ -211,7 +246,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
                                 .setButton1Click(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        new closeTask().execute(list1.get(pos-1).getTaskID(), personID);
+                                        new closeTask().execute(list1.get(pos-1).getTaskID(), personID, TaskItem.withoutCredit);
                                         dialogBuilder.dismiss();
                                     }
                                 })
@@ -233,7 +268,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
         @Override
         protected Void doInBackground(String... ID) {
             try {
-                Server.closeOneTask(ID[0], ID[1]);
+                Server.closeOneTask(ID[0], ID[1], ID[2]);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -286,7 +321,7 @@ public class FragmentHistory extends Fragment implements SwipeRefreshLayout.OnRe
         @Override
         protected void onPostExecute(Uri uri) {
             if (url2.size() == list2.size()) {
-                RecyclerAdapter recyclerAdapter2 = new RecyclerAdapter(list2, url2);
+                RecyclerAdapter2 recyclerAdapter2 = new RecyclerAdapter2(list2, url2);
                 listview2.setAdapter(recyclerAdapter2);
             }
         }
@@ -307,6 +342,7 @@ class TaskLoader extends AsyncTaskLoader<List<TaskItem>> {
 
     @Override
     public List<TaskItem> loadInBackground() {
+
         List<TaskItem> tasks = null;
         try {
             tasks = Server.getPersonTasks(personID);
@@ -316,3 +352,4 @@ class TaskLoader extends AsyncTaskLoader<List<TaskItem>> {
         return tasks;
     }
 }
+

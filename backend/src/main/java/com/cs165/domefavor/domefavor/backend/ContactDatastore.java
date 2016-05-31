@@ -15,7 +15,8 @@ import java.util.logging.Logger;
  * Created by Alex on 16/4/17.
  */
 public class ContactDatastore {
-
+    public static final String withCredit = "withCredit";     //@han
+    public static final String withoutCredit = "withoutCredit";   //@han
     private static final Logger mLogger = Logger
             .getLogger(ContactDatastore.class.getName());
     private static final DatastoreService mDatastore = DatastoreServiceFactory
@@ -46,17 +47,66 @@ public class ContactDatastore {
         entity.setProperty(Contact.FIELD_NAME_content, contact.content);
         entity.setProperty(Contact.FIELD_NAME_poster, contact.poster);
         entity.setProperty(Contact.FIELD_NAME_price, contact.price);
+        entity.setProperty(Contact.FIELD_NAME_status, contact.status_tobebid); //@han
+        entity.setProperty(Contact.FIELD_NAME_start, System.currentTimeMillis()); //@han
+        entity.setProperty(Contact.FIELD_NAME_taker, ""); //@han
 
         mDatastore.put(entity);
 
         return true;
     }
 
-    public static boolean delete(String name) {
+    //@han
+    public static void changeStatusToBeFinish(String taskID, String takerID){
+        Key parentKey = getKey();
+
+        Entity result = null;
+        try {
+            result = mDatastore.get(KeyFactory.createKey(getKey(),
+                    Contact.CONTACT_ENTITY_NAME, taskID));
+        } catch (Exception ex) {
+
+        }
+
+        Contact contact = getContactFromEntity(result);
+        Entity entity = new Entity(Contact.CONTACT_ENTITY_NAME, contact.id,
+                parentKey);
+        entity.setProperty(Contact.FIELD_NAME_id, contact.id);
+        entity.setProperty(Contact.FIELD_NAME_taskName, contact.taskName);
+        entity.setProperty(Contact.FIELD_NAME_lat, contact.lat);
+        entity.setProperty(Contact.FIELD_NAME_time, contact.time);
+        entity.setProperty(Contact.FIELD_NAME_lng, contact.lng);
+        entity.setProperty(Contact.FIELD_NAME_content, contact.content);
+        entity.setProperty(Contact.FIELD_NAME_poster, contact.poster);
+        entity.setProperty(Contact.FIELD_NAME_price, contact.price);
+        entity.setProperty(Contact.FIELD_NAME_status, contact.status_tobefinish);
+        entity.setProperty(Contact.FIELD_NAME_start, contact.startTime);
+        entity.setProperty(Contact.FIELD_NAME_taker, takerID);
+
+        mDatastore.put(entity);
+    }
+
+    //@han
+    private static void giveCredit(String email, String taskID){
+        Price price = PriceDatastore.getPriceByName(taskID+email, null);
+        Contact contact = getContactByName(taskID, null);
+        if(price.bidTime-contact.startTime < 3600000) {
+            double priceD = 1.0;
+            try {
+                priceD = Double.parseDouble(price.price);
+            } catch (Exception e) {
+            }
+            ProfileDatastore.addCredit(email, priceD * 0.1);
+        }
+    }
+    public static boolean delete(String name, String flag, String email) {
         // you can also use name to get key, then use the key to delete the
         // entity from datastore directly
         // because name is also the entity's key
 
+        if(flag.equals(withCredit)){
+            giveCredit(email, name);
+        }
         // query
         Query.Filter filter = new Query.FilterPredicate(Contact.FIELD_NAME_id,
                 Query.FilterOperator.EQUAL, name);
@@ -81,7 +131,7 @@ public class ContactDatastore {
     public static void deleteAll(){
         ArrayList<Contact> list = query("");
         for(Contact cur : list){
-            delete(cur.id);
+            delete(cur.id, withoutCredit, "");
         }
     }
 
@@ -136,7 +186,9 @@ public class ContactDatastore {
                 (String) entity.getProperty(Contact.FIELD_NAME_time),
                 (String) entity.getProperty(Contact.FIELD_NAME_content),
                 (String) entity.getProperty(Contact.FIELD_NAME_price),
-                (String) entity.getProperty(Contact.FIELD_NAME_poster)
+                (String) entity.getProperty(Contact.FIELD_NAME_poster),
+                (String) entity.getProperty(Contact.FIELD_NAME_status),
+                (String) entity.getProperty(Contact.FIELD_NAME_taker)
                 );
     }
 

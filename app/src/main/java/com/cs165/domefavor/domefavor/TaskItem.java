@@ -17,17 +17,20 @@ public class TaskItem {
     private String url;
     private String biders;
 
-    public static String taskIDS = "taskID";
-    public static String nameS = "taskName";
-    public static String longitudeS = "longitude";
-    public static String latitudeS = "latitude";
-    public static String timeS = "time";
-    public static String contentS = "content";
-    public static String priceS = "price";
-    public static String personIDS = "personID";
-    public static String statusS = "status";
-    public static String urlS = "url";
-    public static String biderS = "biders";
+    public static final String taskIDS = "taskID";
+    public static final String nameS = "taskName";
+    public static final String longitudeS = "longitude";
+    public static final String latitudeS = "latitude";
+    public static final String timeS = "time";
+    public static final String contentS = "content";
+    public static final String priceS = "price";
+    public static final String personIDS = "personID";
+    public static final String statusS = "status";
+    public static final String urlS = "url";
+    public static final String biderS = "biders";
+    public static final String flagS = "flag";
+    public static final String withCredit = "withCredit";
+    public static final String withoutCredit = "withoutCredit";
 
     TaskItem(String id, String name, String longitude, String latitude, String tim,
              String con, double price, String personID, String status, String url){
@@ -55,6 +58,7 @@ public class TaskItem {
     }
 
     void setStatus(String status) { this.status = status; }
+
     void setPersonID(String personID){
         this.personID = personID;
     }

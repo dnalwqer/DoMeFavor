@@ -2,7 +2,6 @@ package com.cs165.domefavor.domefavor;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,6 +36,7 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
     private FButton save;
     private Bundle mbundle;
     private SegmentedGroup segment;
+    private TextView text;
     private RadioButton radio1, radio2, radio3;
     private String gender = "Male";
     private String age = "18";
@@ -71,75 +71,36 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
 
         radio1 = (RadioButton) view.findViewById(R.id.segmentbutton1);
         radio2 = (RadioButton) view.findViewById(R.id.segmentbutton2);
+        save = (FButton) view.findViewById(R.id.saveprofile);
         radio3 = (RadioButton) view.findViewById(R.id.segmentbutton3);
         editText = (FloatingLabelEditText) view.findViewById(R.id.edit_text2);
-        loadProfile();
+        text = (TextView) view.findViewById(R.id.profile_credit);
 
         segment = (SegmentedGroup) view.findViewById(R.id.segment);
         segment.setOnCheckedChangeListener(this);
 
 
         editText.setEditTextListener(this);
-        save = (FButton) view.findViewById(R.id.saveprofile);
         save.setOnClickListener(this);
+
+        new getProfile().execute(mbundle.getString("Email"));
         return view;
     }
 
     @Override
-    public void onTextChanged(FloatingLabelEditText source, String text) {
-        age = text;
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        System.out.println("onViewCreated");
     }
 
-    public void loadProfile() {
-        String mKey = "profile";
-        SharedPreferences mPrefs = getActivity().getSharedPreferences(mKey, Context.MODE_PRIVATE);
-
-        mKey = "Age";
-        String pro_age = mPrefs.getString(mKey, " ");
-        if (pro_age != " ")
-            editText.setInputWidgetText(pro_age);
-
-        mKey = "Gender";
-        String pro_gender = mPrefs.getString(mKey, " ");
-        if (pro_gender != " ") {
-            switch (pro_gender) {
-                case "Male":
-                    radio1.setChecked(true);
-                    break;
-                case "Female":
-                    radio2.setChecked(true);
-                    break;
-                case "Unknown":
-                    radio3.setChecked(true);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.saveprofile) {
-
-            String mKey = "profile";
-            SharedPreferences mPrefs = getActivity().getSharedPreferences(mKey, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = mPrefs.edit();
-            editor.clear();
-
-            mKey = "Age";
-            editor.putString(mKey, age);
-
-            mKey = "Gender";
-            editor.putString(mKey, gender);
-
-            editor.commit();
-
             PriceItem item;
             if (uri != null) {
-                item = new PriceItem(0.0, mbundle.getString("Email"), age, gender, uri.toString());
+                item = new PriceItem(0.0, mbundle.getString("Email"), age.trim(), gender, uri.toString());
             }
             else {
-                item = new PriceItem(0.0, mbundle.getString("Email"), age, gender, "N/A");
+                item = new PriceItem(0.0, mbundle.getString("Email"), age.trim(), gender, "N/A");
             }
 
             new saveProfileTask().execute(item);
@@ -160,6 +121,11 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
                 break;
             default:
         }
+    }
+
+    @Override
+    public void onTextChanged(FloatingLabelEditText source, String text) {
+        age = text;
     }
 
     class saveProfileTask extends AsyncTask<PriceItem, Void, Void> {
@@ -217,4 +183,38 @@ public class FragmentProfile extends Fragment implements FloatingLabelEditText.E
             }
         }
     }
+
+    class getProfile extends AsyncTask<String, Void, PriceItem> {
+        @Override
+        protected PriceItem doInBackground(String... ID) {
+            try {
+                return Server.getProfile(ID[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(PriceItem priceItem) {
+            if (priceItem != null) {
+                editText.setInputWidgetText("        " + priceItem.getAge());
+                switch (priceItem.getGender()) {
+                    case "Male":
+                        radio1.setChecked(true);
+                        break;
+                    case "Female":
+                        radio2.setChecked(true);
+                        break;
+                    case "Unknown":
+                        radio3.setChecked(true);
+                        break;
+                    default:
+                        break;
+                }
+                text.setText(priceItem.getCreditMoney());
+            }
+        }
+    }
 }
+
