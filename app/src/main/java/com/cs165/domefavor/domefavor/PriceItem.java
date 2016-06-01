@@ -1,6 +1,7 @@
 package com.cs165.domefavor.domefavor;
 
 /**
+ * PriceItem class
  * Created by xuehanyu on 5/19/16.
  */
 public class PriceItem {

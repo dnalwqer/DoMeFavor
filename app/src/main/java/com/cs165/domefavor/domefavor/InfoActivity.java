@@ -21,6 +21,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * InfoActivity class
+ * This class display people who bid a specific task. User who post the task may pick one person to accomplish it.
+ */
 public class InfoActivity extends AppCompatActivity {
 
 

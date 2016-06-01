@@ -11,7 +11,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
 /**
- *
+ * AsyncTaskLoader for loading TaskItems in FragmentList
  * Created by Jilai Zhou on 5/23/2016.
  */
 public class TaskListLoader extends AsyncTaskLoader <ArrayList<TaskItem>> {

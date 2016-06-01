@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Server class
+ * This class contain all necessary methods to communicate between backend server and the app.
  * Created by xuehanyu on 5/19/16.
  */
 public class Server {

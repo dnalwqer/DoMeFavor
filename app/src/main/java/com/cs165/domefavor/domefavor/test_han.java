@@ -7,6 +7,7 @@ import android.view.View;
 import java.util.List;
 
 /**
+ * Temporary test file
  * Created by xuehanyu on 5/19/16.
  */
 public class test_han extends AppCompatActivity {
